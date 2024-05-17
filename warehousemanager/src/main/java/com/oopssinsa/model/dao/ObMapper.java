@@ -1,4 +1,4 @@
 package com.oopssinsa.model.dao;
 
-public class ObMapper {
+public interface ObMapper {
 }
