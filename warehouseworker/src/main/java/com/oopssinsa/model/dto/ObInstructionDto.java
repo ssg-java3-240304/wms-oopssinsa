@@ -8,4 +8,44 @@ public class ObInstructionDto {
     private long productId;
     private long workerId;
     private String locationId;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getManufactureId() {
+        return manufactureId;
+    }
+
+    public void setManufactureId(long manufactureId) {
+        this.manufactureId = manufactureId;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public long getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(long workerId) {
+        this.workerId = workerId;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
+    }
 }
