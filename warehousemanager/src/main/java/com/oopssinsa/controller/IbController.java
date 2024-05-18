@@ -33,19 +33,14 @@ public class IbController {
 
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
-        System.out.println("입고 id를 입력해 주세요.");
+        System.out.println("상태를 변경할 입고를 선택해 주세요.");
         ibView.printIbState(requestIbs);
-        String id = inputView.getId();
-        IbDto ibDto = null;
-
-        for (IbDto requestIb : requestIbs) {
-            if (requestIb.getId().equals(id)) {
-                ibDto = requestIb;
-            }
-        }
-
-        if (ibDto == null) {
-            System.out.println("존재하지 않는 입고 요청 id입니다.");
+        int ibIndex = inputView.getNumber()-1;
+        IbDto ibDto =null;
+        try {
+            ibDto = requestIbs.get(ibIndex); // index error 처리
+        } catch (IndexOutOfBoundsException e) {
+            System.err.println("존재하지 않는 입고 요청 id입니다.");
             return;
         }
 
