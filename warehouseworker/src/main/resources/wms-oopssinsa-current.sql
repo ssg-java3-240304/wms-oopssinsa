@@ -1,16 +1,16 @@
-﻿# DROP TABLE account;
-# DROP TABLE brand;
-# DROP TABLE category;
-# DROP TABLE ib_worker;
-# DROP TABLE ib_detail; #ib_detail테이블 삭제하려면 ib_worker 먼저 삭제
-# DROP TABLE ob_worker;
-# DROP TABLE ob_detail; #ob_detail 테이블 삭제하려면 ob_workder 먼저 삭제
-# DROP TABLE section;
-# DROP TABLE stock;
-# DROP TABLE product; # product테이블 삭제하려면 stock 먼저 삭제
-# DROP TABLE stock_detail;
-# DROP TABLE sub_location;
-# DROP TABLE worker;
+﻿# DROP TABLE account; -- 1
+# DROP TABLE brand; -- 13
+# DROP TABLE category; -- 12
+# DROP TABLE ib_worker; -- 3
+# DROP TABLE ib_detail; #ib_detail테이블 삭제하려면 ib_worker 먼저 삭제 -- 4
+# DROP TABLE ob_worker; -- 5
+# DROP TABLE ob_detail; #ob_detail 테이블 삭제하려면 ob_workder 먼저 삭제 -- 6
+# DROP TABLE section; -- 11
+# # DROP TABLE stock; -- 2
+# DROP TABLE product; # product테이블 삭제하려면 stock 먼저 삭제 -- 8
+# DROP TABLE stock_detail; -- 7
+# DROP TABLE sub_location; -- 9
+# DROP TABLE worker; -- 10
 
 CREATE TABLE `product` (
                            `id`	varchar(10)	NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `product` (
 
 CREATE TABLE `ib_detail` (
                              `id`	bigint	NOT NULL	COMMENT 'id 타입 bigint로 통합',
-                             `manufacture_id`	bigint	NOT NULL,
+                             `manufacture_id`	date	NOT NULL,
                              `product_id`	varchar(10)	NOT NULL,
                              `login_id`	varchar(20)	NOT NULL,
                              `quantity`	int	NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `ib_detail` (
 
 CREATE TABLE ob_detail (
                              `id`	bigint	NOT NULL,
-                             `manufacture_id`	bigint	NULL,
+                             `manufacture_id`	date	NULL,
                              `product_id`	varchar(10)	NOT NULL,
                              `login_id`	varchar(20)	NOT NULL,
                              `quantity`	int	NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE ob_detail (
 );
 
 CREATE TABLE `stock` (
-                         `product_date`	date	NOT NULL,
+                         `manufacture_id`	date	NOT NULL,
                          `product_id`	varchar(10)	NOT NULL,
                          `section_id`	char(1)	NOT NULL	COMMENT '카테고리명',
                          `location_id`	bigint	NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE `brand` (
 
 CREATE TABLE `ib_worker` (
                              `ib_id`	bigint	NOT NULL	COMMENT '입출고id 타입 bigint로 통일',
-                             `manufacture_id`	bigint	NOT NULL,
+                             `manufacture_id`	date	NOT NULL,
                              `product_id`	varchar(10)	NOT NULL,
                              `worker_id`	bigint	NOT NULL,
                              `location_id`	bigint	NOT NULL
@@ -108,14 +108,14 @@ CREATE TABLE `worker` (
 
 CREATE TABLE `ob_worker` (
                              `id`	bigint	NOT NULL,
-                             `manufacture_id`	bigint	NOT NULL,
+                             `manufacture_id`	date	NOT NULL,
                              `product_id`	varchar(10)	NOT NULL,
                              `worker_id`	bigint	NOT NULL,
                              `location_id`	bigint	NOT NULL
 );
 
 CREATE TABLE `stock_detail` (
-                                `product_date`	date	NOT NULL,
+                                `manufacture_id`	date	NOT NULL,
                                 `product_id`	varchar(10)	NOT NULL,
                                 `quantity`	int	NOT NULL,
                                 `date`	date	NOT NULL
@@ -138,7 +138,7 @@ ALTER TABLE ob_detail ADD CONSTRAINT `PK_OB_DETAIL` PRIMARY KEY (
     );
 
 ALTER TABLE `stock` ADD CONSTRAINT `PK_STOCK` PRIMARY KEY (
-                                                           `product_date`,
+                                                           `manufacture_id`,
                                                            `product_id`
     );
 
@@ -179,7 +179,7 @@ ALTER TABLE `ob_worker` ADD CONSTRAINT `PK_OB_WORKER` PRIMARY KEY (
     );
 
 ALTER TABLE `stock_detail` ADD CONSTRAINT `PK_STOCK_DETAIL` PRIMARY KEY (
-                                                                         `product_date`,
+                                                                         `manufacture_id`,
                                                                          `product_id`
     );
 
