@@ -106,14 +106,11 @@ REFERENCES brand (id)
 on update cascade
 on delete cascade;
 
+-- 구역ID 알파벳으로 하려고 바꿨습니다.
 alter table section
 change id id char(1);
-
 alter table sub_location
 change section_id section_id char(1);
-
-alter table sub_location
-change id id varchar(4);
 
 # insert into category (id, name)
 # VALUES (1001, '티셔츠'),
@@ -150,16 +147,16 @@ values (1001, '티셔츠'),
        (5001, '블라우스/셔츠'),
        (5002, '원피스/스커트'),
        (6001, '바지/청파지'),
-       (9001, '악세서리');
+       (7001, '악세서리');
 
 insert into section (id, brand_id, current_capacity, max_capacity)
 VALUES ('A', 1, 0, 4600),
        ('B', 6, 0, 3600),
-       ('C', 2, 0, 5050),
+       ('C', 2, 0, 4950),
        ('E', 3, 0, 2600),
        ('F', 7, 0, 720),
        ('G', 4, 0, 2950),
-       ('H', 5, 0, 1310);
+       ('H', 5, 0, 3200);
 insert into section (id, current_capacity, max_capacity)
 values ('D', 0, 1000);
 
@@ -199,3 +196,40 @@ VALUES ('A', 1001, 0, 1000),
        ('F', 5002, 0, 120),
        ('F', 6001, 0, 150),
        ('F', 3001, 0, 100);
+
+-- 자동값 설정했어요
+alter table sub_location
+modify id int auto_increment primary key ;
+
+-- 구역-카테고리가 중복되지 않게 대체키 처리했습니다.
+alter table sub_location
+add constraint uq_section_id_category_id UNIQUE (section_id, category_id);
+
+select *
+from worker;
+
+alter table worker
+change id id varchar(10);
+
+insert into worker
+values ('worker1', '홍길동', 'T'),
+       ('worker2', '김영희', 'T'),
+       ('worker3', '이민수', 'T'),
+       ('worker4', '박지훈', 'F'),
+       ('worker5', '최수정', 'T'),
+       ('worker6', '조한나', 'F'),
+       ('worker7', '강민호', 'T'),
+       ('worker8', '윤정희', 'T'),
+       ('worker9', '오민지', 'T'),
+       ('worker10', '문준영', 'F'),
+       ('worker11', '배지현', 'T'),
+       ('worker12', '김소희', 'T'),
+       ('worker13', '이재훈', 'F'),
+       ('worker14', '박서준', 'T'),
+       ('worker15', '송혜교', 'T'),
+       ('worker16', '장성호', 'T'),
+       ('worker17', '고민수', 'F'),
+       ('worker18', '원준희', 'T'),
+       ('worker19', '신혜수', 'F'),
+       ('worker20', '전민지', 'T');
+
