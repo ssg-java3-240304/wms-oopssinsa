@@ -6,6 +6,11 @@ import com.oopssinsa.model.dto.LoginDto;
 import org.apache.ibatis.session.SqlSession;
 
 public class LoginService {
+    /*
+    <loginValidation>
+    전달받은 id와 password를 통해 로그인 테이블에서 id와 password가 동시에 동일한 레코드를 찾아 반환한다.
+    null처리 통해 로그인 실패는 구현해 두었습니다.
+     */
     public boolean loginValidation(String id, String password){
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
