@@ -32,5 +32,6 @@
     </environments>
     <mappers>
         <mapper resource="sql/worker/worker-mapper.xml"/>
+        <mapper resource="sql/worker/ob-mapper.xml"/>
     </mappers>
 </configuration>
