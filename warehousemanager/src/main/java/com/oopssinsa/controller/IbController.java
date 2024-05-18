@@ -1,9 +1,11 @@
 package com.oopssinsa.controller;
 
 import com.oopssinsa.model.dto.IbDto;
+import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.LocationDto;
 import com.oopssinsa.model.dto.ProductDto;
 import com.oopssinsa.model.dto.SectionDto;
+import com.oopssinsa.model.dto.WorkerDto;
 import com.oopssinsa.model.service.IbService;
 import com.oopssinsa.view.IbView;
 import com.oopssinsa.view.InputView;
@@ -26,13 +28,13 @@ public class IbController {
     }
 
     public void findIbByRequestState() {
-        ibView.printRequestIb(ibService.findIbByRequestState());
+        ibView.printIbState(ibService.findIbByRequestState());
     }
 
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
         System.out.println("입고 id를 입력해 주세요.");
-        ibView.printRequestIb(requestIbs);
+        ibView.printIbState(requestIbs);
         String id = inputView.getId();
         IbDto ibDto = null;
 
@@ -67,7 +69,7 @@ public class IbController {
                 ibDto.setStatus('W');
                 locationDto.setExpectedCapacity(locationDto.getExpectedCapacity()+ibDto.getQuantity());
                 sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity()+ibDto.getQuantity());
-                ibService.updateState(ibDto);
+                ibService.updateIbState(ibDto);
                 ibService.updateExpectedCapacity(locationDto);
                 ibService.updateExpectedCapacity(sectionDto);
             } else {
@@ -82,10 +84,45 @@ public class IbController {
         // 실패상태로 업데이트
         if (select.equalsIgnoreCase("n")) {
             ibDto.setStatus('F');
-            ibService.updateState(ibDto);
+            ibService.updateIbState(ibDto);
         }
 
         // 제거 필요 - 테스트
         ibView.printAllIb(List.of(ibDto));
     }
+
+    public void insertIbWorker() {
+        List<IbDto> ibDtos = ibService.findIbByWaitingState();
+        List<WorkerDto> workerDtos = ibService.findWorkerByAssignableStatus();
+        System.out.println("입고대기 상태 목록");
+        ibView.printIbState(ibDtos);
+
+        System.out.println("배정 가능한 작업자 목록");
+        ibView.printAssignableWorker(workerDtos);
+
+        System.out.println("진행할 입고를 선택해주세요.");
+        int ibIndex = inputView.getNumber();
+        IbDto selectedIbDto = ibDtos.get(ibIndex - 1);
+
+        System.out.println("배정할 작업자를 선택해주세요.");
+        int workerIndex = inputView.getNumber();
+        WorkerDto selectedWorkerDto = workerDtos.get(workerIndex - 1);
+
+        // 지시테이블에 삽입
+        ibService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),
+                selectedIbDto.getProductId(), selectedWorkerDto.getId()));
+
+        // 입고테이블 상태 업데이트
+        selectedIbDto.setStatus('P');
+        ibService.updateIbState(selectedIbDto);
+
+        // 작업자 상태 업데이트
+        selectedWorkerDto.setState('F');
+        ibService.updateWorkerStatus(selectedWorkerDto);
+
+        System.out.println(selectedIbDto.getStatus());
+        System.out.println(selectedWorkerDto.getState());
+    }
+
+
 }

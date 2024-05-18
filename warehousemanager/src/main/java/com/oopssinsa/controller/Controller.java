@@ -27,6 +27,9 @@ public class Controller {
                 case 3:
                     ibController.updateState();
                     break;
+                case 4:
+                    ibController.insertIbWorker();
+                    break;
                 case 7:
                     return;
             }
