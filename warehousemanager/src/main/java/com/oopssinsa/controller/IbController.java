@@ -34,7 +34,8 @@ public class IbController {
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
         System.out.println("상태를 변경할 입고를 선택해 주세요.");
-        ibView.printIbState(requestIbs);
+        ibView.printIbAndCapacity(requestIbs, ibService.findLocationsByIbDtos(requestIbs));
+//        ibView.printIbState(requestIbs);
         int ibIndex = inputView.getNumber()-1;
         IbDto ibDto =null;
         try {
