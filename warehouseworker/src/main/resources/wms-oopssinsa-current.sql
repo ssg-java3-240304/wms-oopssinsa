@@ -13,7 +13,7 @@
 # DROP TABLE worker;
 
 CREATE TABLE `product` (
-                           `id`	bigint	NOT NULL,
+                           `id`	varchar(10)	NOT NULL,
                            `brand_id`	bigint	NOT NULL,
                            `name`	varchar(255)	NOT NULL,
                            `size`	varchar(10)	NOT NULL	DEFAULT 'F'	COMMENT 'F = Free, S = Small, M = Medium, L = Large,  XL =  Extra Large',
@@ -25,7 +25,7 @@ CREATE TABLE `product` (
 CREATE TABLE `ib_detail` (
                              `id`	bigint	NOT NULL	COMMENT 'id 타입 bigint로 통합',
                              `manufacture_id`	bigint	NOT NULL,
-                             `product_id`	bigint	NOT NULL,
+                             `product_id`	varchar(10)	NOT NULL,
                              `login_id`	varchar(20)	NOT NULL,
                              `quantity`	int	NOT NULL,
                              `ib_date`	date	NULL	DEFAULT (CURRENT_DATE()),
@@ -36,7 +36,7 @@ CREATE TABLE `ib_detail` (
 CREATE TABLE ob_detail (
                              `id`	bigint	NOT NULL,
                              `manufacture_id`	bigint	NULL,
-                             `product_id`	bigint	NOT NULL,
+                             `product_id`	varchar(10)	NOT NULL,
                              `login_id`	varchar(20)	NOT NULL,
                              `quantity`	int	NOT NULL,
                              `recipient_name`	varchar(20)	NOT NULL,
@@ -48,9 +48,9 @@ CREATE TABLE ob_detail (
 
 CREATE TABLE `stock` (
                          `product_date`	date	NOT NULL,
-                         `product_id`	bigint	NOT NULL,
-                         `location_id`	bigint	NOT NULL	COMMENT '카테고리명',
-                         `sub_location_id`	bigint	NOT NULL,
+                         `product_id`	varchar(10)	NOT NULL,
+                         `section_id`	char(1)	NOT NULL	COMMENT '카테고리명',
+                         `location_id`	bigint	NOT NULL,
                          `quantity`	int	NOT NULL	COMMENT '재고 0이면 테이블에서 삭제'
 );
 
@@ -73,26 +73,26 @@ CREATE TABLE `brand` (
                          `id`	bigint	NOT NULL,
                          `name`	varchar(50)	NOT NULL,
                          `contract_date`	date	NOT NULL,
-                         `expire_date`	date	NOT NULL
+                         `expiration_date`	date	NOT NULL
 );
 
 CREATE TABLE `ib_worker` (
-                             `id`	bigint	NOT NULL	COMMENT 'id 타입 bigint로 통합',
+                             `ib_id`	bigint	NOT NULL	COMMENT '입출고id 타입 bigint로 통일',
                              `manufacture_id`	bigint	NOT NULL,
-                             `product_id`	bigint	NOT NULL,
+                             `product_id`	varchar(10)	NOT NULL,
                              `worker_id`	bigint	NOT NULL,
                              `location_id`	bigint	NOT NULL
 );
 
 CREATE TABLE `sub_location` (
                                 `id`	bigint	NOT NULL,
-                                `section_id`	bigint	NOT NULL,
-                                `catagory_id`	bigint	NOT NULL,
+                                `section_id`	char(1)	NOT NULL,
+                                `category_id`	bigint	NOT NULL,
                                 `current_capacity`	int	NULL	DEFAULT 0,
                                 `max_capacity`	int	NOT NULL	COMMENT '한 선반에 몇개가 들어가나요?'
 );
 -- catagory_id -> category_id로 변경 오타나있음 이미 테이블 만들어서 이름 수정으로 바꿈
-ALTER TABLE `sub_location` CHANGE COLUMN `catagory_id` `category_id` bigint NOT NULL;
+-- ALTER TABLE `sub_location` CHANGE COLUMN `catagory_id` `category_id` bigint NOT NULL;
 
 
 CREATE TABLE `category` (
@@ -101,7 +101,7 @@ CREATE TABLE `category` (
 );
 
 CREATE TABLE `worker` (
-                          `id`	bigint	NOT NULL,
+                          `id`	varchar(10)	NOT NULL,
                           `name`	varchar(10)	NOT NULL,
                           `status`	char(1)	NOT NULL	COMMENT '배정 가능 = T(true), 배정 불가능 = F(false)'
 );
@@ -109,14 +109,14 @@ CREATE TABLE `worker` (
 CREATE TABLE `ob_worker` (
                              `id`	bigint	NOT NULL,
                              `manufacture_id`	bigint	NOT NULL,
-                             `product_id`	bigint	NOT NULL,
+                             `product_id`	varchar(10)	NOT NULL,
                              `worker_id`	bigint	NOT NULL,
                              `location_id`	bigint	NOT NULL
 );
 
 CREATE TABLE `stock_detail` (
                                 `product_date`	date	NOT NULL,
-                                `id`	bigint	NOT NULL,
+                                `product_id`	varchar(10)	NOT NULL,
                                 `quantity`	int	NOT NULL,
                                 `date`	date	NOT NULL
 );
@@ -155,7 +155,7 @@ ALTER TABLE `brand` ADD CONSTRAINT `PK_BRAND` PRIMARY KEY (
     );
 
 ALTER TABLE `ib_worker` ADD CONSTRAINT `PK_IB_WORKER` PRIMARY KEY (
-                                                                   `id`,
+                                                                   `ib_id`,
                                                                    `manufacture_id`,
                                                                    `product_id`
     );
@@ -180,7 +180,7 @@ ALTER TABLE `ob_worker` ADD CONSTRAINT `PK_OB_WORKER` PRIMARY KEY (
 
 ALTER TABLE `stock_detail` ADD CONSTRAINT `PK_STOCK_DETAIL` PRIMARY KEY (
                                                                          `product_date`,
-                                                                         `id`
+                                                                         `product_id`
     );
 
 ALTER TABLE `ib_detail` ADD CONSTRAINT `FK_product_TO_ib_detail_1` FOREIGN KEY (
@@ -205,7 +205,7 @@ ALTER TABLE `stock` ADD CONSTRAINT `FK_product_TO_stock_1` FOREIGN KEY (
         );
 
 ALTER TABLE `ib_worker` ADD CONSTRAINT `FK_ib_detail_TO_ib_worker_1` FOREIGN KEY (
-                                                                                  `id`
+                                                                                  `ib_id`
     )
     REFERENCES `ib_detail` (
                             `id`
@@ -223,7 +223,7 @@ ALTER TABLE `ib_worker` ADD CONSTRAINT `FK_ib_detail_TO_ib_worker_1` FOREIGN KEY
 -- 변경된 sql문
 
 ALTER TABLE `ib_worker` ADD CONSTRAINT `FK_ib_detail_TO_ib_worker_2` FOREIGN KEY (
-                                                                                  `id`, `manufacture_id`, `product_id`
+                                                                                  `ib_id`, `manufacture_id`, `product_id`
     )
     REFERENCES `ib_detail` (
                             `id`, `manufacture_id`, `product_id`
@@ -266,7 +266,7 @@ ALTER TABLE `ob_worker` ADD CONSTRAINT `FK_ob_detail_TO_ob_worker_3` FOREIGN KEY
         );
 
 ALTER TABLE `stock_detail` ADD CONSTRAINT `FK_product_TO_stock_detail_1` FOREIGN KEY (
-                                                                                      `id`
+                                                                                      `product_id`
     )
     REFERENCES `product` (
                           `id`

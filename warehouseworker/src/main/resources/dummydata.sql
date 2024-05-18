@@ -107,10 +107,10 @@ on update cascade
 on delete cascade;
 
 -- 구역ID 알파벳으로 하려고 바꿨습니다.
-alter table section
-change id id char(1);
-alter table sub_location
-change section_id section_id char(1);
+# alter table section
+# change id id char(1);
+# alter table sub_location
+# change section_id section_id char(1);
 
 # insert into category (id, name)
 # VALUES (1001, '티셔츠'),
@@ -146,13 +146,19 @@ values (1001, '티셔츠'),
        (4001, '신발'),
        (5001, '블라우스/셔츠'),
        (5002, '원피스/스커트'),
-       (6001, '바지/청파지'),
+       (6001, '바지/청바지'),
        (7001, '악세서리');
+
+alter table section
+change id id char(1);
+
+delete from section
+where id is not null;
 
 insert into section (id, brand_id, current_capacity, max_capacity)
 VALUES ('A', 1, 0, 4600),
        ('B', 6, 0, 3600),
-       ('C', 2, 0, 4950),
+       ('C', 2, 0, 5050),
        ('E', 3, 0, 2600),
        ('F', 7, 0, 720),
        ('G', 4, 0, 2950),
@@ -208,8 +214,8 @@ add constraint uq_section_id_category_id UNIQUE (section_id, category_id);
 select *
 from worker;
 
-alter table worker
-change id id varchar(10);
+# alter table worker
+# change id id varchar(10);
 
 insert into worker
 values ('worker1', '홍길동', 'T'),
@@ -233,3 +239,114 @@ values ('worker1', '홍길동', 'T'),
        ('worker19', '신혜수', 'F'),
        ('worker20', '전민지', 'T');
 
+select *
+from product;
+
+-- 상품 아이디 varchar로 변경
+# alter table product
+# change id id varchar(10) ;
+
+insert into product (id, brand_id, name, size, color, category, volume)
+values
+    ('TS001', 2, 'Adidas Originals Trefoil Tee', 'S', 'Black', 1001, 1),
+    ('TS002', 2, 'Adidas Originals Trefoil Tee', 'M', 'Black', 1001, 1),
+    ('TS003', 2, 'Adidas Originals Trefoil Tee', 'L', 'Black', 1001, 1),
+    ('TS004', 2, 'Adidas Originals Trefoil Tee', 'S', 'White', 1001, 1),
+    ('TS005', 2, 'Adidas Originals Trefoil Tee', 'M', 'White', 1001, 1),
+    ('TS006', 2, 'Adidas Originals Trefoil Tee', 'L', 'White', 1001, 1), -- 6
+    ('TS010', 6, 'Under Armour Tech 2.0 Tee', 'S', 'Blue', 1001, 1),
+    ('TS011', 6, 'Under Armour Tech 2.0 Tee', 'M', 'Blue', 1001, 1),
+    ('TS012', 6, 'Under Armour Tech 2.0 Tee', 'L', 'Blue', 1001, 1), -- 3
+    ('TS016', 4, 'H&M Basic Cotton Tee', 'S', 'Black', 1001, 1),
+    ('TS017', 4, 'H&M Basic Cotton Tee', 'M', 'Black', 1001, 1),
+    ('TS018', 4, 'H&M Basic Cotton Tee', 'L', 'Black', 1001, 1), -- 3
+    ('TS019', 5,'Uniqlo U Crew Neck Short Sleeve Tee', 'S','White', 1001, 1),
+    ('TS020', 5, 'Uniqlo U Crew Neck Short Sleeve Tee', 'M', 'White', 1001, 1),
+    ('TS021', 5, 'Uniqlo U Crew Neck Short Sleeve Tee', 'L', 'White', 1001, 1), -- 3
+    ('TS022', 3, 'Zara Printed T-Shirt', 'S', 'Purple', 1001, 1),
+    ('TS023', 3, 'Zara Printed T-Shirt', 'M', 'Purple', 1001, 1),
+    ('TS024', 3, 'Zara Printed T-Shirt', 'L', 'Purple', 1001, 1), -- 3
+    ('TS026', 1, 'Nike Miler Running Top', 'M', 'Yellow', 1001, 1),
+    ('TS027', 1, 'Nike Miler Running Top', 'L', 'Yellow', 1001, 1),
+    ('TS028', 1, 'Nike SB Dry Tee', 'S', 'Grey', 1001, 1),
+    ('TS029', 1, 'Nike SB Dry Tee', 'M', 'Grey', 1001, 1),
+    ('TS030', 1, 'Nike SB Dry Tee', 'L', 'Grey', 1001, 1); -- 5
+
+insert into product (id, brand_id, name, size, color, category, volume)
+values -- 바지
+       ('PA001', 1, 'Nike Sportswear Club Fleece Pants', 'S', 'Grey', 6001, 2),
+       ('PA002', 1, 'Nike Sportswear Club Fleece Pants', 'M', 'Grey', 6001, 2),
+       ('PA003', 1, 'Nike Sportswear Club Fleece Pants', 'L', 'Grey', 6001, 2),
+       ('PA004', 2, 'Adidas Tiro 21 Training Pants', 'S', 'Black', 6001, 2),
+       ('PA005', 2, 'Adidas Tiro 21 Training Pants', 'M', 'Black', 6001, 2),
+       ('PA006', 2, 'Adidas Tiro 21 Training Pants', 'L', 'Black', 6001, 2),
+-- 신발
+       ('SH001', 1, 'Nike Air Max 270', '8', 'White', 4001, 5),
+       ('SH002', 1, 'Nike Air Max 270', '9', 'White', 4001, 5),
+       ('SH003', 1, 'Nike Air Max 270', '10', 'White', 4001, 5),
+       ('SH004', 2, 'Adidas Ultraboost 21', '8', 'Black', 4001, 5),
+       ('SH005', 2, 'Adidas Ultraboost 21', '9', 'Black', 4001, 5),
+       ('SH006', 2, 'Adidas Ultraboost 21', '10', 'Black', 4001, 5),
+-- 가방
+       ('BG004', 1, 'Nike Brasilia Training Backpack', 'One Size', 'black', 9001, 6),
+       ('BG005', 1, 'Nike Brasilia Training Backpack', 'One Size', 'black', 9001, 6),
+       ('BG006', 1, 'Nike Brasilia Training Backpack', 'One Size', 'black', 9001, 6),
+       ('BG007', 2, 'Adidas Classic 3-Stripes Backpack', 'One Size','black', 9001, 6),
+       ('BG008', 2, 'Adidas Classic 3-Stripes Backpack', 'One Size','black', 9001, 6),
+       ('BG009', 2, 'Adidas Classic 3-Stripes Backpack', 'One Size','black', 9001, 6),
+-- Zara 재킷
+       ('JK001', 3, 'Zara Double-Breasted Coat', 'S', 'Black', 3001, 2),
+       ('JK002', 3, 'Zara Double-Breasted Coat', 'M', 'Black', 3001, 2),
+       ('JK003', 3, 'Zara Double-Breasted Coat', 'L', 'Black', 3001, 2),
+       ('JK004', 3, 'Zara Faux Leather Biker Jacket', 'S', 'Red', 3001, 2),
+       ('JK005', 3, 'Zara Faux Leather Biker Jacket', 'M', 'Red', 3001, 2),
+       ('JK006', 3, 'Zara Faux Leather Biker Jacket', 'L', 'Red', 3001, 2),
+-- H&M 가방
+       ('BG001', 4, 'H&M Canvas Backpack', 'One Size', 'Black',9001, 6),
+       ('BG002', 4, 'H&M Canvas Backpack', 'One Size', 'Blue', 9001, 6),
+       ('BG003', 4, 'H&M Canvas Backpack', 'One Size', 'Grey', 9001, 6),
+-- Uniqlo 신발
+       ('SH017', 5, 'Uniqlo Suede Slip-On Shoes', '8', 'Beige', 4001, 5),
+       ('SH028', 5, 'Uniqlo Suede Slip-On Shoes', '9', 'Beige', 4001, 5),
+       ('SH039', 5, 'Uniqlo Suede Slip-On Shoes', '10', 'Beige', 4001, 5),
+       ('SH040', 5, 'Uniqlo High-Top Sneakers', '8', 'White', 4001, 5),
+       ('SH051', 5, 'Uniqlo High-Top Sneakers', '9', 'White', 4001, 5),
+       ('SH062', 5, 'Uniqlo High-Top Sneakers', '10', 'White', 4001, 5),
+-- Under Armour 운동복
+       ('UA001', 6, 'Under Armour HeatGear Leggings', 'S', 'Black', 2002, 1),
+       ('UA002', 6, 'Under Armour HeatGear Leggings', 'M', 'Black', 2002, 1),
+       ('UA003', 6, 'Under Armour HeatGear Leggings', 'L', 'Black', 2002, 1),
+       ('UA004', 6, 'Under Armour Rival Fleece Joggers', 'S', 'Grey', 2002, 1),
+       ('UA005', 6, 'Under Armour Rival Fleece Joggers', 'M', 'Grey', 2002, 1),
+       ('UA006', 6, 'Under Armour Rival Fleece Joggers', 'L', 'Grey', 2002, 1),
+-- Gucci 액세서리
+       ('AC001', 7, 'Gucci GG Marmont Belt', 'S', 'Black', 9001, 1),
+       ('AC002', 7, 'Gucci GG Marmont Belt', 'M', 'Black', 9001, 1),
+       ('AC003', 7, 'Gucci GG Marmont Belt', 'L', 'Black', 9001, 1),
+       ('AC004', 7, 'Gucci Square Frame Sunglasses', 'One Size', 'Gold', 9001, 1),
+       ('AC005', 7, 'Gucci Square Frame Sunglasses', 'One Size', 'Silver', 9001, 1),
+       ('AC006', 7, 'Gucci Square Frame Sunglasses', 'One Size', 'Black', 9001, 1);
+
+select *
+from product;
+
+select brand_id, category, count(volume), sum(volume)
+from product
+group by brand_id, category
+order by brand_id;
+
+select volume
+from product
+group by category;
+
+insert into stock_detail (manufacture_id, product_id, quantity, date)
+values (231210, 'BG001', +20, 20231215);
+
+# alter table stock_detail
+# change product_date manufacture_id bigint;
+#
+# alter table stock
+# change product_date manufacture_id bigint;
+
+select *
+from stock_detail;
