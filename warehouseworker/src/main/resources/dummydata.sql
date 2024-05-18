@@ -350,3 +350,12 @@ values (231210, 'BG001', +20, 20231215);
 
 select *
 from stock_detail;
+
+insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, ib_date, status)
+VALUES (202405181, 240501, 'UA001', 'user07', 120, 20240518, 'R');
+
+select *
+from ib_detail;
+
+select *
+from stock_detail;
