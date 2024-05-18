@@ -24,6 +24,9 @@ public class Controller {
                 case 2:
                     ibController.findIbByRequestState();
                     break;
+                case 3:
+                    ibController.updateState();
+                    break;
                 case 7:
                     return;
             }
