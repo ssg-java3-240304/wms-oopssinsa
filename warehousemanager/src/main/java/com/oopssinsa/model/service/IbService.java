@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.model.dto.IbDto;
+import com.oopssinsa.model.dto.LocationDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,14 @@ public class IbService {
         return ibDto;
     }
 
+    public int updateWaitingState(IbDto ibDto) {
+        return 1;
+    }
+
+    public LocationDto findByCategoryId() {
+        return new LocationDto("location_id1", 'A', "category_id1",
+                3, 0, 6);
+    }
 
 
 }
