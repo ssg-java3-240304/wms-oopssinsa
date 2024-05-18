@@ -82,7 +82,7 @@ public class IbService {
     public List<LocationDto> findLocationsByIbDtos(List<IbDto> ibDtos) {
         List<LocationDto> locationDtos = new ArrayList<>();
         locationDtos.add(new LocationDto("location_id1", 'A', "category_id1",
-                3, 0, 13));
+                3, 0, 10));
         locationDtos.add(new LocationDto("location_id2", 'B', "category_id1",
                 3, 0, 13));
         return locationDtos;
