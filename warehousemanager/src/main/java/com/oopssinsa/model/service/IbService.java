@@ -2,6 +2,7 @@ package com.oopssinsa.model.service;
 
 import com.oopssinsa.model.dto.IbDto;
 import com.oopssinsa.model.dto.LocationDto;
+import com.oopssinsa.model.dto.ProductDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,14 @@ public class IbService {
         return 1;
     }
 
-    public LocationDto findByCategoryId() {
-        return new LocationDto("location_id1", 'A', "category_id1",
+    public LocationDto findByCategoryId(String categoryId) {
+        return new LocationDto("location_id1", 'A', categoryId,
                 3, 0, 6);
+    }
+
+    public ProductDto findByProductId(String productID) {
+        return new ProductDto("product_id1", "brand_id1", "category_id1",
+                "name1", "size1", "color1", 2);
     }
 
 
