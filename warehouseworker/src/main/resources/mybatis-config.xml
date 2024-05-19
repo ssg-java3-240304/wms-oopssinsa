@@ -9,7 +9,7 @@
     <typeAliases>
         <typeAlias type="com.oopssinsa.model.dto.IbDto" alias="ibDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.IbInstructionDto" alias="ibInstructionDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.ObDto" alias="obDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ObRequestDto" alias="obRequestDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ObInstructionDto" alias="obInstructionDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ProductDto" alias="productDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.SectionDto" alias="sectionDto"></typeAlias>
