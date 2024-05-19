@@ -23,7 +23,7 @@ public class IbController {
 
     public void getIbInstructionToDo(){
         List<IbInstructionDto> ibInstructions = ibService.getIbInstructionToDo(this.workerId);
-        if(ibInstructions!=null){
+        if(ibInstructions!=null){ // 지시가 있으면
             ibInstructionView.displayIbInstructions(ibInstructions);
         }
         else{
@@ -54,18 +54,22 @@ public class IbController {
             int expectedQuantity; // 원래 재고 예정 수량(작업 예정 수량)
             long locationId = foundIbInstruction.getLocationId();
             int originalCapacity = locationService.getCurrentCapacity(locationId);
+            // 예작시
+            int productVolume = ibService.findProductVolume(foundStock.getProductId());
+            int updateCapacity;
+            // 예작끝
             if(foundIb!=null && foundStock!=null){
                 updateQuantity = foundIb.getQuantity();
                 originalQuantity = foundStock.getQuantity();
                 expectedQuantity = foundStock.getExpected_quantity();
+                updateCapacity = productVolume * updateQuantity;
                 stockService.updateStock(new StockDto(productId, manufactureId, 0, originalQuantity+updateQuantity,
                         expectedQuantity-updateQuantity));
                 stockService.insertStockHistory(new StockHistoryDto(manufactureId,productId,updateQuantity,LocalDate.now()));
-                locationService.updateCurrentCapacity(new SubLocationDto(locationId,originalCapacity+updateQuantity,0));
-
+                // 예작시
+                locationService.updateCurrentCapacity(new SubLocationDto(locationId,originalCapacity+updateCapacity, -updateCapacity));
+                // 예작끝
             }
-
         }
-
     }
 }

@@ -2,7 +2,6 @@ package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
 import com.oopssinsa.model.dao.ObMapper;
-import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.IbInstructionDto;
 import com.oopssinsa.model.dto.ObDto;
 import com.oopssinsa.model.dto.ObInstructionDto;
@@ -51,7 +50,15 @@ public class ObService {
      */
     public IbInstructionDto findObInstruction(IbInstructionDto ibInstructionDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        return workerMapper.findObInstruction(ibInstructionDto);
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findObInstruction(ibInstructionDto);
     }
+
+    // 예진 작업 시작
+    public int findProductVolume(String productId) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findProductVolume(productId);
+    }
+    // 예진 작업 끝
 }

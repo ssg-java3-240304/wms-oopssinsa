@@ -1,4 +1,6 @@
-﻿# DROP TABLE account; -- 1
+﻿# CREATE DATABASE wms_db;
+use wms_db;
+# DROP TABLE account; -- 1
 # DROP TABLE brand; -- 13
 # DROP TABLE category; -- 12
 # DROP TABLE ib_worker; -- 3
@@ -178,10 +180,10 @@ ALTER TABLE `ob_worker` ADD CONSTRAINT `PK_OB_WORKER` PRIMARY KEY (
                                                                    `product_id`
     );
 
-ALTER TABLE `stock_detail` ADD CONSTRAINT `PK_STOCK_DETAIL` PRIMARY KEY (
-                                                                         `manufacture_id`,
-                                                                         `product_id`
-    );
+# ALTER TABLE `stock_detail` ADD CONSTRAINT `PK_STOCK_DETAIL` PRIMARY KEY (
+#                                                                          `manufacture_id`,
+#                                                                          `product_id`
+#     );
 
 ALTER TABLE `ib_detail` ADD CONSTRAINT `FK_product_TO_ib_detail_1` FOREIGN KEY (
                                                                                 `product_id`
@@ -265,19 +267,21 @@ ALTER TABLE `ob_worker` ADD CONSTRAINT `FK_ob_detail_TO_ob_worker_3` FOREIGN KEY
                             `product_id`
         );
 
-ALTER TABLE `stock_detail` ADD CONSTRAINT `FK_product_TO_stock_detail_1` FOREIGN KEY (
-                                                                                      `product_id`
-    )
-    REFERENCES `product` (
-                          `id`
-        );
+# ALTER TABLE `stock_detail` ADD CONSTRAINT `FK_product_TO_stock_detail_1` FOREIGN KEY (
+#                                                                                       `product_id`
+#     )
+#     REFERENCES `product` (
+#                           `id`
+#         );
 
+alter table stock
+add expected_quantity int null default 0;
 
+alter table section
+add expected_capacity int null default 0;
 
+alter table sub_location
+add expected_capacity int null default 0;
 
-
-
-
-
-
-
+alter table product
+change category category_id bigint;

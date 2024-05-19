@@ -2,7 +2,6 @@ package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
 import com.oopssinsa.model.dao.IbMapper;
-import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.IbDto;
 import com.oopssinsa.model.dto.IbInstructionDto;
 import com.oopssinsa.model.dto.StockDto;
@@ -43,7 +42,7 @@ public class IbService {
     public void updateIbStatus(IbDto updateIb) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
-        ibMapper.updateIbInstruction(updateIb);
+        ibMapper.updateIbStatus(updateIb);
     }
 
     /*
@@ -55,5 +54,11 @@ public class IbService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
         return ibMapper.findIbInstruction(ibInstructionDto);
+    }
+
+    public int findProductVolume(String productId) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        return ibMapper.findProductVolume(productId);
     }
 }

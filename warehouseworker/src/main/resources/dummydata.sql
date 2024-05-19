@@ -332,12 +332,8 @@ from product
 group by brand_id, category
 order by brand_id;
 
-select volume
-from product
-group by category;
-
-insert into stock_detail (manufacture_id, product_id, quantity, date)
-values (231210, 'BG001', +20, 20231215);
+# insert into stock_detail (manufacture_id, product_id, quantity, date)
+# values (231210, 'BG001', +20, 20231215);
 
 # alter table stock_detail
 # change product_date manufacture_id bigint;
@@ -348,8 +344,8 @@ values (231210, 'BG001', +20, 20231215);
 select *
 from stock_detail;
 
-insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, ib_date, status)
-VALUES (202405181, 240501, 'UA001', 'user07', 120, 20240518, 'R');
+# insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, ib_date, status)
+# VALUES (202405181, 240501, 'UA001', 'user07', 120, 20240518, 'R');
 
 select *
 from ib_detail;
@@ -357,15 +353,15 @@ from ib_detail;
 select *
 from stock_detail;
 
-alter table stock_detail
-drop primary key ;
+# alter table stock_detail
+# drop primary key ;
+#
+# alter table stock_detail
+# drop foreign key FK_product_TO_stock_detail_1;
 
-alter table stock_detail
-drop foreign key FK_product_TO_stock_detail_1;
-
-delete
-from stock_detail
-where manufacture_id is not null;
+# delete
+# from stock_detail
+# where manufacture_id is not null;
 -- 상품 1: H&M Canvas Backpack (BG001)
 INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20231101, 'BG001', +100, 20231105),
@@ -469,7 +465,7 @@ VALUES (20231101, 'BG001', 4, 9001, (select sum(quantity) from stock_detail wher
        (20230201, 'JK004',3, 3001, (select sum(quantity) from stock_detail where product_id = 'JK004' group by product_id));
 
 select *
-from stock;
+from sub_location;
 
 select product.brand_id, category, sum(volume * quantity)
 from stock left join product on stock.product_id = product.id
@@ -478,40 +474,8 @@ group by product.brand_id, category;
 select *
 from product join account using (brand_id);
 
-delete
-from ib_detail
-where 1;
-
 insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, completion_date, status)
 VALUES (1, 20240519, 'TS010', 'user07', 50, null, 'R'),
        (1, 20240518, 'BG005', 'user01', 50, null, 'R'),
        (2, 20240519, 'JK001', 'user02', 50, null, 'R');
 
-select *
-from ib_detail
-where status = 'R';
-
-select *
-from sub_location
-where  section_id in (
-    select id
-    from  section
-    where brand_id  in (
-        select brand_id
-        from product
-        where id  in (
-            select product_id
-            from ib_detail
-            where status ='R' ))) and category_id in (
-    select category
-    from product
-    where id in (
-        select product_id
-        from ib_detail  where status ='R' ));
-
-select *
-from product;
-
-select *
-from account
-where brand_id = 6;

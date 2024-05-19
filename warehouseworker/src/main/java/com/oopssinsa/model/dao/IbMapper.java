@@ -10,7 +10,9 @@ public interface IbMapper {
 
     List<IbInstructionDto> getIbInstructionToDo(String workerId);
 
-    void updateIbInstruction(IbDto updateIb);
+    void updateIbStatus(IbDto updateIb);
 
     IbInstructionDto findIbInstruction(IbInstructionDto ibInstructionDto);
+
+    int findProductVolume(String productId);
 }

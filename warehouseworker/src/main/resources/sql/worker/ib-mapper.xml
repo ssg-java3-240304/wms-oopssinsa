@@ -4,10 +4,69 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oopssinsa.model.dao.IbMapper">
 
-    <select id="findIb" resultType="com.oopssinsa.model.dto.IbDto">
-        select *
+    <resultMap id="ibDtoMap" type="ibDto">
+        <result column="id" property="id"/>
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="product_id" property="productId"/>
+<!--        <result column="login_id" property="accountId"/>-->
+        <result column="quantity" property="quantity"/>
+<!--        <result column="ib_date" property="ibDate"/>-->
+        <result column="completion_date" property="completionDate"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="ibInsMap" type="ibInstructionDto">
+        <result column="ib_id" property="ibId"/>
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="product_id" property="productId"/>
+        <result column="worker_id" property="workerId"/>
+        <result column="location_id" property="locationId"/>
+    </resultMap>
+
+    <select id="findIb" parameterType="ibDto" resultMap="ibDtoMap">
+        select id, manufacture_id, product_id, quantity, completion_date, status
         from ib_detail
-        where id = #{id} and manufacture_id = #{manufactureId} and product_id = #{productId}
+        where id = #{id}
+        and manufacture_id = #{manufactureId}
+        and product_id = #{productId}
+    </select>
+
+<!--    <select id="findIb" resultType="com.oopssinsa.model.dto.IbDto">-->
+<!--        select *-->
+<!--        from ib_detail-->
+<!--        where id = #{id}-->
+<!--        and manufacture_id = #{manufactureId}-->
+<!--        and product_id = #{productId}-->
+<!--    </select>-->
+
+    <select id="getIbInstructionToDo" resultMap="ibInsMap">
+        select ibw.*
+        from ib_detail ibd join ib_worker ibw
+        on (ibd.id = ibw.ib_id and ibd.manufacture_id = ibw.manufacture_id and ibd.product_id = ibw.product_id)
+        where status = 'R'
+        and worker_id = #{workerId};
+    </select>
+
+    <update id="updateIbStatus" parameterType="ibDto">
+        update ib_detail
+        set completion_date = curdate(), status = #{status}
+        where id = #{id}
+        and product_id = #{productId}
+        and manufacture_id = #{manufactureId}
+    </update>
+
+    <select id="findIbInstruction" parameterType="ibInstructionDto" resultMap="ibInsMap">
+        select *
+        from ib_worker
+        where ib_id = #{ibId}
+        and manufacture_id = #{manufactureId}
+        and product_id = #{productId}
+    </select>
+
+    <select id="findProductVolume" resultType="int">
+        select volume
+        from product
+        where id = #{productId}
     </select>
 
 </mapper>

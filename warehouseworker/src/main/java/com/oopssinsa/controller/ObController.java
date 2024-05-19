@@ -47,14 +47,21 @@ public class ObController {
             StockDto foundStock = stockService.findStock(new StockDto(productId,manufactureId,0,0,0));
             long locationId = foundIbInstruction.getLocationId();
             int originalCapacity = locationService.getCurrentCapacity(locationId);
+            // 예진 작업 시작
+            int productVolume = obService.findProductVolume(foundStock.getProductId());
+            int updateCapacity;
+            // 예진 작업 끝
             if(foundOb!=null && foundStock!=null){
                 int updateQuantity = foundOb.getQuantity();
                 int originalQuantity = foundStock.getQuantity();
                 int expectedQuantity = foundStock.getExpected_quantity();
+                updateCapacity = productVolume * updateQuantity;
                 stockService.updateStock(new StockDto(productId,manufactureId, 0,
                         originalQuantity-updateQuantity,expectedQuantity-updateQuantity));
                 stockService.insertStockHistory(new StockHistoryDto(manufactureId, productId, updateQuantity, LocalDate.now()));
-                locationService.updateCurrentCapacity(new SubLocationDto(locationId,originalCapacity-updateQuantity,0));
+                // 예진 작업 시작
+                locationService.updateCurrentCapacity(new SubLocationDto(locationId,originalCapacity-updateCapacity,+updateCapacity));
+                // 예진 작업 끝
             }
 
         }
