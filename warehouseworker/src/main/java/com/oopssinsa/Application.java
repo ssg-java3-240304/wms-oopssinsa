@@ -12,22 +12,20 @@ public class Application {
     public static void main(String[] args) {
         Application app = new Application();
         app.run();
-
-
     }
 
     public void run(){
         String workerId = null;
+        /*
 
         // 예작시
-        LoginView loginView = new LoginView();
-
-        while (workerId==null) {
-            workerId = loginView.inputLogin();
-        }
-
+//        LoginView loginView = new LoginView();
+//
+//        while (workerId==null) {
+//            workerId = loginView.inputLogin();
+//        }
         // 예작끝
-
+         */
         LoginController loginController = new LoginController();
         IbController ibController = new IbController();
         ObController obController = new ObController();
@@ -35,12 +33,12 @@ public class Application {
         //최초 1회 로그인 및 workerId에 로그인 된 아이디 저장. 로그인이 실패했다면 workerId==null
         //아래 while loop은 로그인이 성공한 경우만 빠져나온다.
 
-//        while(workerId==null){
-//            workerId=loginController.loginValidation();
-//        }
+        while(workerId==null){
+            workerId=loginController.loginValidation();
+        }
 
         ibController.setWorkerId(workerId);
-
+        obController.setWorkerId(workerId);
         String choice;
         //로그인 성공 후 창고 작업자 기능
         while(true){

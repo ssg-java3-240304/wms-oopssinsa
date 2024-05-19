@@ -32,6 +32,10 @@ public class InputView {
         return sc.next();
     }
 
+    public String getPassword() {
+        return sc.next();
+    }
+
     public int getNumber() {
         return sc.nextInt();
     }

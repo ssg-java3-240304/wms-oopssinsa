@@ -1,18 +1,18 @@
 ﻿# CREATE DATABASE wms_db;
 use wms_db;
-# DROP TABLE account; -- 1
-# DROP TABLE brand; -- 13
-# DROP TABLE category; -- 12
-# DROP TABLE ib_worker; -- 3
-# DROP TABLE ib_detail; #ib_detail테이블 삭제하려면 ib_worker 먼저 삭제 -- 4
-# DROP TABLE ob_worker; -- 5
-# DROP TABLE ob_detail; #ob_detail 테이블 삭제하려면 ob_workder 먼저 삭제 -- 6
-# DROP TABLE section; -- 11
-# # DROP TABLE stock; -- 2
-# DROP TABLE product; # product테이블 삭제하려면 stock 먼저 삭제 -- 8
-# DROP TABLE stock_detail; -- 7
-# DROP TABLE sub_location; -- 9
-# DROP TABLE worker; -- 10
+DROP TABLE account; -- 1
+DROP TABLE brand; -- 13
+DROP TABLE category; -- 12
+DROP TABLE ib_worker; -- 3
+DROP TABLE ib_detail; #ib_detail테이블 삭제하려면 ib_worker 먼저 삭제 -- 4
+DROP TABLE ob_worker; -- 5
+DROP TABLE ob_detail; #ob_detail 테이블 삭제하려면 ob_workder 먼저 삭제 -- 6
+DROP TABLE section; -- 11
+DROP TABLE stock; -- 2
+DROP TABLE product; # product테이블 삭제하려면 stock 먼저 삭제 -- 8
+DROP TABLE stock_detail; -- 7
+DROP TABLE sub_location; -- 9
+DROP TABLE worker; -- 10
 
 CREATE TABLE `product` (
                            `id`	varchar(10)	NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE `ib_worker` (
                              `ib_id`	bigint	NOT NULL	COMMENT '입출고id 타입 bigint로 통일',
                              `manufacture_id`	date	NOT NULL,
                              `product_id`	varchar(10)	NOT NULL,
-                             `worker_id`	bigint	NOT NULL,
+                             `worker_id`	varchar(10)	NOT NULL,
                              `location_id`	bigint	NOT NULL
 );
 
@@ -112,7 +112,7 @@ CREATE TABLE `ob_worker` (
                              `id`	bigint	NOT NULL,
                              `manufacture_id`	date	NOT NULL,
                              `product_id`	varchar(10)	NOT NULL,
-                             `worker_id`	bigint	NOT NULL,
+                             `worker_id`	varchar(10)	NOT NULL,
                              `location_id`	bigint	NOT NULL
 );
 
@@ -285,3 +285,4 @@ add expected_capacity int null default 0;
 
 alter table product
 change category category_id bigint;
+

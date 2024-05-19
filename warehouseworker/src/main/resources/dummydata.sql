@@ -243,7 +243,7 @@ from product;
 # alter table product
 # change id id varchar(10) ;
 
-insert into product (id, brand_id, name, size, color, category, volume)
+insert into product (id, brand_id, name, size, color, category_id, volume)
 values
     ('TS001', 2, 'Adidas Originals Trefoil Tee', 'S', 'Black', 1001, 1),
     ('TS002', 2, 'Adidas Originals Trefoil Tee', 'M', 'Black', 1001, 1),
@@ -269,7 +269,7 @@ values
     ('TS029', 1, 'Nike SB Dry Tee', 'M', 'Grey', 1001, 1),
     ('TS030', 1, 'Nike SB Dry Tee', 'L', 'Grey', 1001, 1); -- 5
 
-insert into product (id, brand_id, name, size, color, category, volume)
+insert into product (id, brand_id, name, size, color, category_id, volume)
 values -- 바지
        ('PA001', 1, 'Nike Sportswear Club Fleece Pants', 'S', 'Grey', 6001, 2),
        ('PA002', 1, 'Nike Sportswear Club Fleece Pants', 'M', 'Grey', 6001, 2),
@@ -327,9 +327,9 @@ values -- 바지
 select *
 from product;
 
-select brand_id, category, count(volume), sum(volume)
+select brand_id, category_id, count(volume), sum(volume)
 from product
-group by brand_id, category
+group by brand_id, category_id
 order by brand_id;
 
 # insert into stock_detail (manufacture_id, product_id, quantity, date)
@@ -467,9 +467,9 @@ VALUES (20231101, 'BG001', 4, 9001, (select sum(quantity) from stock_detail wher
 select *
 from sub_location;
 
-select product.brand_id, category, sum(volume * quantity)
+select product.brand_id, category_id, sum(volume * quantity)
 from stock left join product on stock.product_id = product.id
-group by product.brand_id, category;
+group by product.brand_id, category_id;
 
 select *
 from product join account using (brand_id);
@@ -479,3 +479,37 @@ VALUES (1, 20240519, 'TS010', 'user07', 50, null, 'R'),
        (1, 20240518, 'BG005', 'user01', 50, null, 'R'),
        (2, 20240519, 'JK001', 'user02', 50, null, 'R');
 
+insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, completion_date, status)
+VALUES (3, 20240517, 'JK001', 'user02', 100, null, 'P'); -- 3001
+
+insert into ib_worker (ib_id, manufacture_id, product_id, worker_id, location_id)
+VALUES (3, 20240517, 'JK001', 'worker1', 3001);
+
+select *
+from product
+where id = 'JK001';
+
+select *
+from account
+where brand_id = 3;
+
+select *
+from ib_worker;
+
+select ibw.*
+from ib_detail ibd left join ib_worker ibw
+                             on (ibd.id = ibw.ib_id and ibd.manufacture_id = ibw.manufacture_id and ibd.product_id = ibw.product_id)
+where ibd.status = 'P'
+  and worker_id = 'worker1';
+
+select *
+from ib_detail;
+
+select *
+from ib_worker;
+
+update ib_detail
+set completion_date = null, status = 'P'
+where id = 3
+  and product_id = 'JK001'
+  and manufacture_id = 20240517;
