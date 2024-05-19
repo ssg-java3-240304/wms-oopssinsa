@@ -34,7 +34,7 @@ public class IbController {
 
         //유효하지 않은 정수 값 -1로 초기화
         long ibInstructionId =-1;
-        long productId = -1;
+        String productId = null;
         LocalDate manufactureId = null;
 
         //처리할 입고 내역을 찾을 id, 상품

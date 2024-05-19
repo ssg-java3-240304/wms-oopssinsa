@@ -7,13 +7,13 @@ import java.time.LocalDate;
 // 작업자는 productId와 manufactureId, locationID를 통해
 // 입고처리에서 얻은 수량을 계산해 재고 수량을 변경한다.
 public class StockDto {
-    private long productId;
+    private String productId;
     private LocalDate manufactureId;
     private long locationId;
     private int quantity;
     private int expected_quantity;
 
-    public StockDto(long productId, LocalDate manufactureId, long locationId, int quantity, int expected_quantity) {
+    public StockDto(String productId, LocalDate manufactureId, long locationId, int quantity, int expected_quantity) {
         this.productId = productId;
         this.manufactureId = manufactureId;
         this.locationId = locationId;
@@ -21,11 +21,11 @@ public class StockDto {
         this.expected_quantity = expected_quantity;
     }
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

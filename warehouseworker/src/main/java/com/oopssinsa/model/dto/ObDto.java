@@ -8,13 +8,13 @@ import java.time.LocalDate;
 public class ObDto {
     private long id;
     private LocalDate manufactureId;
-    private long productId;
+    private String productId;
     private int quantity;
     private LocalDate obDate;
     private String status;
     private int trackingNumber;
 
-    public ObDto(long id, LocalDate manufactureId, long productId, int quantity, LocalDate obDate, String status, int trackingNumber) {
+    public ObDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate obDate, String status, int trackingNumber) {
         this.id = id;
         this.manufactureId = manufactureId;
         this.productId = productId;
@@ -40,11 +40,11 @@ public class ObDto {
         this.manufactureId = manufactureId;
     }
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
