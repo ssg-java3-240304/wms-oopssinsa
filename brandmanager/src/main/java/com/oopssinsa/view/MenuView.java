@@ -1,8 +1,10 @@
 package com.oopssinsa.view;
 
 import com.oopssinsa.controller.MenuController;
+import com.oopssinsa.model.dto.IbDatailDto;
 import com.oopssinsa.model.dto.ProductDto;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuView {
@@ -26,7 +28,7 @@ public class MenuView {
             String choice = sc.next();
             switch (choice) {
                 case "1" : menuController.insertProduct(inputProduct()); break;
-                case "2" : break;
+                case "2" : menuController.ibRequest(inputIbRequest()); break;
                 case "3" : break;
                 case "4" : break;
                 case "5" : break;
@@ -36,6 +38,23 @@ public class MenuView {
                     System.out.println("잘못 입력하셨습니다...");
             }
         }
+    }
+
+    private IbDatailDto inputIbRequest() {
+        System.out.println("> ✏✏✏ 입고 요청서를 작성해주세요. ✏✏✏");
+        System.out.println("입고 ID : ");
+        int Id = sc.nextInt();
+        System.out.println("제조일자 : ");
+        int manufactureId = sc.nextInt();
+        System.out.println("상품 ID : ");
+        int productId = sc.nextInt();
+        System.out.println("발주자 ID : ");
+        String loginId = sc.next();
+        System.out.println("수량 : ");
+        int quantity = sc.nextInt();
+        // null값인 행도 적어줘야 되는지?
+//        LocalDate ibRequestDate = null;
+        return new IbDatailDto(Id, manufactureId, productId, loginId, quantity);
     }
 
     private ProductDto inputProduct() {

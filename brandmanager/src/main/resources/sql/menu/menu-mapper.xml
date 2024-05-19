@@ -7,6 +7,17 @@
 <!--        select * from test1-->
 <!--    </select>-->
     <insert id="insertProduct">
-
+        insert into
+            테이블명
+        values (
+        #{Id}, #{brandId}, #{categoryId}, #{name}, #{size}, #{color}, #{volume}
+        )
+    </insert>
+    <insert id="ibRequest">
+        insert into
+            테이블명
+        values (
+        #{Id}, #{manufactureId}, #{productId}, #{loginId}, #{quantity}
+        )
     </insert>
 </mapper>
