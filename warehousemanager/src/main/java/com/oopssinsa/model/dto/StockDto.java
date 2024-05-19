@@ -3,12 +3,15 @@ package com.oopssinsa.model.dto;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
-public class InstructionDto {
-    private String iD;
+public class StockDto {
     private LocalDate manufactureDate;
     private String productId;
-    private String workerId;
+    private String subLocationId;
+    private int quantity;
+    private int expectedQuantity;
 }

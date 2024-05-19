@@ -1,16 +1,22 @@
 package com.oopssinsa.model.dto;
 
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class ObDto {
-    private String id;
+    private LocalDate manufactureDate;
+    private String obId;
     private String productId;
     private String loginId;
-    private int quantity;
     private String recipientName;
     private String address;
-
+    private int quantity;
+    private char status;
+    private LocalDate obDate;
+    private int trackingNumber;
 }

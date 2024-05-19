@@ -5,12 +5,12 @@ import com.oopssinsa.controller.LoginController;
 import java.util.Scanner;
 
 public class LoginView {
-    public void inputLogin(String id, String password){
+    public void inputLogin(String[] loginInfo){
         Scanner scanner = new Scanner(System.in);
         System.out.print("창고 작업자 아이디를 입력해주세요: ");
-        id = scanner.nextLine();
+        loginInfo[0] = scanner.nextLine();
         System.out.print("창고 작업자 비밀번호를 입력해주세요: ");
-        password = scanner.nextLine();
+        loginInfo[1] = scanner.nextLine();
     }
     public void displayLoginResult(boolean result, String id){
         if(result){

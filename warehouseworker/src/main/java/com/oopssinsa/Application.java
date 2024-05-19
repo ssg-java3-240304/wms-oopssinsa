@@ -16,6 +16,7 @@ public class Application {
 
     public void run(){
         String workerId = null;
+        /*
 
         // 예작시
 //        LoginView loginView = new LoginView();
@@ -24,7 +25,7 @@ public class Application {
 //            workerId = loginView.inputLogin();
 //        }
         // 예작끝
-
+         */
         LoginController loginController = new LoginController();
         IbController ibController = new IbController();
         ObController obController = new ObController();
@@ -37,7 +38,7 @@ public class Application {
         }
 
         ibController.setWorkerId(workerId);
-
+        obController.setWorkerId(workerId);
         String choice;
         //로그인 성공 후 창고 작업자 기능
         while(true){
