@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.StockMapper;
 import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.StockDto;
 import com.oopssinsa.model.dto.StockHistoryDto;
@@ -14,8 +15,8 @@ public class StockService {
      */
     public StockDto findStock(StockDto targetStock){
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        return workerMapper.findStock(targetStock);
+        StockMapper stockMapper = sqlSession.getMapper(StockMapper.class);
+        return stockMapper.findStock(targetStock);
     }
     /*
     <updateStock>
@@ -24,8 +25,8 @@ public class StockService {
      */
     public void updateStock(StockDto updateStock){
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        workerMapper.updateStock(updateStock);
+        StockMapper stockMapper = sqlSession.getMapper(StockMapper.class);
+        stockMapper.updateStock(updateStock);
     }
 
     /*
@@ -34,7 +35,7 @@ public class StockService {
      */
     public void insertStockHistory(StockHistoryDto stockHistoryDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        workerMapper.insertStockHistory(stockHistoryDto);
+        StockMapper stockMapper = sqlSession.getMapper(StockMapper.class);
+        stockMapper.insertStockHistory(stockHistoryDto);
     }
 }

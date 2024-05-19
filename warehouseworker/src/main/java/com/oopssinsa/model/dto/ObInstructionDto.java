@@ -5,7 +5,7 @@ package com.oopssinsa.model.dto;
 public class ObInstructionDto {
     private long id;
     private long manufactureId;
-    private long productId;
+    private String productId;
     private long workerId;
     private String locationId;
 
@@ -25,11 +25,11 @@ public class ObInstructionDto {
         this.manufactureId = manufactureId;
     }
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
