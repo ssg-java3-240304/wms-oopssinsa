@@ -20,10 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IbMapperTest {
-
     SqlSession sqlSession;
     IbMapper ibMapper;
-
     @BeforeEach
     void setUp() {
         this.sqlSession = getSqlSession();
@@ -36,17 +34,32 @@ class IbMapperTest {
         this.sqlSession.close();
     }
 
+//    @Disabled
+//    @ParameterizedTest
+//    @MethodSource("ibDto")
+//    void findIb(IbDto ibDto) {
+//        IbDto ibDto1 = ibMapper.findIb(ibDto);
+//        assertThat(ibDto1).isNotNull();
+//
+//    }
+//    public static Stream<IbDto> ibDto() {
+//        LocalDate localDate = LocalDate.of(24,5,1);//For reference
+//        IbDto ibDto = new IbDto(202405181, localDate, "UA001", 0, null, "");
+//        return Stream.of(ibDto);
+//    }
     @Disabled
-    @ParameterizedTest
-    @MethodSource("ibDto")
-    void findIb(IbDto ibDto) {
-        IbDto ibDto1 = ibMapper.findIb(ibDto);
-        assertThat(ibDto1).isNotNull();
+    @Test
+    void test1() {
+        LocalDate localDate = LocalDate.of(2024,5,18);//For reference
+        IbDto ibDto = new IbDto(1, localDate, "BG005", 0, null, "");
+        assertThat(ibMapper.findIb(ibDto)).isNotNull();
+        System.out.println(ibMapper.findIb(ibDto));
+    }
 
+    @Test
+    void test2() {
+        assertThat(ibMapper.findProductVolume("BG003")).isEqualTo(6);
     }
-    public static Stream<IbDto> ibDto() {
-        LocalDate localDate = LocalDate.of(24,5,1);//For reference
-        IbDto ibDto = new IbDto(202405181, localDate, "UA001", 0, null, "");
-        return Stream.of(ibDto);
-    }
+
+
 }
