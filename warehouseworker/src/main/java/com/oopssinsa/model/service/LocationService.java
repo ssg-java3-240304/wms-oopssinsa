@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.LocationMapper;
 import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.SubLocationDto;
 import org.apache.ibatis.session.SqlSession;
@@ -13,8 +14,8 @@ public class LocationService {
      */
     public int getCurrentCapacity(long targetLocationId){
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        return workerMapper.getCurrentCapacity(targetLocationId);
+        LocationMapper locationMapper = sqlSession.getMapper(LocationMapper.class);
+        return locationMapper.getCurrentCapacity(targetLocationId);
     }
     /*
     <updateCurrentCapacity>
@@ -23,7 +24,7 @@ public class LocationService {
      */
     public void updateCurrentCapacity(SubLocationDto subLocationDto){
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        workerMapper.updateCurrentCapacity(subLocationDto);
+        LocationMapper locationMapper = sqlSession.getMapper(LocationMapper.class);
+        locationMapper.updateCurrentCapacity(subLocationDto);
     }
 }

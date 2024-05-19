@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.ObMapper;
 import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.IbInstructionDto;
 import com.oopssinsa.model.dto.ObDto;
@@ -16,8 +17,8 @@ public class ObService {
      */
     public List<ObInstructionDto> getObInstructionToDo(String workerId) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        List<ObInstructionDto> obInstructions = workerMapper.getObIntructionToDo(workerId);
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        List<ObInstructionDto> obInstructions = obMapper.getObIntructionToDo(workerId);
         return obInstructions;
     }
 
@@ -29,8 +30,8 @@ public class ObService {
      */
     public void updateObStatus(ObDto updateOb) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        workerMapper.updateObStatus(updateOb);
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        obMapper.updateObStatus(updateOb);
     }
 
     /*
@@ -39,8 +40,8 @@ public class ObService {
     */
     public ObDto findOb(ObDto targetOb) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        return workerMapper.findOb(targetOb);
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findOb(targetOb);
     }
 
     /*
