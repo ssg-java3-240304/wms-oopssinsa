@@ -5,29 +5,30 @@ import com.oopssinsa.model.service.LoginService;
 import com.oopssinsa.view.LoginView;
 
 public class LoginController {
-//    LoginView loginView = new LoginView();
+    LoginView loginView = new LoginView();
     LoginService loginService = new LoginService();
-//    public String loginValidation(){
-//        String id=null;
-//        String password=null;
-//        loginView.inputLogin(id, password);
-//        if(id!=null&&password!=null){
-//            boolean result = loginService.loginValidation(id, password);
-//            loginView.displayLoginResult(result, id);
-//            return id;
-//        }
-//        else{
-//            loginView.displayInputError();
-//            return null;
-//        }
-//    }
-
-    public boolean loginValidation(String id, String password){
+    public String loginValidation(){
+        String id=null;
+        String password=null;
+        loginView.inputLogin(id, password);
         if(id!=null&&password!=null){
-            return loginService.loginValidation(id, password);
+            boolean result = loginService.loginValidation(id, password);
+            loginView.displayLoginResult(result, id);
+            return id;
         }
         else{
-            return false;
+            loginView.displayInputError();
+            return null;
         }
     }
+
+    //예작시
+//    public boolean loginValidation(String id, String password){
+//        if(id!=null&&password!=null){
+//            return loginService.loginValidation(id, password);
+//        }
+//        else{
+//            return false;
+//        }
+//    }
 }
