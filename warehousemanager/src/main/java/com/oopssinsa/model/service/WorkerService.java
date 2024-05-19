@@ -21,4 +21,13 @@ public class WorkerService {
 //        workerDtos.add(new WorkerDto("worker_id3", "name3", 'F'));
         return workerDtos;
     }
+
+    public List<WorkerDto> findAllWorker() {
+        List<WorkerDto> workerDtos = new ArrayList<>();
+        workerDtos.add(new WorkerDto("worker_id1", "name1", 'T'));
+        workerDtos.add(new WorkerDto("worker_id2", "name2", 'T'));
+        workerDtos.add(new WorkerDto("worker_id3", "name3", 'F'));
+        workerDtos.add(new WorkerDto("worker_id4", "name4", 'F'));
+        return workerDtos;
+    }
 }

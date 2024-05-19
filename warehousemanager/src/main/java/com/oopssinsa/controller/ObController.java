@@ -1,20 +1,16 @@
 package com.oopssinsa.controller;
 
-import com.oopssinsa.model.dto.IbDto;
 import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.ObDetailDto;
 import com.oopssinsa.model.dto.ObRequestAndStockDto;
 import com.oopssinsa.model.dto.StockDto;
 import com.oopssinsa.model.dto.WorkerDto;
-import com.oopssinsa.model.service.IbService;
 import com.oopssinsa.model.service.ObService;
 import com.oopssinsa.model.service.WorkerService;
-import com.oopssinsa.view.IbView;
 import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.ObView;
 import com.oopssinsa.view.WorkerView;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ObController {
@@ -101,7 +97,7 @@ public class ObController {
         obView.printObDetail(obDetailDtos);
 
         System.out.println("배정 가능한 작업자 목록");
-        workerView.printAssignableWorker(workerService.findWorkerByAssignableStatus());
+        workerView.printWorker(workerService.findWorkerByAssignableStatus());
 
         System.out.println("진행할 출고를 선택해 주세요.");
         int obIndex = inputView.getNumber() - 1;

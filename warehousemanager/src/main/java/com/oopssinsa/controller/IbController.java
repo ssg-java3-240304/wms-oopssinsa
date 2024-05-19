@@ -100,7 +100,7 @@ public class IbController {
         ibView.printIbState(ibDtos);
 
         System.out.println("배정 가능한 작업자 목록");
-        workerView.printAssignableWorker(workerDtos);
+        workerView.printWorker(workerDtos);
 
         System.out.println("진행할 입고를 선택해 주세요.");
         int ibIndex = inputView.getNumber();

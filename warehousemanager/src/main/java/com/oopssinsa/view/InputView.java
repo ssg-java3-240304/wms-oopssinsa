@@ -22,7 +22,9 @@ public class InputView {
         System.out.println("6. 출고 요청 상태인 출고 조회");
         System.out.println("7. 출고 요청 상태 변경");
         System.out.println("8. 출고 작업 배정");
-        System.out.println("9. 종료");
+        System.out.println("=============================");
+        System.out.println("9. 작업자 목록 조회");
+        System.out.println("10. 종료");
         return sc.nextInt();
     }
 
