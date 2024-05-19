@@ -18,4 +18,5 @@ public interface ObMapper {
     // 예진 작업 시작
     int findProductVolume(String productId);
     // 예진 작업 끝
+
 }
