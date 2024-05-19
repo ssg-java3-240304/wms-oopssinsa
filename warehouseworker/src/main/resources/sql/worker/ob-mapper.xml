@@ -30,6 +30,14 @@
         and manufacture_id = #{manufactureId}
     </update>
 
+    <select id="findOb" parameterType="obDto" resultMap="obDtoMap">
+        select *
+        from ob_detail
+        where id = #{id}
+        and manufacture_id = #{manufactureId}
+        and product_id = #{productId}
+    </select>
+
     <select id="getObInstructionToDo" resultMap="ObInsMap">
         select obw.*
         from ob_detail obd
