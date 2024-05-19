@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.IbMapper;
 import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.IbDto;
 import com.oopssinsa.model.dto.IbInstructionDto;
@@ -19,8 +20,8 @@ public class IbService {
     */
     public static IbDto findIb(IbDto targetIb) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        return workerMapper.findIb(targetIb);
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        return ibMapper.findIb(targetIb);
     }
 
     /*
@@ -29,8 +30,8 @@ public class IbService {
      */
     public List<IbInstructionDto> getIbInstructionToDo(String workerId){
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        return workerMapper.getIbInstructionToDo(workerId);
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        return ibMapper.getIbInstructionToDo(workerId);
     }
 
     /*
@@ -41,8 +42,8 @@ public class IbService {
      */
     public void updateIbStatus(IbDto updateIb) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        workerMapper.updateIbInstruction(updateIb);
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        ibMapper.updateIbInstruction(updateIb);
     }
 
     /*
@@ -52,7 +53,7 @@ public class IbService {
      */
     public IbInstructionDto findIbInstruction(IbInstructionDto ibInstructionDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-        return workerMapper.findIbInstruction(ibInstructionDto);
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        return ibMapper.findIbInstruction(ibInstructionDto);
     }
 }
