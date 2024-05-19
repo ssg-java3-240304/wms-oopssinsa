@@ -17,18 +17,16 @@ public class ObInstructionView {
                     );
         }
     }
-    public String inputUpdateObInstructionStatus(long ObInstructionId, String productId, LocalDate manufactureId){
+    public char inputUpdateObInstructionStatus(String[] obInfo){
         Scanner scanner = new Scanner(System.in);
         System.out.print("출고ID 입력: ");
-        ObInstructionId = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("상품ID 입력: ");
-        productId = scanner.nextLine();
-        scanner.nextLine();
-        System.out.println("제조일자 입력: ");
-        manufactureId = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println("완료 상태 입력: ");
+        obInfo[0] = scanner.nextLine();
+        System.out.print("상품ID 입력: ");
+        obInfo[1] = scanner.nextLine();
+        System.out.print("제조일자 입력: ");
+        obInfo[2] = scanner.nextLine();
+        System.out.print("완료 상태 입력: ");
         String updateStatus = scanner.nextLine();
-        return updateStatus;
+        return updateStatus.charAt(0);
     }
 }
