@@ -4,6 +4,7 @@ import com.oopssinsa.controller.IbController;
 import com.oopssinsa.controller.LoginController;
 import com.oopssinsa.controller.ObController;
 import com.oopssinsa.model.service.StockService;
+import com.oopssinsa.view.LoginView;
 
 import java.util.Scanner;
 
@@ -17,6 +18,16 @@ public class Application {
 
     public void run(){
         String workerId = null;
+
+        // 예작시
+        LoginView loginView = new LoginView();
+
+        while (workerId==null) {
+            workerId = loginView.inputLogin();
+        }
+
+        // 예작끝
+
         LoginController loginController = new LoginController();
         IbController ibController = new IbController();
         ObController obController = new ObController();
@@ -24,9 +35,10 @@ public class Application {
         //최초 1회 로그인 및 workerId에 로그인 된 아이디 저장. 로그인이 실패했다면 workerId==null
         //아래 while loop은 로그인이 성공한 경우만 빠져나온다.
 
-        while(workerId==null){
-            workerId=loginController.loginValidation();
-        }
+//        while(workerId==null){
+//            workerId=loginController.loginValidation();
+//        }
+
         ibController.setWorkerId(workerId);
 
         String choice;
