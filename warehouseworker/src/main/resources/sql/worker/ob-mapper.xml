@@ -47,9 +47,23 @@
         and worker_id = #{workerId};
     </select>
 
+    <select id="findObInstruction" parameterType="ObInstructionDto" resultMap="ObInsMap">
+        select *
+        from ob_worker
+        where id = #{id}
+        and manufacture_id = #{manufactureId}
+        and product_id = #{product_id};
+    </select>
+
     <select id="findProductVolume" resultType="int">
         select volume
         from product
         where id = #{productId}
     </select>
+
+
+
+
+
+
 </mapper>
