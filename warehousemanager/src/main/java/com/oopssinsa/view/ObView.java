@@ -1,6 +1,7 @@
 package com.oopssinsa.view;
 
 import com.oopssinsa.model.dto.ObDto;
+import com.oopssinsa.model.dto.ObRequestAndStockDto;
 import com.oopssinsa.model.dto.ObRequestDto;
 import java.util.List;
 
@@ -35,6 +36,22 @@ public class ObView {
                             + obDto.getQuantity() + "  " + obDto.getLoginId() + "  " + obDto.getRecipientName() + "  "
                             + obDto.getAddress() + "  " + obDto.getObDate() + "  " + obDto.getStatus() + "  "
                             + obDto.getTrackingNumber()
+            );
+        }
+
+        System.out.println();
+    }
+
+    public void printObRequestAndStock(List<ObRequestAndStockDto> obRequestAndStockDtos) {
+        int count = 1;
+        System.out.println(
+                "출고ID" + "  " + "상품ID"  + "  " + "발주자ID" + "  " + "출고요청수량" + "  " + "수령인" + "  "
+                        + "배송지"+ "  " + "출고상태여부"+ "  "+ "하위위치" +"  "+ "재고수량" +"  "+ "예정수량");
+        for (ObRequestAndStockDto obRequestAndStockDto : obRequestAndStockDtos) {
+            System.out.println(
+                    (count++) + ". " + obRequestAndStockDto.getId() + "  " + obRequestAndStockDto.getProductId() + "  " + obRequestAndStockDto.getLoginId()
+                            + "  "
+                            + obRequestAndStockDto.getQuantity() + "  " + obRequestAndStockDto.getRecipientName() + "  " + obRequestAndStockDto.getAddress() +"  "+obRequestAndStockDto.getObStatus()+"  "+ obRequestAndStockDto.getSubLocationId()+ "  "+  obRequestAndStockDto.getStockQuantity()+ "  "+obRequestAndStockDto.getExpectedStockQuantity()
             );
         }
 

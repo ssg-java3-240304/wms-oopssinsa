@@ -17,6 +17,7 @@ public class InputView {
         System.out.println("4. 입고 작업 배정");
         System.out.println("5. 전체 출고 처리내역 조회");
         System.out.println("6. 출고 요청 상태인 출고 조회");
+        System.out.println("7. 출고 요청 상태 변경");
         return sc.nextInt();
     }
 

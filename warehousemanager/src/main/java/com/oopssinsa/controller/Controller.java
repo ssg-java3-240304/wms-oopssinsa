@@ -39,7 +39,10 @@ public class Controller {
                     obController.findObByRequestState();
                     break;
                 case 7:
-                    return;
+                    obController.updateState();
+                    break;
+                case 9:
+                    break;
             }
         }
     }
