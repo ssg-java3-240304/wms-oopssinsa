@@ -4,10 +4,12 @@ import com.oopssinsa.view.InputView;
 
 public class Controller {
     private final IbController ibController;
+    private final ObController obController;
     private final InputView inputView;
 
     public Controller() {
         this.ibController = new IbController();
+        this.obController = new ObController();
         this.inputView = new InputView();
     }
 
@@ -29,6 +31,11 @@ public class Controller {
                     break;
                 case 4:
                     ibController.insertIbWorker();
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    obController.findObByRequestState();
                     break;
                 case 7:
                     return;
