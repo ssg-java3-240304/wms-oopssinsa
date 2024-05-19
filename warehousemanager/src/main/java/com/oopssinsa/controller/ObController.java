@@ -17,10 +17,12 @@ public class ObController {
         this.inputView = new InputView();
     }
 
-
-
     public void findObByRequestState(){
         obView.printObRequestState(obService.findObByRequestState());
+    }
+
+    public void findAllOb() {
+        obView.printAllOb(obService.findAllOb());
     }
 
 }

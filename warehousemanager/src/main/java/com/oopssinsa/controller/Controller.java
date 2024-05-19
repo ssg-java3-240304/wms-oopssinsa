@@ -33,6 +33,7 @@ public class Controller {
                     ibController.insertIbWorker();
                     break;
                 case 5:
+                    obController.findAllOb();
                     break;
                 case 6:
                     obController.findObByRequestState();
