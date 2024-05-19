@@ -35,7 +35,7 @@
         from ob_detail obd
         join ob_worker obw
         on (obd.id = obw.id and obd.manufacture_id = obw.manufacture_id and obd.product_id = obw.product_id)
-        where status = 'R'
+        where status = 'P'
         and worker_id = #{workerId};
     </select>
 
