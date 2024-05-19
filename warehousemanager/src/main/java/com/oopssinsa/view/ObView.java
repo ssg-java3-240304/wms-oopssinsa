@@ -33,7 +33,7 @@ public class ObView {
                         + "발주자ID" + "  " + "수령인" + "  " + "배송지" + "  " + "출고일자" + "  " + "출고처리상태" + "  " + "운송장번호");
         for (ObDto obDto : obDtos) {
             System.out.println(
-                    (count++) + ". " + "  " + obDto.getObId() + "  " + obDto.getManufactureDate() + "  "
+                    (count++) + ". " + obDto.getObId() + "  " + obDto.getManufactureDate() + "  "
                             + obDto.getTrackingNumber()
                             + "  "
                             + obDto.getQuantity() + "  " + obDto.getLoginId() + "  " + obDto.getRecipientName() + "  "

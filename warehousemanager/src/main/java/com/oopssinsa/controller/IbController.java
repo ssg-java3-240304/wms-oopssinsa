@@ -1,6 +1,7 @@
 package com.oopssinsa.controller;
 
 import com.oopssinsa.model.dto.IbDto;
+import com.oopssinsa.model.dto.IbRequestAndLocationDto;
 import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.LocationDto;
 import com.oopssinsa.model.dto.ProductDto;
@@ -40,12 +41,27 @@ public class IbController {
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
         System.out.println("상태를 변경할 입고를 선택해 주세요.");
-        ibView.printIbAndCapacity(requestIbs, ibService.findLocationsByIbDtos(requestIbs));
+//        ibView.printIbAndCapacity(requestIbs, ibService.findLocationsByIbDtos(requestIbs));
+
+        List<IbRequestAndLocationDto> ibRequestAndLocation = ibService.findIbRequestAndLocation(requestIbs);
+        ibView.printIbAndCapacity(ibRequestAndLocation);
 //        ibView.printIbState(requestIbs);
         int ibIndex = inputView.getNumber() - 1;
         IbDto ibDto = null;
+        char ibAvailability = ' ';
         try {
-            ibDto = requestIbs.get(ibIndex); // index error 처리
+            ibAvailability = ibRequestAndLocation.get(ibIndex).getIbAvailability();
+
+            for (IbDto requestIb : requestIbs) {
+                if (ibRequestAndLocation.get(ibIndex).getId().equals(requestIb.getId())
+                        && ibRequestAndLocation.get(ibIndex).getManufactureDate().equals(requestIb.getManufactureDate())
+                        && ibRequestAndLocation.get(ibIndex).getProductId().equals(requestIb.getProductId())) {
+                    ibDto = requestIb; // index error 처리
+                }
+
+            }
+
+//            ibDto = requestIbs.get(ibIndex); // index error 처리
         } catch (IndexOutOfBoundsException e) {
             System.err.println("존재하지 않는 입고 요청 id입니다.");
             return;
@@ -66,8 +82,9 @@ public class IbController {
             System.out.println(sectionDto.getExpectedCapacity());
 
             // 각 테이블 업데이트 (입고테이블 - 상태, 서브위치테이블 - 예정용량, 구역테이블 - 예정용량)
-            if (locationDto.getCurrentCapacity() + locationDto.getExpectedCapacity() + ibDto.getQuantity()
-                    <= locationDto.getMaxCapacity()) {
+//            if (locationDto.getCurrentCapacity() + locationDto.getExpectedCapacity() + ibDto.getQuantity()
+//                    <= locationDto.getMaxCapacity()) {
+            if (ibAvailability == 'T') {
                 ibDto.setStatus('W');
                 locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity());
                 sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity());
