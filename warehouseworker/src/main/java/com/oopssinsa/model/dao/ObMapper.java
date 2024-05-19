@@ -11,4 +11,5 @@ public interface ObMapper {
     void updateObStatus(ObDto updateOb);
 
     ObDto findOb(ObDto targetOb);
+
 }
