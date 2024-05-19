@@ -33,5 +33,6 @@
     <mappers>
         <mapper resource="sql/worker/worker-mapper.xml"/>
         <mapper resource="sql/worker/ob-mapper.xml"/>
+        <mapper resource="sql/worker/ib-mapper.xml"/>
     </mappers>
 </configuration>

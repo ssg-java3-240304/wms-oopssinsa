@@ -9,11 +9,11 @@ public class IbInstructionDto {
 
     private long ibId;
     private LocalDate manufactureID;
-    private long productId;
+    private String productId;
     private String workerId;
     private int locationId;
 
-    public IbInstructionDto(long ibId, LocalDate manufactureID, long productId, String workerId, int locationId) {
+    public IbInstructionDto(long ibId, LocalDate manufactureID, String productId, String workerId, int locationId) {
         this.ibId = ibId;
         this.manufactureID = manufactureID;
         this.productId = productId;
@@ -37,11 +37,11 @@ public class IbInstructionDto {
         this.manufactureID = manufactureID;
     }
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

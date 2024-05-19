@@ -19,13 +19,13 @@ public class IbInstructionView {
         }
         System.out.println("-----------------------------------------------------------");
     }
-    public String inputUpdateIbInstructionStatus(long IbInstructionId, long productId, LocalDate manufactureId){
+    public String inputUpdateIbInstructionStatus(long IbInstructionId, String productId, LocalDate manufactureId){
         Scanner scanner = new Scanner(System.in);
         System.out.print("입고ID 입력: ");
         IbInstructionId = scanner.nextInt();
         scanner.nextLine();
         System.out.println("상품ID 입력: ");
-        productId = scanner.nextInt();
+        productId = scanner.nextLine();
         scanner.nextLine();
         System.out.println("제조일자 입력: ");
         manufactureId = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));

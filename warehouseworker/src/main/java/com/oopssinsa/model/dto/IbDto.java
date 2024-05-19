@@ -8,12 +8,12 @@ import java.time.LocalDate;
 public class IbDto {
     private long id;
     private LocalDate manufactureId;
-    private long productId;
+    private String productId;
     private int quantity;
     private LocalDate completionDate;
     private String Status;
 
-    public IbDto(long id, LocalDate manufactureId, long productId, int quantity, LocalDate completionDate, String status) {
+    public IbDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate completionDate, String status) {
         this.id = id;
         this.manufactureId = manufactureId;
         this.productId = productId;
@@ -38,11 +38,11 @@ public class IbDto {
         this.manufactureId = manufactureId;
     }
 
-    public long getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
