@@ -12,6 +12,24 @@
         <result column="location_id" property="locationId"/>
     </resultMap>
 
+    <resultMap id="obDtoMap" type="obDto">
+        <result column="id" property="id"/>
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="product_id" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="ob_date" property="obDate"/>
+        <result column="status" property="status"/>
+        <result column="tracking_number" property="trackingNumber"/>
+    </resultMap>
+
+    <update id="updateObStatus" parameterMap="obDto">
+        update ob_detail
+        set ob_date = CURDATE(), status = #{status}
+        where id = #{id}
+        and product_id = #{productId}
+        and manufacture_id = #{manufactureId}
+    </update>
+
     <select id="getObInstructionToDo" resultMap="ObInsMap">
         select obw.*
         from ob_detail obd
