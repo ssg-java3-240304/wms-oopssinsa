@@ -2,7 +2,6 @@ package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
 import com.oopssinsa.model.dao.StockMapper;
-import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.StockDto;
 import com.oopssinsa.model.dto.StockHistoryDto;
 import org.apache.ibatis.session.SqlSession;

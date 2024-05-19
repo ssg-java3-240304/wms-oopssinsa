@@ -7,12 +7,12 @@ package com.oopssinsa.model.dto;
 public class SubLocationDto {
     private long id;
     private int currentCapacity;
-    private int sumOfSection; // 구역별 현재용량
+    private int expectedCapacity; // + - 수량만 넣습니다.
 
-    public SubLocationDto(long id, int currentCapacity, int sumOfSection) {
+    public SubLocationDto(long id, int currentCapacity, int expectedCapacity) {
         this.id = id;
         this.currentCapacity = currentCapacity;
-        this.sumOfSection = sumOfSection;
+        this.expectedCapacity = expectedCapacity;
     }
 
     public long getId() {
@@ -31,11 +31,11 @@ public class SubLocationDto {
         this.currentCapacity = currentCapacity;
     }
 
-    public int getSumOfSection() {
-        return sumOfSection;
+    public int getExpectedCapacity() {
+        return expectedCapacity;
     }
 
-    public void setSumOfSection(int sumOfSection) {
-        this.sumOfSection = sumOfSection;
+    public void setExpectedCapacity(int expectedCapacity) {
+        this.expectedCapacity = expectedCapacity;
     }
 }

@@ -2,7 +2,6 @@ package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
 import com.oopssinsa.model.dao.LoginMapper;
-import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.LoginDto;
 import org.apache.ibatis.session.SqlSession;
 
