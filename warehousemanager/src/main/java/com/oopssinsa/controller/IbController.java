@@ -7,19 +7,25 @@ import com.oopssinsa.model.dto.ProductDto;
 import com.oopssinsa.model.dto.SectionDto;
 import com.oopssinsa.model.dto.WorkerDto;
 import com.oopssinsa.model.service.IbService;
+import com.oopssinsa.model.service.WorkerService;
 import com.oopssinsa.view.IbView;
 import com.oopssinsa.view.InputView;
+import com.oopssinsa.view.WorkerView;
 import java.util.List;
 
 public class IbController {
 
     private final IbService ibService;
     private final IbView ibView;
+    private final WorkerService workerService;
+    private final WorkerView workerView;
     private final InputView inputView;
 
     public IbController() {
         this.ibService = new IbService();
         this.ibView = new IbView();
+        this.workerService = new WorkerService();
+        this.workerView = new WorkerView();
         this.inputView = new InputView();
     }
 
@@ -36,8 +42,8 @@ public class IbController {
         System.out.println("상태를 변경할 입고를 선택해 주세요.");
         ibView.printIbAndCapacity(requestIbs, ibService.findLocationsByIbDtos(requestIbs));
 //        ibView.printIbState(requestIbs);
-        int ibIndex = inputView.getNumber()-1;
-        IbDto ibDto =null;
+        int ibIndex = inputView.getNumber() - 1;
+        IbDto ibDto = null;
         try {
             ibDto = requestIbs.get(ibIndex); // index error 처리
         } catch (IndexOutOfBoundsException e) {
@@ -63,8 +69,8 @@ public class IbController {
             if (locationDto.getCurrentCapacity() + locationDto.getExpectedCapacity() + ibDto.getQuantity()
                     <= locationDto.getMaxCapacity()) {
                 ibDto.setStatus('W');
-                locationDto.setExpectedCapacity(locationDto.getExpectedCapacity()+ibDto.getQuantity());
-                sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity()+ibDto.getQuantity());
+                locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity());
+                sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity());
                 ibService.updateIbState(ibDto);
                 ibService.updateExpectedCapacity(locationDto);
                 ibService.updateExpectedCapacity(sectionDto);
@@ -89,23 +95,23 @@ public class IbController {
 
     public void insertIbWorker() {
         List<IbDto> ibDtos = ibService.findIbByWaitingState();
-        List<WorkerDto> workerDtos = ibService.findWorkerByAssignableStatus();
+        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
         System.out.println("입고대기 상태 목록");
         ibView.printIbState(ibDtos);
 
         System.out.println("배정 가능한 작업자 목록");
-        ibView.printAssignableWorker(workerDtos);
+        workerView.printAssignableWorker(workerDtos);
 
-        System.out.println("진행할 입고를 선택해주세요.");
+        System.out.println("진행할 입고를 선택해 주세요.");
         int ibIndex = inputView.getNumber();
         IbDto selectedIbDto = ibDtos.get(ibIndex - 1);
 
-        System.out.println("배정할 작업자를 선택해주세요.");
+        System.out.println("배정할 작업자를 선택해 주세요.");
         int workerIndex = inputView.getNumber();
         WorkerDto selectedWorkerDto = workerDtos.get(workerIndex - 1);
 
         // 지시테이블에 삽입
-        ibService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),
+        workerService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),
                 selectedIbDto.getProductId(), selectedWorkerDto.getId()));
 
         // 입고테이블 상태 업데이트
@@ -114,11 +120,9 @@ public class IbController {
 
         // 작업자 상태 업데이트
         selectedWorkerDto.setState('F');
-        ibService.updateWorkerStatus(selectedWorkerDto);
+        workerService.updateWorkerStatus(selectedWorkerDto);
 
         System.out.println(selectedIbDto.getStatus());
         System.out.println(selectedWorkerDto.getState());
     }
-
-
 }

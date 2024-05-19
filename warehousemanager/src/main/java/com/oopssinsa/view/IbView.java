@@ -2,7 +2,6 @@ package com.oopssinsa.view;
 
 import com.oopssinsa.model.dto.IbDto;
 import com.oopssinsa.model.dto.LocationDto;
-import com.oopssinsa.model.dto.WorkerDto;
 import java.util.List;
 
 public class IbView {
@@ -35,15 +34,7 @@ public class IbView {
         System.out.println();
     }
 
-    public void printAssignableWorker(List<WorkerDto> workerDtos) {
-        int count = 1;
-        System.out.println("작업자ID" + "  " + "이름" + "  " + "상태");
-        for (WorkerDto workerDto : workerDtos) {
-            System.out.println(
-                    (count++) + ". " + workerDto.getId() + "  " + workerDto.getName() + "  " + workerDto.getState());
-        }
-        System.out.println();
-    }
+
 
     // 수정 진행중 = 입고id + 로케이션 위치 출력 예정
     public void printIbAndCapacity(List<IbDto> ibDtos, List<LocationDto> locationDtos) {

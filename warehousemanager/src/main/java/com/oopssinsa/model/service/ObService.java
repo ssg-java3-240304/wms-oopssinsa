@@ -1,5 +1,7 @@
 package com.oopssinsa.model.service;
 
+import com.oopssinsa.model.dto.IbDto;
+import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.ObDetailDto;
 import com.oopssinsa.model.dto.ObDto;
 import com.oopssinsa.model.dto.ObRequestAndStockDto;
@@ -84,5 +86,22 @@ public class ObService {
         return 1;
     }
 
+    public int updateIbState(ObDetailDto obDetailDto) {
+        return 1;
+    }
 
+
+    public List<ObDetailDto> findObDetailByWaitingState() {
+        List<ObDetailDto> obDetailDto = new ArrayList<>();
+        obDetailDto.add(new ObDetailDto(LocalDate.of(2022, 1, 1), "ob_id1", "product_id1", 10,
+                'W', null, null));
+        obDetailDto.add(new ObDetailDto(LocalDate.of(2024, 2, 2), "ob_id1", "product_id1", 20,
+                'W', null, null));
+
+        return obDetailDto;
+    }
+
+    public int insertObWorker(InstructionDto instructionDto) {
+        return 1;
+    }
 }

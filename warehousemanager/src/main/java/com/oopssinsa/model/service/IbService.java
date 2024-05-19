@@ -24,14 +24,8 @@ public class IbService {
         return 1;
     }
 
-    public int insertIbWorker(InstructionDto instructionDto) {
-        return 1;
 
-    }
 
-    public int updateWorkerStatus(WorkerDto workerDto) {
-        return 1;
-    }
 
     public LocationDto findLocationByCategoryIdAndSectionId(String categoryId, char sectionId) {
         return new LocationDto("location_id1", sectionId, categoryId,
@@ -88,12 +82,7 @@ public class IbService {
         return locationDtos;
     }
 
-    public List<WorkerDto> findWorkerByAssignableStatus() {
-        List<WorkerDto> workerDtos = new ArrayList<>();
-        workerDtos.add(new WorkerDto("worker_id1", "name1", 'T'));
-        workerDtos.add(new WorkerDto("worker_id2", "name2", 'T'));
-//        workerDtos.add(new WorkerDto("worker_id3", "name3", 'F'));
-        return workerDtos;
-    }
+
+
 
 }

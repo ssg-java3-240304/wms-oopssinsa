@@ -41,8 +41,11 @@ public class Controller {
                 case 7:
                     obController.updateState();
                     break;
-                case 9:
+                case 8:
+                    obController.insertObWorker();
                     break;
+                case 9:
+                    return;
             }
         }
     }
