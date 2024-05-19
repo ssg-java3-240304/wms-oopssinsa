@@ -31,7 +31,7 @@ public class ObController {
 
     public void updateObStatus(){
         long obInstructionId =-1;
-        long productId = -1;
+        String productId = null;
         LocalDate manufactureId = null;
         String updateStatus = obView.inputUpdateObInstructionStatus(obInstructionId, productId, manufactureId);
         int trackingNumber = (int)(Math.random()*100000)+1;
