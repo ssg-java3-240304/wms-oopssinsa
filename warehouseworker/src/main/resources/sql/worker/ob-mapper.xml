@@ -3,4 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oopssinsa.model.dao.WorkerMapper">
+
+    <resultMap id="ObInsMap" type="ObInstructionDto">
+        <result column="id" property="id"/>
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="product_id" property="productId"/>
+        <result column="worker_id" property="workerId"/>
+        <result column="location_id" property="locationId"/>
+    </resultMap>
+
+    <select id="getObInstructionToDo" resultMap="ObInsMap">
+        select obw.*
+        from ob_detail obd
+        join ob_worker obw
+        on (obd.id = obw.id and obd.manufacture_id = obw.manufacture_id and obd.product_id = obw.product_id)
+        where status = 'R'
+        and worker_id = #{workerId};
+    </select>
+
+    <select id="findProductVolume" resultType="int">
+        select volume
+        from product
+        where id = #{productId}
+    </select>
 </mapper>
