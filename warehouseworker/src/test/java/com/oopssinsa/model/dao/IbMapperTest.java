@@ -1,6 +1,7 @@
 package com.oopssinsa.model.dao;
 
 import com.oopssinsa.model.dto.IbDto;
+import com.oopssinsa.model.dto.IbInstructionDto;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static com.oopssinsa.common.MyBatisTemplate.getSqlSession;
@@ -30,7 +32,8 @@ class IbMapperTest {
 
     @AfterEach
     void tearDown() {
-        this.sqlSession.rollback();
+        this.sqlSession.commit();
+//        this.sqlSession.rollback();
         this.sqlSession.close();
     }
 
@@ -61,7 +64,21 @@ class IbMapperTest {
         assertThat(ibMapper.findProductVolume("BG003")).isEqualTo(6);
     }
 
+    @Disabled
+    @Test
+    void test3() {
+        List<IbInstructionDto> getIbInstructionToDo = ibMapper.getIbInstructionToDo("worker1");
+        assertThat(getIbInstructionToDo).isNotNull();
+        System.out.println(getIbInstructionToDo);
+    }
 
+//    @Disabled
+    @Test
+    void test4(){
+        LocalDate localDate = LocalDate.of(2024,5,17);
+        IbDto ibDto = ibMapper.findIb(new IbDto(3, localDate, "JK001", 0,null,"P"));
+        assertThat(ibMapper.updateIbStatus(ibDto)).isEqualTo(1);
+    }
 
 
 }

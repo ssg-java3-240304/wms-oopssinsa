@@ -12,8 +12,6 @@ public class Application {
     public static void main(String[] args) {
         Application app = new Application();
         app.run();
-
-
     }
 
     public void run(){
@@ -21,12 +19,11 @@ public class Application {
         /*
 
         // 예작시
-        LoginView loginView = new LoginView();
-
-        while (workerId==null) {
-            workerId = loginView.inputLogin();
-        }
-
+//        LoginView loginView = new LoginView();
+//
+//        while (workerId==null) {
+//            workerId = loginView.inputLogin();
+//        }
         // 예작끝
          */
         LoginController loginController = new LoginController();

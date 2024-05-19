@@ -31,4 +31,14 @@ public class LoginController {
             return false;
         }
     }
+
+    //예작시
+//    public boolean loginValidation(String id, String password){
+//        if(id!=null&&password!=null){
+//            return loginService.loginValidation(id, password);
+//        }
+//        else{
+//            return false;
+//        }
+//    }
 }

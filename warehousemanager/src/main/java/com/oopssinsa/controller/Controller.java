@@ -6,16 +6,21 @@ public class Controller {
     private final IbController ibController;
     private final ObController obController;
     private final WorkerController workerController;
+    private final AccountController accountController;
     private final InputView inputView;
 
     public Controller() {
         this.ibController = new IbController();
         this.obController = new ObController();
         this.workerController = new WorkerController();
+        this.accountController = new AccountController();
         this.inputView = new InputView();
     }
 
     public void run() {
+        if (!accountController.logIn()) {
+            return;
+        }
         workWarehouseManager();
     }
 
