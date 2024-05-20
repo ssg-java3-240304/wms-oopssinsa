@@ -43,6 +43,8 @@ public class IbService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
         ibMapper.updateIbStatus(updateIb);
+        sqlSession.commit();
+        sqlSession.close();
     }
 
     /*

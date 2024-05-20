@@ -17,7 +17,7 @@
 
     <resultMap id="ibInsMap" type="ibInstructionDto">
         <result column="ib_id" property="ibId"/>
-        <result column="manufacture_id" property="manufactureID"/>
+        <result column="manufacture_id" property="manufactureId"/>
         <result column="product_id" property="productId"/>
         <result column="worker_id" property="workerId"/>
         <result column="location_id" property="locationId"/>
