@@ -11,9 +11,9 @@ public class IbDto {
     private String productId;
     private int quantity;
     private LocalDate completionDate;
-    private char status;
+    private String status;
 
-    public IbDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate completionDate, char status) {
+    public IbDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate completionDate, String status) {
         this.id = id;
         this.manufactureId = manufactureId;
         this.productId = productId;
@@ -62,11 +62,11 @@ public class IbDto {
         this.completionDate = completionDate;
     }
 
-    public char getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
