@@ -17,7 +17,7 @@ public class ObService {
     public List<ObInstructionDto> getObInstructionToDo(String workerId) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-        List<ObInstructionDto> obInstructions = obMapper.getObIntructionToDo(workerId);
+        List<ObInstructionDto> obInstructions = obMapper.getObInstructionToDo(workerId);
         System.out.println(obInstructions);
         return obInstructions;
     }

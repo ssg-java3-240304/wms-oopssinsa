@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oopssinsa.model.dao.StockMapper">
+    <resultMap id="stockDtoMap" type="stockDto">
+        <result column="product_id" property="id"/>
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="location_id" property="locationId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="expected_quantity" property="expectedQuantity"/>
+    </resultMap>
+    <resultMap id="stockHisMap" type="stockHistoryDto">
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="product_id" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="date" property="date"/>
+    </resultMap>
+
+    <update id="insertStockHistory">
+
+    </update>
+
+    <update id="updateStock">
+        update stock
+        set quantity = #{quantity} and expected_quantity = #{expected_quantity}
+        where
+    </update>
+
+    <select id="findStock" parameterType="stockDto" resultMap="stockDto">
+        select *
+        from stock
+        where product_id = #{productId} and manufacture_id = #{manufactureId}
+    </select>
+
+</mapper>
