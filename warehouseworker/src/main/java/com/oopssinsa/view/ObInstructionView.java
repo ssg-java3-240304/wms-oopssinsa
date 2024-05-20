@@ -17,7 +17,7 @@ public class ObInstructionView {
                     );
         }
     }
-    public char inputUpdateObInstructionStatus(String[] obInfo){
+    public String inputUpdateObInstructionStatus(String[] obInfo){
         Scanner scanner = new Scanner(System.in);
         System.out.print("출고ID 입력: ");
         obInfo[0] = scanner.nextLine();
@@ -27,6 +27,7 @@ public class ObInstructionView {
         obInfo[2] = scanner.nextLine();
         System.out.print("완료 상태 입력: ");
         String updateStatus = scanner.nextLine();
-        return updateStatus.charAt(0);
+//        return updateStatus.charAt(0);
+        return updateStatus;
     }
 }
