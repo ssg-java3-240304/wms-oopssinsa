@@ -153,15 +153,19 @@ values (1001, '티셔츠'),
 # modify id char(1);
 
 insert into section (id, brand_id, current_capacity, max_capacity)
-VALUES ('A', 1, 840, 4600),
-       ('B', 6, 150, 3600),
-       ('C', 2, 260, 5050),
-       ('E', 3, 202, 2600),
-       ('F', 7, 163, 720),
-       ('G', 4, 474, 2950),
+VALUES ('A', 1, 0, 4600),
+       ('B', 6, 0, 3600),
+       ('C', 2, 0, 5050),
+       ('E', 3, 0, 2600),
+       ('F', 7, 0, 720),
+       ('G', 4, 0, 2950),
        ('H', 5, 0, 3200);
-insert into section (id, current_capacity, max_capacity)
-values ('D', 0, 1000);
+
+alter table section
+    modify brand_id bigint null;
+
+insert into section (id, brand_id, current_capacity, max_capacity)
+values ('D', null, 0, 1000);
 
 delete
 from sub_location
@@ -170,42 +174,65 @@ where 1;
 select *
 from sub_location;
 
-insert into sub_location (section_id, category_id, current_capacity, max_capacity)
-VALUES ('A', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 1000),
-       ('A', 2001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 800),
-       ('A', 2002, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 841),
-       ('A', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
-       ('A', 4001, (select sum(quantity)*5 from stock where location_id = 5 group by location_id), 5000),
-       ('C', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 1200),
-       ('C', 2001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 900),
-       ('C', 2002, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
-       ('C', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
-       ('C', 4001, (select sum(quantity)*5 from stock where location_id = 5 group by location_id), 4200),
-       ('E', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 1000),
-       ('E', 5001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 600),
-       ('E', 5002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 400),
-       ('E', 6001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
-       ('E', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
-       ('G', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 850),
-       ('G', 5001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 700),
-       ('G', 5002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 450),
-       ('G', 9001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 850),
-       ('G', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
-       ('H', 1001 , (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
-       ('H', 1002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 1700),
-       ('H', 6001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
-       ('H', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 3000),
-       ('H', 9001, (select sum(quantity)*6 from stock where location_id = 5 group by location_id), 5050),
-       ('B', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 850),
-       ('B', 2001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 700),
-       ('B', 2002, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
-       ('B', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
-       ('B', 4001, (select sum(quantity)*5 from stock where location_id = 5 group by location_id), 4500),
-       ('F', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
-       ('F', 5001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 150),
-       ('F', 5002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 120),
-       ('F', 9001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
-       ('F', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1800);
+insert into sub_location (id, section_id, category_id, current_capacity, max_capacity)
+VALUES (1, 'A', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 1000);
+
+# drop index `PRIMARY` on sub_location;
+#
+# drop index uq_section_id_category_id on sub_location;
+
+# alter table sub_location
+#     drop primary key;
+#
+# alter table sub_location
+#     drop key uq_section_id_category_id;
+
+SET foreign_key_checks = 0;
+SET foreign_key_checks = 1;
+
+delete
+from sub_location
+where id < 36;
+
+select *
+from stock;
+
+insert into sub_location (id, section_id, category_id, current_capacity, max_capacity)
+VALUES (36, 'A', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 1000),
+       (37, 'A', 2001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 800),
+       (38, 'A', 2002, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 841),
+       (39, 'A', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
+       (40, 'A', 4001, (select sum(quantity)*5 from stock where location_id = 5 group by location_id), 5000),
+       (41, 'C', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 1200),
+       (42, 'C', 2001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 900),
+       (43, 'C', 2002, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
+       (44, 'C', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
+       (45, 'C', 4001, (select sum(quantity)*5 from stock where location_id = 5 group by location_id), 4200),
+       (46, 'E', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 1000),
+       (47, 'E', 5001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 600),
+       (48, 'E', 5002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 400),
+       (49, 'E', 6001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
+       (50, 'E', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
+       (51, 'G', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 850),
+       (52, 'G', 5001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 700),
+       (53, 'G', 5002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 450),
+       (54, 'G', 9001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 850),
+       (55, 'G', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
+       (56, 'H', 1001 , (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
+       (57, 'H', 1002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 1700),
+       (58, 'H', 6001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
+       (59, 'H', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 3000),
+       (60, 'H', 9001, (select sum(quantity)*6 from stock where location_id = 5 group by location_id), 5050),
+       (61, 'B', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 850),
+       (62, 'B', 2001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 700),
+       (63, 'B', 2002, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
+       (64, 'B', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1700),
+       (65, 'B', 4001, (select sum(quantity)*5 from stock where location_id = 5 group by location_id), 4500),
+       (66, 'F', 1001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
+       (67, 'F', 5001, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 150),
+       (68, 'F', 5002, (select sum(quantity)*0 from stock where location_id = 5 group by location_id), 120),
+       (69, 'F', 9001, (select sum(quantity)*1 from stock where location_id = 5 group by location_id), 900),
+       (70, 'F', 3001, (select sum(quantity)*2 from stock where location_id = 5 group by location_id), 1800);
 
 -- 자동값 설정했어요
 # alter table sub_location
@@ -370,7 +397,7 @@ delete
 from stock_detail
 where 1;
 -- 상품 1: H&M Canvas Backpack (BG001)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
                                                                           (20231101, 'BG001', +100, 20231105),
                                                                           (20231101, 'BG001', -3, 20231115),
                                                                           (20231101, 'BG001', -2, 20231118),
@@ -380,7 +407,7 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20231101, 'BG001', -6, 20231210);
 
 -- 상품 2: Gucci GG Marmont Belt (AC001)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
                                                                           (20231001, 'AC001', +200, 20231003),
                                                                           (20231001, 'AC001', -10, 20231010),
                                                                           (20231001, 'AC001', -5, 20231015),
@@ -389,7 +416,7 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20231001, 'AC001', -12, 20231110);
 
 -- 상품 3: Adidas Ultraboost 21 (SH004)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
                                                                           (20230901, 'SH004', +120, 20230905),
                                                                           (20230901, 'SH004', -15, 20230915),
                                                                           (20230901, 'SH004', -10, 20230920),
@@ -398,7 +425,7 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20230901, 'SH004', -18, 20231020);
 
 -- 상품 4: Zara Double-Breasted Coat (JK001)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
                                                                           (20230801, 'JK001', +50, 20230805),
                                                                           (20230801, 'JK001', -5, 20230815),
                                                                           (20230801, 'JK001', -8, 20230820),
@@ -416,7 +443,7 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
 #                                                                           (20230701, 'PA001', -8, 20230820);
 
 -- 상품 6: Under Armour Tech 2.0 Tee (TS010)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
                                                                           (20230601, 'TS010', +200, 20230605),
                                                                           (20230601, 'TS010', -20, 20230615),
                                                                           (20230601, 'TS010', -10, 20230620),
@@ -434,7 +461,7 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
 #                                                                           (20230501, 'SH017', -4, 20230620);
 
 -- 상품 8: Nike Air Max 270 (SH001)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
                                                                           (20230401, 'SH001', +220, 20230405),
                                                                           (20230401, 'SH001', -14, 20230415),
                                                                           (20230401, 'SH001', -10, 20230420),
@@ -452,7 +479,7 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
 #                                                                           (20230301, 'SH040', -8, 20230420);
 
 -- 상품 10: Zara Faux Leather Biker Jacket (JK004)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
                                                                           (20230201, 'JK004', +90, 20230205),
                                                                           (20230201, 'JK004', -5, 20230215),
                                                                           (20230201, 'JK004', -3, 20230220);
@@ -462,7 +489,10 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
 delete from stock
 where 1;
 
-insert into stock (manufacture_id, product_id, section_id, location_id, quantity)
+alter table stock
+add section_id char(1);
+
+insert into stock (manufacture_date, product_id, section_id, location_id, quantity)
 VALUES (20231101, 'BG001', 'G', 19, (select sum(quantity) from stock_detail where product_id = 'BG001' group by product_id)),
        (20231001, 'AC001','F', 34, (select sum(quantity) from stock_detail where product_id = 'AC001' group by product_id)),
        (20230901, 'SH004','C', 10, (select sum(quantity) from stock_detail where product_id = 'SH004' group by product_id)),
@@ -475,7 +505,7 @@ VALUES (20231101, 'BG001', 'G', 19, (select sum(quantity) from stock_detail wher
        (20230201, 'JK004','E', 15, (select sum(quantity) from stock_detail where product_id = 'JK004' group by product_id));
 
 select *
-from product;
+from stock;
 
 select product.brand_id, category_id, sum(volume * quantity)
 from stock left join product on stock.product_id = product.id
@@ -484,19 +514,19 @@ group by product.brand_id, category_id;
 select *
 from product join account using (brand_id);
 
-insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, completion_date, status)
+insert into ib_detail (id, manufacture_date, product_id, login_id, quantity, completion_date, status)
 VALUES (1, 20240519, 'TS010', 'user07', 50, null, 'R'),
        (1, 20240518, 'BG005', 'user01', 50, null, 'R'),
        (2, 20240519, 'JK001', 'user02', 50, null, 'R');
 
-insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, completion_date, status)
+insert into ib_detail (id, manufacture_date, product_id, login_id, quantity, completion_date, status)
 VALUES (3, 20240517, 'JK001', 'user02', 100, null, 'P'); -- 3001
-insert into ib_worker (ib_id, manufacture_id, product_id, worker_id, location_id)
+insert into ib_worker (ib_id, manufacture_date, product_id, worker_id, location_id)
 VALUES (3, 20240517, 'JK001', 'worker1', 3001);
-insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, completion_date, status)
+insert into ib_detail (id, manufacture_date, product_id, login_id, quantity, completion_date, status)
 VALUES (3, 20240516, 'AC001', 'user04', 30, null, 'P'),
        (3, 20240516, 'BG009', 'user05', 32, null, 'P');
-insert into ib_worker (ib_id, manufacture_id, product_id, worker_id, location_id)
+insert into ib_worker (ib_id, manufacture_date, product_id, worker_id, location_id)
 VALUES (3, 20240516, 'AC001', 'worker1', 9001),
        (3, 20240516, 'BG009', 'worker1', 9001);
 
@@ -513,7 +543,7 @@ from ib_worker;
 
 select ibw.*
 from ib_detail ibd left join ib_worker ibw
-                             on (ibd.id = ibw.ib_id and ibd.manufacture_id = ibw.manufacture_id and ibd.product_id = ibw.product_id)
+                             on (ibd.id = ibw.ib_id and ibd.manufacture_date = ibw.manufacture_date and ibd.product_id = ibw.product_id)
 where ibd.status = 'P'
   and worker_id = 'worker1';
 
@@ -527,7 +557,7 @@ update ib_detail
 set completion_date = null, status = 'P'
 where id = 3
   and product_id = 'JK001'
-  and manufacture_id = 20240517;
+  and manufacture_date = 20240517;
 
 select *
 from stock_detail;
