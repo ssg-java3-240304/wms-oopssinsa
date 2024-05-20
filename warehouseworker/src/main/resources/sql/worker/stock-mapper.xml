@@ -16,4 +16,21 @@
         <result column="quantity" property="quantity"/>
         <result column="date" property="date"/>
     </resultMap>
+
+    <update id="insertStockHistory">
+
+    </update>
+
+    <update id="updateStock">
+        update stock
+        set quantity = #{quantity} and expected_quantity = #{expected_quantity}
+        where
+    </update>
+
+    <select id="findStock" parameterType="stockDto" resultMap="stockDto">
+        select *
+        from stock
+        where product_id = #{productId} and manufacture_id = #{manufactureId}
+    </select>
+
 </mapper>
