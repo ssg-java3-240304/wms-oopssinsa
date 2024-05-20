@@ -12,7 +12,15 @@
         from
             account
         where
-            id = #{id} and password = #{password}
+            id = #{id} and password = #{password} and role = 'WM'
+    </select>
+    <select id="showProduct" resultType="productDto">
+        select
+            *
+        from
+            product
+        where
+            brand_id = #{brandId}
     </select>
     <insert id="insertProduct">
         insert into
@@ -36,4 +44,11 @@
         where
             login_id = #{id}
     </select>
+    <insert id="obRequest">
+        insert into
+            ob_request
+        values(
+        #{id}, #{productId}, #{loginId}, #{quantity}, #{recipientName}, #{address}, #{obDate}
+        )
+    </insert>
 </mapper>
