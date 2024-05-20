@@ -43,6 +43,7 @@ public class ResultView {
                 );
             }
             System.out.println("--------------------------------------------------------------------------");
+            System.out.println();
         }
     }
 }
