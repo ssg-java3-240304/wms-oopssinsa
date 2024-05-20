@@ -7,6 +7,8 @@ import com.oopssinsa.model.service.MenuService;
 import com.oopssinsa.view.MenuView;
 import com.oopssinsa.view.ResultView;
 
+import java.util.List;
+
 public class MenuController {
     private MenuService menuService = new MenuService();
 
@@ -21,9 +23,9 @@ public class MenuController {
     }
 
 
-    public AccountDto login(String id) {
+    public AccountDto login(String id, String password) {
         try {
-            AccountDto accountDto = menuService.login(id);
+            AccountDto accountDto = menuService.login(id, password);
             ResultView.displayMenu(accountDto);
             return accountDto;
         } catch (Exception e) {
@@ -33,4 +35,13 @@ public class MenuController {
 
     }
 
+    public void findByUserId(String id) {
+        try {
+            List<IbDetailDto> list = menuService.findByUserId(id);
+            ResultView.displayIbDetailList(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

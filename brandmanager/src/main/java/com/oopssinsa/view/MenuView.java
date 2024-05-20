@@ -5,6 +5,8 @@ import com.oopssinsa.model.dto.AccountDto;
 import com.oopssinsa.model.dto.IbDetailDto;
 import com.oopssinsa.model.dto.ProductDto;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class MenuView {
@@ -14,9 +16,12 @@ public class MenuView {
     public void mainMenu() {
         // id 입력받아 해당하는 회원정보 보기 -> 로그인 기능
         while (accountDto == null) {
-            accountDto = menuController.login(login());
+            accountDto = menuController.login(loginId(), loginPassword());
         }
         System.out.println(accountDto);
+//        String Id = (Long.toString(accountDto.getBrandId())) + LocalDate.now().format(DateTimeFormatter.ofPattern("YYMMdd"));
+//        System.out.println(Id);
+
 
         String menu = """
                 ==================================================================
@@ -36,7 +41,7 @@ public class MenuView {
             switch (choice) {
                 case "1" : menuController.insertProduct(inputProduct()); break;
                 case "2" : menuController.ibRequest(inputIbRequest()); break;
-                case "3" : break;
+                case "3" : menuController.findByUserId(accountDto.getId()); break;
                 case "4" : break;
                 case "5" : break;
                 case "6" : break;
@@ -48,31 +53,36 @@ public class MenuView {
         }
     }
 
+
     private IbDetailDto inputIbRequest() {
         System.out.println("> ✏✏✏ 입고 요청서를 작성해주세요. ✏✏✏");
-        System.out.println("입고 ID : ");
-        int Id = sc.nextInt();
-        System.out.println("제조일자 : ");
-        int manufactureId = sc.nextInt();
+        // 입고 ID
+        String Id1 = (Long.toString(accountDto.getBrandId())) + LocalDate.now().format(DateTimeFormatter.ofPattern("YYMMdd"));
+        long id = Long.parseLong(Id1);
+        System.out.println("제조일자 (YYYY-MM-dd) : ");
+        String manufactureDateStr = sc.next();
+        LocalDate manufactureId = LocalDate.parse(manufactureDateStr);
         System.out.println("상품 ID : ");
-        int productId = sc.nextInt();
-        System.out.println("발주자 ID : ");
-        String loginId = sc.next();
+        String productId = sc.next();
+        // 발주자 ID
+        String loginId = accountDto.getId();
         System.out.println("수량 : ");
         int quantity = sc.nextInt();
         // null값인 행도 적어줘야 되는지?
-//        LocalDate ibRequestDate = null;
-        return new IbDetailDto(Id, manufactureId, productId, loginId, quantity);
+        LocalDate ibRequestDate = null;
+        LocalDate completionDate = null;
+        String status = null;
+        return new IbDetailDto(id, manufactureId, productId, loginId, quantity, ibRequestDate, completionDate, status);
     }
 
     private ProductDto inputProduct() {
         System.out.println("> ✏✏✏ 등록할 상품정보를 작성해주세요. ✏✏✏");
         System.out.println("상품 ID : ");
-        String Id = sc.next();
-        System.out.println("브랜드 ID : ");
-        int brandId = sc.nextInt();
+        String id = sc.next();
+        // 브랜드 ID
+        long brandId = accountDto.getBrandId();
         System.out.println("카테고리 ID : ");
-        int categoryId = sc.nextInt();
+        long categoryId = sc.nextLong();
         System.out.println("상품 이름 : ");
         String name = sc.next();
         System.out.println("사이즈 : ");
@@ -81,7 +91,7 @@ public class MenuView {
         String color = sc.next();
         System.out.println("부피 : ");
         int volume = sc.nextInt();
-        return new ProductDto(Id, brandId, categoryId, name, size, color, volume);
+        return new ProductDto(id, brandId, categoryId, name, size, color, volume);
     }
 
     //    private AccountDto login() {
@@ -91,12 +101,17 @@ public class MenuView {
 //        String password = sc.next();
 //        return new AccountDto(id, password);
 //    }
-    private String login() {
+    private String loginId() {
         System.out.println("==================================================================");
         System.out.print("ID를 입력해 주세요 : ");
         String id = sc.next();
-        System.out.print("비밀번호를 입력해 주세요 :");
-        String password = sc.next();
         return id;
     }
+
+    private String loginPassword() {
+        System.out.print("비밀번호를 입력해 주세요 :");
+        String password = sc.next();
+        return password;
+    }
+
 }

@@ -3,9 +3,9 @@ package com.oopssinsa.model.dto;
 public class ProductDto {
     // 상품1
     // 브랜드매니저는 상품등록을 하고 입고요청을 보낸다.
-    private String Id;
-    private int brandId;
-    private int categoryId;
+    private String id;
+    private long brandId;
+    private long categoryId;
     private String name;
     private String size;
     private String color;
@@ -14,8 +14,8 @@ public class ProductDto {
     public ProductDto() {
     }
 
-    public ProductDto(String id, int brandId, int categoryId, String name, String size, String color, int volume) {
-        Id = id;
+    public ProductDto(String id, long brandId, long categoryId, String name, String size, String color, int volume) {
+        this.id = id;
         this.brandId = brandId;
         this.categoryId = categoryId;
         this.name = name;
@@ -25,26 +25,26 @@ public class ProductDto {
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
-    public int getBrandId() {
+    public long getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(long brandId) {
         this.brandId = brandId;
     }
 
-    public int getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -83,7 +83,7 @@ public class ProductDto {
     @Override
     public String toString() {
         return "ProductDto{" +
-                "Id='" + Id + '\'' +
+                "id='" + id + '\'' +
                 ", brandId=" + brandId +
                 ", categoryId=" + categoryId +
                 ", name='" + name + '\'' +
