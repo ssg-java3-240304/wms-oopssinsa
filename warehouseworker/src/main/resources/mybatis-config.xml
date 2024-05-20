@@ -8,6 +8,7 @@
     </settings>
     <typeAliases>
         <typeAlias type="com.oopssinsa.model.dto.IbDto" alias="ibDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ObDto" alias="obDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.IbInstructionDto" alias="ibInstructionDto"></typeAlias>
 <!--        <typeAlias type="com.oopssinsa.model.dto.ObRequestDto" alias="obRequestDto"></typeAlias>-->
         <typeAlias type="com.oopssinsa.model.dto.ObInstructionDto" alias="obInstructionDto"></typeAlias>
@@ -39,5 +40,6 @@
         <mapper resource="sql/worker/location-mapper.xml"/>
         <mapper resource="sql/worker/ib-mapper.xml"/>
         <mapper resource="sql/worker/login-mapper.xml"/>
+        <mapper resource="sql/worker/stock-mapper.xml"/>
     </mappers>
 </configuration>
