@@ -2,22 +2,35 @@ package com.oopssinsa.model.dto;
 
 import java.time.LocalDate;
 
-// 입고처리내역
-// 작업자는 입고ID, 상품ID, 제조일자를 통해 입고완료일자와 입고처리상태를 바꾼다
-// ibId와 productId와 manufactureId를 통해 요청 수량을 얻는다.
-public class IbDto {
+public class IbDetailDto {
     private long id;
     private LocalDate manufactureId;
     private String productId;
+    private String loginId;
     private int quantity;
+    private LocalDate ibDate;
     private LocalDate completionDate;
     private String status;
 
-    public IbDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate completionDate, String status) {
+    public IbDetailDto() {
+    }
+
+//    public IbDetailDto(long id, LocalDate manufactureId, String productId, String loginId, int quantity) {
+//        this.id = id;
+//        this.manufactureId = manufactureId;
+//        this.productId = productId;
+//        this.loginId = loginId;
+//        this.quantity = quantity;
+//    }
+
+
+    public IbDetailDto(long id, LocalDate manufactureId, String productId, String loginId, int quantity, LocalDate ibDate, LocalDate completionDate, String status) {
         this.id = id;
         this.manufactureId = manufactureId;
         this.productId = productId;
+        this.loginId = loginId;
         this.quantity = quantity;
+        this.ibDate = ibDate;
         this.completionDate = completionDate;
         this.status = status;
     }
@@ -46,12 +59,28 @@ public class IbDto {
         this.productId = productId;
     }
 
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public LocalDate getIbDate() {
+        return ibDate;
+    }
+
+    public void setIbDate(LocalDate ibDate) {
+        this.ibDate = ibDate;
     }
 
     public LocalDate getCompletionDate() {
@@ -72,11 +101,13 @@ public class IbDto {
 
     @Override
     public String toString() {
-        return "IbDto{" +
+        return "IbDetailDto{" +
                 "id=" + id +
                 ", manufactureId=" + manufactureId +
-                ", productId='" + productId + '\'' +
+                ", productId=" + productId +
+                ", loginId='" + loginId + '\'' +
                 ", quantity=" + quantity +
+                ", ibDate=" + ibDate +
                 ", completionDate=" + completionDate +
                 ", status='" + status + '\'' +
                 '}';

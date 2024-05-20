@@ -7,13 +7,13 @@ import com.oopssinsa.model.dto.ObInstructionDto;
 import java.util.List;
 
 public interface ObMapper {
-    List<ObInstructionDto> getObIntructionToDo(String workerId);
+    List<ObInstructionDto> getObInstructionToDo(String workerId);
 
     void updateObStatus(ObDto updateOb);
 
     ObDto findOb(ObDto targetOb);
 
-    IbInstructionDto findObInstruction(IbInstructionDto ibInstructionDto);
+    ObInstructionDto findObInstruction(ObInstructionDto obInstructionDto);
 
     // 예진 작업 시작
     int findProductVolume(String productId);

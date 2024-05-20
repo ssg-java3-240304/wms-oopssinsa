@@ -4,6 +4,8 @@ package com.oopssinsa.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 @AllArgsConstructor
 public class ObRequestAndStockDto {
@@ -13,7 +15,7 @@ public class ObRequestAndStockDto {
     private int quantity;
     private String recipientName;
     private String address;
-//    private LocalDate manufactureDate;
+    private LocalDate obDate;
 
     private char obStatus; // 출고 가능여부
     private String subLocationId;

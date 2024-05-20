@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oopssinsa.model.dao.MenuMapper">
+<!--    <select id="insertProduct" resultType="String">-->
+<!--        select * from test1-->
+<!--    </select>-->
+    <select id="login" resultType="accountDto">
+        select
+            *
+        from
+            account
+        where
+            id = #{id} and password = #{password}
+    </select>
+    <insert id="insertProduct">
+        insert into
+            product
+        values (
+        #{id}, #{brandId}, #{name}, #{size}, #{color}, #{categoryId}, #{volume}
+        )
+    </insert>
+    <insert id="ibRequest">
+        insert into
+            ib_detail
+        values (
+        #{id}, #{manufactureId}, #{productId}, #{loginId}, #{quantity}, #{ibDate}, #{completionDate}, #{status}
+        )
+    </insert>
+    <select id="findByUserID" resultType="ibDetailDto">
+        select
+            *
+        from
+            ib_detail
+        where
+            login_id = #{id}
+    </select>
+</mapper>

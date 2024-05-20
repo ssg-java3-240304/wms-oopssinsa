@@ -13,6 +13,6 @@ public class WorkerController {
     }
 
     public void findAllWorker() {
-        workerView.printWorker(workerService.findAllWorker());
+        workerView.printAllWorker(workerService.findAllWorker());
     }
 }
