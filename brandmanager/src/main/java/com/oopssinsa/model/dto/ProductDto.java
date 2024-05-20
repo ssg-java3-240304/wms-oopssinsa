@@ -1,7 +1,7 @@
 package com.oopssinsa.model.dto;
 
 public class ProductDto {
-    // 상품
+    // 상품1
     // 브랜드매니저는 상품등록을 하고 입고요청을 보낸다.
     private String Id;
     private int brandId;
