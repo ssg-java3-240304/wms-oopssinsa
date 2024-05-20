@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,5 +15,6 @@ public class ObDetailDto {
     private int quantity;
     private char status;
     private LocalDate obDate;
+    private LocalDate completionDate;
     private Integer trackingNumber;
 }
