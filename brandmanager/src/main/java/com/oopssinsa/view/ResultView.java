@@ -18,6 +18,8 @@ public class ResultView {
     public static void displayMenu(AccountDto accountDto) {
         if(accountDto == null) {
             System.out.println("등록되지 않은 사용자 입니다.");
+        } else if (accountDto.getRole() != "BM") {
+            System.out.println("브랜드 매니저만 이용할 수 있습니다.");
         } else {
             System.out.println(accountDto.getName() + "님 로그인 완료. 환영합니다!!!");
         }

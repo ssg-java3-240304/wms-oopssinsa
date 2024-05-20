@@ -12,7 +12,7 @@
         from
             account
         where
-            id = #{id} and password = #{password}
+            id = #{id} and password = #{password} and role = 'WM'
     </select>
     <select id="showProduct" resultType="productDto">
         select
