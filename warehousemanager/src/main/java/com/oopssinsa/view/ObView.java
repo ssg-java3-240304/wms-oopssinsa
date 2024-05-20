@@ -8,6 +8,12 @@ import com.oopssinsa.model.dto.ObRequestDto;
 import java.util.List;
 
 public class ObView {
+    private final InputView inputView;
+
+    public ObView() {
+        this.inputView = new InputView();
+    }
+
 
     public void printObRequestState(List<ObRequestDto> obRequestDtos) {
         int count = 1;
@@ -66,6 +72,7 @@ public class ObView {
 
     public void printObRequestAndStock(List<ObRequestAndStockDto> obRequestAndStockDtos) {
         int count = 1;
+        System.out.println("상태를 변경할 출고요청을 선택해주세요.");
         System.out.println("+" + "-".repeat(131) + "+");
         System.out.println("| 번호 |  출고ID  |   상품ID   |  발주자ID  |  출고요청수량  |      수령인      |  배송지  |"
                 + " 출고상태여부 |     하위위치     | 재고수량 | 예정수량 |");
@@ -96,6 +103,7 @@ public class ObView {
 
     public void printObDetail(List<ObDetailDto> obDetailDtos) {
         int count = 1;
+        System.out.println("출고 대기 상태 목록");
         System.out.println("+" + "-".repeat(91) + "+");
         System.out.println("| 번호 |  출고ID  |   상품ID   |   제조일자   |  수량  | 출고처리상태 |     출고일자     |"
                 + " 운송장번호 |");
@@ -119,5 +127,14 @@ public class ObView {
         }
 
         System.out.println("+" + "-".repeat(91) + "+\n");
+    }
+
+    public void printImpossibleOb() {
+        System.out.println("해당 요청은 출고할 수 없습니다.");
+    }
+
+    public int getObIndex() {
+        System.out.println("진행할 출고를 선택해 주세요.");
+        return inputView.getNumber() - 1;
     }
 }
