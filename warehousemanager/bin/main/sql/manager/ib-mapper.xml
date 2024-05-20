@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oopssinsa.model.dao.IbMapper">
+
+    <!-- Result Map for IbDto -->
+    <resultMap id="ibDtoMap" type="IbDto">
+        <id property="id" column="ib_id"/>
+        <!-- 다른 속성에 대한 매핑 추가 -->
+    </resultMap>
+
+    <!-- Result Map for LocationDto -->
+    <resultMap id="locationResultMap" type="LocationDto">
+        <id property="id" column="id"/>
+        <!-- 다른 속성에 대한 매핑 추가 -->
+    </resultMap>
+
+    <resultMap id="productResultMap" type="ProductDto">
+        <id property="productId" column="product_id"/>
+        <!-- 다른 속성에 대한 매핑 추가 -->
+    </resultMap>
+
+    <!-- Select Queries -->
+    <select id="findAllIb" resultMap="ibDtoMap">
+        SELECT * FROM ib_detail
+    </select>
+
+    <select id="findIbByState" parameterType="String" resultMap="ibDtoMap">
+        SELECT * FROM ib_detail WHERE status = #{value}
+    </select>
+
+    <select id="findIbRequestAndLocation" resultMap="ibDtoMap">
+        SELECT ib.*, loc.expected_capacity, loc.current_capacity
+        FROM ib_detail ib
+        JOIN sub_location loc ON ib.location_id = loc.id
+        WHERE ib.status = 'R'
+    </select>
+
+    <!-- Update Queries -->
+    <update id="updateIbState" parameterType="IbDto">
+        UPDATE ib_detail
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateExpectedCapacityLocation" parameterType="LocationDto">
+        UPDATE sub_location
+        SET current_capacity = #{currentCapacity}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateExpectedCapacitySection" parameterType="SectionDto">
+        UPDATE section
+        SET current_capacity = #{currentCapacity}
+        WHERE id = #{id}
+    </update>
+
+    <!-- Select Queries for Location, Product, and Section -->
+    <select id="findLocationByCategoryIdAndSectionId" parameterType="Map" resultMap="locationResultMap">
+        SELECT * FROM sub_location
+        WHERE category_id = #{categoryId} AND section_id = #{sectionId}
+    </select>
+
+    <select id="findProductByProductId" parameterType="String" resultMap="ProductDto">
+        SELECT * FROM product WHERE product_id = #{value}
+    </select>
+
+    <select id="findSectionByBrandId" parameterType="String" resultMap="SectionDto">
+        SELECT * FROM section WHERE brand_id = #{value}
+    </select>
+
+</mapper>
