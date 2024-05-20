@@ -22,13 +22,13 @@ public class IbService {
         ibMapper.updateIbState(updateIb);
     }
 
-    public int updateExpectedCapacity(LocationDto locationDto) {
+    public int updateExpectedCapacityLocation(LocationDto locationDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
         return ibMapper.updateExpectedCapacityLocation(locationDto);
     }
 
-    public int updateExpectedCapacity(SectionDto sectionDto) {
+    public int updateExpectedCapacitySection(SectionDto sectionDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
         return ibMapper.updateExpectedCapacitySection(sectionDto);

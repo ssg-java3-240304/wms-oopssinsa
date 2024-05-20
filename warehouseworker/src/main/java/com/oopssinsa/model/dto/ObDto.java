@@ -6,38 +6,38 @@ import java.time.LocalDate;
 // 작업자는 입고ID, 상품ID, 제조일자를 통해 출고완료일자와 출고처리상태, 운송장을 바꾼다
 // ibId와 productId와 manufactureId를 통해 요청 수량을 얻는다.
 public class ObDto {
-    private long id;
-    private LocalDate manufactureId;
+    private long obId;
+    private LocalDate manufactureDate;
     private String productId;
     private int quantity;
-    private LocalDate obDate;
+    private LocalDate completionDate;
     private String status;
     private int trackingNumber;
 
-    public ObDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate obDate, String status, int trackingNumber) {
-        this.id = id;
-        this.manufactureId = manufactureId;
+    public ObDto(long obId, LocalDate manufactureDate, String productId, int quantity, LocalDate completionDate, String status, int trackingNumber) {
+        this.obId = obId;
+        this.manufactureDate = manufactureDate;
         this.productId = productId;
         this.quantity = quantity;
-        this.obDate = obDate;
+        this.completionDate = completionDate;
         this.status = status;
         this.trackingNumber = trackingNumber;
     }
 
-    public long getId() {
-        return id;
+    public long getObId() {
+        return obId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setObId(long obId) {
+        this.obId = obId;
     }
 
-    public LocalDate getManufactureId() {
-        return manufactureId;
+    public LocalDate getManufactureDate() {
+        return manufactureDate;
     }
 
-    public void setManufactureId(LocalDate manufactureId) {
-        this.manufactureId = manufactureId;
+    public void setManufactureDate(LocalDate manufactureDate) {
+        this.manufactureDate = manufactureDate;
     }
 
     public String getProductId() {
@@ -56,12 +56,12 @@ public class ObDto {
         this.quantity = quantity;
     }
 
-    public LocalDate getObDate() {
-        return obDate;
+    public LocalDate getCompletionDate() {
+        return completionDate;
     }
 
-    public void setObDate(LocalDate obDate) {
-        this.obDate = obDate;
+    public void setCompletionDate(LocalDate completionDate) {
+        this.completionDate = completionDate;
     }
 
     public String getStatus() {

@@ -6,8 +6,8 @@
 <mapper namespace="com.oopssinsa.model.dao.ObMapper">
 
     <resultMap id="obInsMap" type="obInstructionDto">
-        <result column="id" property="id"/>
-        <result column="manufacture_id" property="manufactureId"/>
+        <result column="ob_id" property="obId"/>
+        <result column="manufacture_date" property="manufactureDate"/>
         <result column="product_id" property="productId"/>
         <result column="worker_id" property="workerId"/>
         <result column="location_id" property="locationId"/>
@@ -15,10 +15,10 @@
 
     <resultMap id="obDtoMap" type="obDto">
         <result column="id" property="id"/>
-        <result column="manufacture_id" property="manufactureId"/>
+        <result column="manufacture_date" property="manufactureDate"/>
         <result column="product_id" property="productId"/>
         <result column="quantity" property="quantity"/>
-        <result column="ob_date" property="obDate"/>
+        <result column="completion_date" property="completionDate"/>
         <result column="status" property="status"/>
         <result column="tracking_number" property="trackingNumber"/>
     </resultMap>
