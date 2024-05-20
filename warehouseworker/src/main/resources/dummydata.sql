@@ -359,9 +359,9 @@ from stock_detail;
 # alter table stock_detail
 # drop foreign key FK_product_TO_stock_detail_1;
 
-# delete
-# from stock_detail
-# where manufacture_id is not null;
+delete
+from stock_detail
+where 1;
 -- 상품 1: H&M Canvas Backpack (BG001)
 INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20231101, 'BG001', +100, 20231105),
@@ -399,14 +399,14 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20230801, 'JK001', -10, 20230910),
                                                                           (20230801, 'JK001', -6, 20230920);
 
--- 상품 5: Nike Sportswear Club Fleece Pants (PA001)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
-                                                                          (20230701, 'PA001', +100, 20230705),
-                                                                          (20230701, 'PA001', -7, 20230715),
-                                                                          (20230701, 'PA001', -3, 20230720),
-                                                                          (20230701, 'PA001', -4, 20230730),
-                                                                          (20230701, 'PA001', -5, 20230810),
-                                                                          (20230701, 'PA001', -8, 20230820);
+# -- 상품 5: Nike Sportswear Club Fleece Pants (PA001)
+# INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+#                                                                           (20230701, 'PA001', +100, 20230705),
+#                                                                           (20230701, 'PA001', -7, 20230715),
+#                                                                           (20230701, 'PA001', -3, 20230720),
+#                                                                           (20230701, 'PA001', -4, 20230730),
+#                                                                           (20230701, 'PA001', -5, 20230810),
+#                                                                           (20230701, 'PA001', -8, 20230820);
 
 -- 상품 6: Under Armour Tech 2.0 Tee (TS010)
 INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
@@ -417,14 +417,14 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20230601, 'TS010', -5, 20230710),
                                                                           (20230601, 'TS010', -7, 20230720);
 
--- 상품 7: Uniqlo Suede Slip-On Shoes (SH0017)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
-                                                                          (20230501, 'SH017', +180, 20230505),
-                                                                          (20230501, 'SH017', -12, 20230515),
-                                                                          (20230501, 'SH017', -8, 20230520),
-                                                                          (20230501, 'SH017', -10, 20230530),
-                                                                          (20230501, 'SH017', -6, 20230610),
-                                                                          (20230501, 'SH017', -4, 20230620);
+# -- 상품 7: Uniqlo Suede Slip-On Shoes (SH0017)
+# INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+#                                                                           (20230501, 'SH017', +180, 20230505),
+#                                                                           (20230501, 'SH017', -12, 20230515),
+#                                                                           (20230501, 'SH017', -8, 20230520),
+#                                                                           (20230501, 'SH017', -10, 20230530),
+#                                                                           (20230501, 'SH017', -6, 20230610),
+#                                                                           (20230501, 'SH017', -4, 20230620);
 
 -- 상품 8: Nike Air Max 270 (SH001)
 INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
@@ -435,14 +435,14 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
                                                                           (20230401, 'SH001', -9, 20230510),
                                                                           (20230401, 'SH001', -7, 20230520);
 
--- 상품 9: Uniqlo High-Top Sneakers (SH0040)
-INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
-                                                                          (20230301, 'SH040', +150, 20230305),
-                                                                          (20230301, 'SH040', -10, 20230315),
-                                                                          (20230301, 'SH040', -6, 20230320),
-                                                                          (20230301, 'SH040', -5, 20230330),
-                                                                          (20230301, 'SH040', -4, 20230410),
-                                                                          (20230301, 'SH040', -8, 20230420);
+# -- 상품 9: Uniqlo High-Top Sneakers (SH0040)
+# INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
+#                                                                           (20230301, 'SH040', +150, 20230305),
+#                                                                           (20230301, 'SH040', -10, 20230315),
+#                                                                           (20230301, 'SH040', -6, 20230320),
+#                                                                           (20230301, 'SH040', -5, 20230330),
+#                                                                           (20230301, 'SH040', -4, 20230410),
+#                                                                           (20230301, 'SH040', -8, 20230420);
 
 -- 상품 10: Zara Faux Leather Biker Jacket (JK004)
 INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
@@ -454,23 +454,21 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
 
 delete from stock
 where 1;
-select *
-from stock;
 
 insert into stock (manufacture_id, product_id, section_id, location_id, quantity)
-VALUES (20231101, 'BG001', 'G', 9001, (select sum(quantity) from stock_detail where product_id = 'BG001' group by product_id)),
-       (20231001, 'AC001','F', 9001, (select sum(quantity) from stock_detail where product_id = 'AC001' group by product_id)),
-       (20230901, 'SH004','C', 4001, (select sum(quantity) from stock_detail where product_id = 'SH004' group by product_id)),
-       (20230801, 'JK001','E', 3001, (select sum(quantity) from stock_detail where product_id = 'JK001' group by product_id)),
-       (20230701, 'PA001','A', 6001, (select sum(quantity) from stock_detail where product_id = 'PA001' group by product_id)),
-       (20230601, 'TS010','B', 1001, (select sum(quantity) from stock_detail where product_id = 'TS010' group by product_id)),
-       (20230501, 'SH017','H',4001, (select sum(quantity) from stock_detail where product_id = 'SH017' group by product_id)),
-       (20230401, 'SH001','A', 4001, (select sum(quantity) from stock_detail where product_id = 'SH001' group by product_id)),
-       (20230301, 'SH040','H', 4001, (select sum(quantity) from stock_detail where product_id = 'SH040' group by product_id)),
-       (20230201, 'JK004','E', 3001, (select sum(quantity) from stock_detail where product_id = 'JK004' group by product_id));
+VALUES (20231101, 'BG001', 'G', 19, (select sum(quantity)*6 from stock_detail where product_id = 'BG001' group by product_id)),
+       (20231001, 'AC001','F', 34, (select sum(quantity)*1 from stock_detail where product_id = 'AC001' group by product_id)),
+       (20230901, 'SH004','C', 10, (select sum(quantity)*5 from stock_detail where product_id = 'SH004' group by product_id)),
+       (20230801, 'JK001','E', 15, (select sum(quantity)*2 from stock_detail where product_id = 'JK001' group by product_id)),
+#        (20230701, 'PA001','A', 6001, (select sum(quantity) from stock_detail where product_id = 'PA001' group by product_id)),
+       (20230601, 'TS010','B', 26, (select sum(quantity)*1 from stock_detail where product_id = 'TS010' group by product_id)),
+#        (20230501, 'SH017','H',4001, (select sum(quantity) from stock_detail where product_id = 'SH017' group by product_id)),
+       (20230401, 'SH001','A', 5, (select sum(quantity)*5 from stock_detail where product_id = 'SH001' group by product_id)),
+#        (20230301, 'SH040','H', 4001, (select sum(quantity) from stock_detail where product_id = 'SH040' group by product_id)),
+       (20230201, 'JK004','E', 15, (select sum(quantity)*2 from stock_detail where product_id = 'JK004' group by product_id));
 
 select *
-from sub_location;
+from product;
 
 select product.brand_id, category_id, sum(volume * quantity)
 from stock left join product on stock.product_id = product.id
@@ -513,7 +511,7 @@ where ibd.status = 'P'
   and worker_id = 'worker1';
 
 select *
-from ib_detail;
+from stock;
 
 select *
 from ib_worker;
@@ -523,3 +521,6 @@ set completion_date = null, status = 'P'
 where id = 3
   and product_id = 'JK001'
   and manufacture_id = 20240517;
+
+select *
+from sub_location;
