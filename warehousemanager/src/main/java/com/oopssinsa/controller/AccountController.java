@@ -2,36 +2,40 @@ package com.oopssinsa.controller;
 
 import com.oopssinsa.model.dto.AccountDto;
 import com.oopssinsa.model.service.AccountService;
-import com.oopssinsa.view.InputView;
+import com.oopssinsa.view.AccountView;
 
 public class AccountController {
     private final AccountService accountService;
-    private final InputView inputView;
+    private final AccountView accountView;
 
 
     public AccountController() {
         this.accountService = new AccountService();
-        this.inputView = new InputView();
+        this.accountView = new AccountView();
     }
 
     public boolean logIn() {
-        System.out.println("Warehouse Manager");
+        accountView.printStart();
 
         while (true) {
-            System.out.println("아이디를 입력하세요. (종료 q!)");
-            String id = inputView.getId();
+            String id = accountView.getId();
             if (id.equals("q!")) {
                 return false;
             }
-            System.out.println("비밀번호를 입력하세요.");
-            String password = inputView.getPassword();
+
+            String password = accountView.getPassword();
+
             AccountDto account = accountService.findAccountById(id);
+            if (account == null) {
+                accountView.printNonexistentAccount();
+                continue;
+            }
             if (!account.getPassword().equals(password)) {
-                System.out.println("비밀번호가 틀립니다.");
+                accountView.printWrongPassword();
                 continue;
             }
             if (!account.getRole().equals("WM")) {
-                System.out.println("해당 권한이 업습니다.");
+                accountView.printWrongRight();
                 continue;
             }
 
