@@ -3,11 +3,16 @@ package com.oopssinsa.model.dto;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class IbRequestAndLocationDto {
-    private String id;
+    private String ibId;
     private LocalDate manufactureDate;
     private String productId;
     private String brandId;
