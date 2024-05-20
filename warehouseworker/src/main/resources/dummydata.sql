@@ -481,9 +481,14 @@ VALUES (1, 20240519, 'TS010', 'user07', 50, null, 'R'),
 
 insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, completion_date, status)
 VALUES (3, 20240517, 'JK001', 'user02', 100, null, 'P'); -- 3001
-
 insert into ib_worker (ib_id, manufacture_id, product_id, worker_id, location_id)
 VALUES (3, 20240517, 'JK001', 'worker1', 3001);
+insert into ib_detail (id, manufacture_id, product_id, login_id, quantity, completion_date, status)
+VALUES (3, 20240516, 'AC001', 'user04', 30, null, 'P'),
+       (3, 20240516, 'BG009', 'user05', 32, null, 'P');
+insert into ib_worker (ib_id, manufacture_id, product_id, worker_id, location_id)
+VALUES (3, 20240516, 'AC001', 'worker1', 9001),
+       (3, 20240516, 'BG009', 'worker1', 9001);
 
 select *
 from product
