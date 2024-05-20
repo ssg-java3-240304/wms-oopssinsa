@@ -1,5 +1,5 @@
 ﻿# CREATE DATABASE wms_db;
-use wms_db;
+use osswmsdb;
 DROP TABLE account; -- 1
 DROP TABLE brand; -- 13
 DROP TABLE category; -- 12

@@ -8,7 +8,6 @@ import com.oopssinsa.view.IbInstructionView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class IbController {
@@ -37,7 +36,7 @@ public class IbController {
         String[] ibInfo = new String[3];
 
         //처리할 입고 내역을 찾을 id, 상품
-        char updateStatus = ibInstructionView.inputUpdateIbInstructionStatus(ibInfo);
+        String updateStatus = ibInstructionView.inputUpdateIbInstructionStatus(ibInfo);
         long ibInstructionId = Integer.parseInt(ibInfo[0]);
         String productId = ibInfo[1];
         LocalDate manufactureId = LocalDate.parse(ibInfo[2], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -47,7 +46,7 @@ public class IbController {
         ibService.updateIbStatus(updateIb);
 
         // 입고 처리 결과가 성공이면 재고 현황, 재고처리 내역, 구역별 용량 업데이트
-        if(updateStatus=='S'){
+        if(updateStatus.equals("S")){
             System.out.println("입고 성공 처리 진입");
             IbDto foundIb = ibService.findIb(new IbDto(ibInstructionId, manufactureId, productId, 0,null,updateStatus));
             IbInstructionDto foundIbInstruction = ibService.findIbInstruction(new IbInstructionDto(ibInstructionId, manufactureId,productId,this.workerId,0));
@@ -64,7 +63,7 @@ public class IbController {
             if(foundIb!=null && foundStock!=null){
                 updateQuantity = foundIb.getQuantity();
                 originalQuantity = foundStock.getQuantity();
-                expectedQuantity = foundStock.getExpected_quantity();
+                expectedQuantity = foundStock.getExpectedQuantity();
                 updateCapacity = productVolume * updateQuantity;
                 stockService.updateStock(new StockDto(productId, manufactureId, 0, originalQuantity+updateQuantity,
                         expectedQuantity-updateQuantity));

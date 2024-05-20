@@ -6,16 +6,24 @@
 <!--    <select id="insertProduct" resultType="String">-->
 <!--        select * from test1-->
 <!--    </select>-->
+    <select id="login" resultType="accountDto">
+        select
+            *
+        from
+            account
+        where
+            id = #{id}
+    </select>
     <insert id="insertProduct">
         insert into
-            테이블명
+            product
         values (
-        #{Id}, #{brandId}, #{categoryId}, #{name}, #{size}, #{color}, #{volume}
+        #{Id}, #{brandId}, #{name}, #{size}, #{color}, #{categoryId}, #{volume}
         )
     </insert>
     <insert id="ibRequest">
         insert into
-            테이블명
+            ib_detail
         values (
         #{Id}, #{manufactureId}, #{productId}, #{loginId}, #{quantity}
         )

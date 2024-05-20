@@ -2,20 +2,20 @@ package com.oopssinsa.model.dto;
 
 import java.time.LocalDate;
 
-public class IbDatailDto {
+public class IbDetailDto {
     private int id;
     private int manufactureId;
     private int productId;
     private String loginId;
     private int quantity;
-    private LocalDate ibRequestDate;
     private LocalDate ibDate;
+    private LocalDate completionDate;
     private String status;
 
-    public IbDatailDto() {
+    public IbDetailDto() {
     }
 
-    public IbDatailDto(int id, int manufactureId, int productId, String loginId, int quantity) {
+    public IbDetailDto(int id, int manufactureId, int productId, String loginId, int quantity) {
         this.id = id;
         this.manufactureId = manufactureId;
         this.productId = productId;
@@ -63,20 +63,20 @@ public class IbDatailDto {
         this.quantity = quantity;
     }
 
-    public LocalDate getIbRequestDate() {
-        return ibRequestDate;
-    }
-
-    public void setIbRequestDate(LocalDate ibRequestDate) {
-        this.ibRequestDate = ibRequestDate;
-    }
-
     public LocalDate getIbDate() {
         return ibDate;
     }
 
     public void setIbDate(LocalDate ibDate) {
         this.ibDate = ibDate;
+    }
+
+    public LocalDate getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(LocalDate completionDate) {
+        this.completionDate = completionDate;
     }
 
     public String getStatus() {
@@ -89,14 +89,14 @@ public class IbDatailDto {
 
     @Override
     public String toString() {
-        return "IbDatailDto{" +
+        return "IbDetailDto{" +
                 "id=" + id +
                 ", manufactureId=" + manufactureId +
                 ", productId=" + productId +
                 ", loginId='" + loginId + '\'' +
                 ", quantity=" + quantity +
-                ", ibRequestDate=" + ibRequestDate +
                 ", ibDate=" + ibDate +
+                ", completionDate=" + completionDate +
                 ", status='" + status + '\'' +
                 '}';
     }

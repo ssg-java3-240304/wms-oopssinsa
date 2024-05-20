@@ -11,14 +11,14 @@ public class StockDto {
     private LocalDate manufactureId;
     private long locationId;
     private int quantity;
-    private int expected_quantity;
+    private int expectedQuantity;
 
-    public StockDto(String productId, LocalDate manufactureId, long locationId, int quantity, int expected_quantity) {
+    public StockDto(String productId, LocalDate manufactureId, long locationId, int quantity, int expectedQuantity) {
         this.productId = productId;
         this.manufactureId = manufactureId;
         this.locationId = locationId;
         this.quantity = quantity;
-        this.expected_quantity = expected_quantity;
+        this.expectedQuantity = expectedQuantity;
     }
 
     public String getProductId() {
@@ -53,11 +53,11 @@ public class StockDto {
         this.quantity = quantity;
     }
 
-    public int getExpected_quantity() {
-        return expected_quantity;
+    public int getExpectedQuantity() {
+        return expectedQuantity;
     }
 
-    public void setExpected_quantity(int expected_quantity) {
-        this.expected_quantity = expected_quantity;
+    public void setExpectedQuantity(int expectedQuantity) {
+        this.expectedQuantity = expectedQuantity;
     }
 }
