@@ -18,5 +18,6 @@ public class ObDto {
     private int quantity;
     private char status;
     private LocalDate obDate;
+    private LocalDate completionObDate;
     private int trackingNumber;
 }

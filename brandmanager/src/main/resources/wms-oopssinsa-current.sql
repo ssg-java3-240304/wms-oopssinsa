@@ -1,18 +1,18 @@
 ﻿# CREATE DATABASE wms_db;
-# use wms_db;
-# DROP TABLE account; -- 1
-# DROP TABLE stock; -- 2
-# DROP TABLE ib_worker; -- 3
-# DROP TABLE ib_detail; #ib_detail테이블 삭제하려면 ib_worker 먼저 삭제 -- 4
-# DROP TABLE ob_worker; -- 5
-# DROP TABLE ob_detail; #ob_detail 테이블 삭제하려면 ob_workder 먼저 삭제 -- 6
-# DROP TABLE stock_detail; -- 7
-# DROP TABLE product; # product테이블 삭제하려면 stock 먼저 삭제 -- 8
-# DROP TABLE sub_location; -- 9
-# DROP TABLE worker; -- 10
-# DROP TABLE section; -- 11
-# DROP TABLE category; -- 12
-# DROP TABLE brand; -- 13
+use osswmsdb;
+DROP TABLE account; -- 1
+DROP TABLE brand; -- 13
+DROP TABLE category; -- 12
+DROP TABLE ib_worker; -- 3
+DROP TABLE ib_detail; #ib_detail테이블 삭제하려면 ib_worker 먼저 삭제 -- 4
+DROP TABLE ob_worker; -- 5
+DROP TABLE ob_detail; #ob_detail 테이블 삭제하려면 ob_workder 먼저 삭제 -- 6
+DROP TABLE section; -- 11
+DROP TABLE stock; -- 2
+DROP TABLE product; # product테이블 삭제하려면 stock 먼저 삭제 -- 8
+DROP TABLE stock_detail; -- 7
+DROP TABLE sub_location; -- 9
+DROP TABLE worker; -- 10
 
 CREATE TABLE `product` (
                            `id`	varchar(10)	NOT NULL,

@@ -2,5 +2,71 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.oopssinsa.model.dao.ObMapper">
+
+    <resultMap id="obInsMap" type="obInstructionDto">
+        <result column="id" property="id"/>
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="product_id" property="productId"/>
+        <result column="worker_id" property="workerId"/>
+        <result column="location_id" property="locationId"/>
+    </resultMap>
+
+    <resultMap id="obDtoMap" type="obDto">
+        <result column="id" property="id"/>
+        <result column="manufacture_id" property="manufactureId"/>
+        <result column="product_id" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="ob_date" property="obDate"/>
+        <result column="status" property="status"/>
+        <result column="tracking_number" property="trackingNumber"/>
+    </resultMap>
+
+    <update id="updateObStatus" parameterType="ObDto">
+        update ob_detail
+        set ob_date = CURDATE(), status = #{status}, tracking_number = #{trackingNumber}
+        where id = #{id}
+        and product_id = #{productId}
+        and manufacture_id = #{manufactureId}
+    </update>
+
+    <select id="findOb" parameterType="ObDto" resultMap="obDtoMap">
+        select *
+        from ob_detail
+        where id = #{id}
+        and manufacture_id = #{manufactureId}
+        and product_id = #{productId}
+    </select>
+
+    <select id="getObInstructionToDo" resultMap="obInsMap">
+        select obw.*
+        from ob_detail obd
+        left join ob_worker obw
+        on (obd.id = obw.id and obd.manufacture_id = obw.manufacture_id and obd.product_id = obw.product_id)
+        where status = 'P'
+        and worker_id = #{workerId};
+    </select>
+
+    <select id="findObInstruction" parameterType="ObInstructionDto" resultMap="obInsMap">
+        select *
+        from ob_worker
+        where id = #{id}
+        and manufacture_id = #{manufactureId}
+        and product_id = #{product_id};
+    </select>
+
+    <select id="findProductVolume" resultType="int">
+        select volume
+        from product
+        where id = #{productId}
+    </select>
+
+
+
+
+
+
+<!--<mapper namespace="com.oopssinsa.model.dao.ObMapper">-->
+
 </mapper>

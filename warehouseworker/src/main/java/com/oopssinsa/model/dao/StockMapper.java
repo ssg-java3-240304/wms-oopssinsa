@@ -4,9 +4,9 @@ import com.oopssinsa.model.dto.StockDto;
 import com.oopssinsa.model.dto.StockHistoryDto;
 
 public interface StockMapper {
-    void insertStockHistory(StockHistoryDto stockHistoryDto);
+    int insertStockHistory(StockHistoryDto stockHistoryDto);
 
-    void updateStock(StockDto updateStock);
+    int updateStock(StockDto updateStock);
 
     StockDto findStock(StockDto targetStock);
 }

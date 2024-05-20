@@ -9,18 +9,20 @@ import com.oopssinsa.model.dto.SectionDto;
 import com.oopssinsa.model.dto.WorkerDto;
 import com.oopssinsa.model.service.IbService;
 import com.oopssinsa.model.service.WorkerService;
+import com.oopssinsa.view.ErrorView;
 import com.oopssinsa.view.IbView;
 import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.WorkerView;
+
 import java.util.List;
 
 public class IbController {
-
     private final IbService ibService;
     private final IbView ibView;
     private final WorkerService workerService;
     private final WorkerView workerView;
     private final InputView inputView;
+    private final ErrorView errorView;
 
     public IbController() {
         this.ibService = new IbService();
@@ -28,6 +30,7 @@ public class IbController {
         this.workerService = new WorkerService();
         this.workerView = new WorkerView();
         this.inputView = new InputView();
+        this.errorView = new ErrorView();
     }
 
     public void findAllIb() {
@@ -40,13 +43,13 @@ public class IbController {
 
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
-        System.out.println("상태를 변경할 입고를 선택해 주세요.");
 //        ibView.printIbAndCapacity(requestIbs, ibService.findLocationsByIbDtos(requestIbs));
 
         List<IbRequestAndLocationDto> ibRequestAndLocation = ibService.findIbRequestAndLocation(requestIbs);
         ibView.printIbAndCapacity(ibRequestAndLocation);
 //        ibView.printIbState(requestIbs);
-        int ibIndex = inputView.getNumber() - 1;
+
+        int ibIndex = ibView.getChangeIbIndex();
         IbDto ibDto = null;
         char ibAvailability = ' ';
         try {
@@ -56,14 +59,12 @@ public class IbController {
                 if (ibRequestAndLocation.get(ibIndex).getId().equals(requestIb.getId())
                         && ibRequestAndLocation.get(ibIndex).getManufactureDate().equals(requestIb.getManufactureDate())
                         && ibRequestAndLocation.get(ibIndex).getProductId().equals(requestIb.getProductId())) {
-                    ibDto = requestIb; // index error 처리
+                    ibDto = requestIb;
                 }
-
             }
-
 //            ibDto = requestIbs.get(ibIndex); // index error 처리
         } catch (IndexOutOfBoundsException e) {
-            System.err.println("존재하지 않는 입고 요청 id입니다.");
+            errorView.printError("존재하지 않는 입고 요청 id입니다.");
             return;
         }
 
@@ -92,7 +93,8 @@ public class IbController {
                 ibService.updateExpectedCapacity(locationDto);
                 ibService.updateExpectedCapacity(sectionDto);
             } else {
-                System.out.println("용량을 초과하였습니다.");
+                ibView.printOverCapacity();
+                return;
             }
 
             // 제거필요
@@ -113,19 +115,18 @@ public class IbController {
     public void insertIbWorker() {
         List<IbDto> ibDtos = ibService.findIbByWaitingState();
         List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
-        System.out.println("입고대기 상태 목록");
-        ibView.printIbState(ibDtos);
 
-        System.out.println("배정 가능한 작업자 목록");
-        workerView.printWorker(workerDtos);
+        ibView.printIbWaitingState(ibDtos);
 
-        System.out.println("진행할 입고를 선택해 주세요.");
-        int ibIndex = inputView.getNumber();
-        IbDto selectedIbDto = ibDtos.get(ibIndex - 1);
-
-        System.out.println("배정할 작업자를 선택해 주세요.");
-        int workerIndex = inputView.getNumber();
-        WorkerDto selectedWorkerDto = workerDtos.get(workerIndex - 1);
+        workerView.printAssignableWorker(workerDtos);
+        IbDto selectedIbDto = null;
+        WorkerDto selectedWorkerDto = null;
+        try {
+            selectedIbDto = ibDtos.get(ibView.getProcessIbIndex());
+            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+        } catch (IndexOutOfBoundsException e) {
+            errorView.printError("없는 번호 입니다.");
+        }
 
         // 지시테이블에 삽입
         workerService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),

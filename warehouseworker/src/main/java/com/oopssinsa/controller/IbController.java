@@ -7,7 +7,7 @@ import com.oopssinsa.model.service.StockService;
 import com.oopssinsa.view.IbInstructionView;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class IbController {
@@ -32,21 +32,23 @@ public class IbController {
     }
     public void updateIbStatus(){
 
-        //유효하지 않은 정수 값 -1로 초기화
-        long ibInstructionId =-1;
-        String productId = null;
-        LocalDate manufactureId = null;
+        //사용자에게 ib에 대한 정보를 받아올 배열
+        String[] ibInfo = new String[3];
 
         //처리할 입고 내역을 찾을 id, 상품
-        String updateStatus = ibInstructionView.inputUpdateIbInstructionStatus(ibInstructionId, productId, manufactureId);
+        String updateStatus = ibInstructionView.inputUpdateIbInstructionStatus(ibInfo);
+        long ibInstructionId = Integer.parseInt(ibInfo[0]);
+        String productId = ibInfo[1];
+        LocalDate manufactureId = LocalDate.parse(ibInfo[2], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         //location id는 상태 업데이트와 관련 없으므로 0 전달
-        IbDto updateIb = new IbDto(ibInstructionId, manufactureId, productId, 0, LocalDate.now(),updateStatus);
+        IbDto updateIb = new IbDto(ibInstructionId, manufactureId, productId, 0, null,updateStatus);
         //재귀 쿼리로 해당 입고 요청 찾아 상태 업데이트
         ibService.updateIbStatus(updateIb);
 
         // 입고 처리 결과가 성공이면 재고 현황, 재고처리 내역, 구역별 용량 업데이트
-        if(updateStatus=="S"){
-            IbDto foundIb = ibService.findIb(new IbDto(ibInstructionId, manufactureId, productId, 0,null,null));
+        if(updateStatus.equals("S")){
+            System.out.println("입고 성공 처리 진입");
+            IbDto foundIb = ibService.findIb(new IbDto(ibInstructionId, manufactureId, productId, 0,null,updateStatus));
             IbInstructionDto foundIbInstruction = ibService.findIbInstruction(new IbInstructionDto(ibInstructionId, manufactureId,productId,this.workerId,0));
             StockDto foundStock = stockService.findStock(new StockDto(productId, manufactureId, 0,0,0));
             int updateQuantity; // 입고 요청의 수량
@@ -61,7 +63,7 @@ public class IbController {
             if(foundIb!=null && foundStock!=null){
                 updateQuantity = foundIb.getQuantity();
                 originalQuantity = foundStock.getQuantity();
-                expectedQuantity = foundStock.getExpected_quantity();
+                expectedQuantity = foundStock.getExpectedQuantity();
                 updateCapacity = productVolume * updateQuantity;
                 stockService.updateStock(new StockDto(productId, manufactureId, 0, originalQuantity+updateQuantity,
                         expectedQuantity-updateQuantity));
@@ -71,5 +73,6 @@ public class IbController {
                 // 예작끝
             }
         }
+
     }
 }
