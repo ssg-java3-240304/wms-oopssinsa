@@ -30,7 +30,7 @@ class LoginMapperTest {
 
     @Disabled
     @Test
-    void test1() {
+    void loginValidation() {
         LoginDto loginDto = loginMapper.loginValidation("worker1", "password654");
         System.out.println(loginDto);
     }

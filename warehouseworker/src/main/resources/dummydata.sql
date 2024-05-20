@@ -537,3 +537,6 @@ from stock_detail;
 
 select *
 from stock;
+
+select *
+from sub_location;
