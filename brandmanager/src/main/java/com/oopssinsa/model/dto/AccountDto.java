@@ -3,14 +3,14 @@ package com.oopssinsa.model.dto;
 public class AccountDto {
     private String id;
     private String password;
-    private int brandId;
+    private long brandId;
     private String name;
     private String role;
 
     public AccountDto() {
     }
 
-    public AccountDto(String id, String password, int brandId, String name, String role) {
+    public AccountDto(String id, String password, long brandId, String name, String role) {
         this.id = id;
         this.password = password;
         this.brandId = brandId;
@@ -34,11 +34,11 @@ public class AccountDto {
         this.password = password;
     }
 
-    public int getBrandId() {
+    public long getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(long brandId) {
         this.brandId = brandId;
     }
 

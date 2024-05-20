@@ -6,7 +6,10 @@ import com.oopssinsa.model.dto.IbDetailDto;
 import com.oopssinsa.model.dto.ProductDto;
 import org.apache.ibatis.session.SqlSession;
 
-import static com.oopssinsa.common.MyBatisTemplate.getSqlSession;
+//import static com.oopssinsa.common.MyBatisTemplate.getSqlSession;
+import java.util.List;
+
+import static com.oopssinsa.myBatisTemplate.MyBatisTemplate.getSqlSession;
 
 public class MenuService {
     public int insertProduct(ProductDto productDto) {
@@ -46,11 +49,19 @@ public class MenuService {
 
     }
 
-    public AccountDto login(String id) {
+    public AccountDto login(String id, String password) {
         SqlSession sqlSession = getSqlSession();
         MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
-        AccountDto accountDto = menuMapper.login(id);
+        AccountDto accountDto = menuMapper.login(id, password);
         sqlSession.close();
         return accountDto;
+    }
+
+    public List<IbDetailDto> findByUserId(String id) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+        List<IbDetailDto> list = menuMapper.findByUserID(id);
+        sqlSession.close();
+        return list;
     }
 }

@@ -3,9 +3,9 @@ package com.oopssinsa.model.dto;
 import java.time.LocalDate;
 
 public class IbDetailDto {
-    private int id;
-    private int manufactureId;
-    private int productId;
+    private long id;
+    private LocalDate manufactureId;
+    private String productId;
     private String loginId;
     private int quantity;
     private LocalDate ibDate;
@@ -15,7 +15,7 @@ public class IbDetailDto {
     public IbDetailDto() {
     }
 
-    public IbDetailDto(int id, int manufactureId, int productId, String loginId, int quantity) {
+    public IbDetailDto(long id, LocalDate manufactureId, String productId, String loginId, int quantity) {
         this.id = id;
         this.manufactureId = manufactureId;
         this.productId = productId;
@@ -23,27 +23,38 @@ public class IbDetailDto {
         this.quantity = quantity;
     }
 
-    public int getId() {
+    public IbDetailDto(long id, LocalDate manufactureId, String productId, String loginId, int quantity, LocalDate ibDate, LocalDate completionDate, String status) {
+        this.id = id;
+        this.manufactureId = manufactureId;
+        this.productId = productId;
+        this.loginId = loginId;
+        this.quantity = quantity;
+        this.ibDate = ibDate;
+        this.completionDate = completionDate;
+        this.status = status;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getManufactureId() {
+    public LocalDate getManufactureId() {
         return manufactureId;
     }
 
-    public void setManufactureId(int manufactureId) {
+    public void setManufactureId(LocalDate manufactureId) {
         this.manufactureId = manufactureId;
     }
 
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
