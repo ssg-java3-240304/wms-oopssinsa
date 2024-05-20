@@ -38,7 +38,7 @@ class IbMapperTest {
     }
     @Disabled
     @Test
-    void test1() {
+    void findIb() {
         LocalDate localDate = LocalDate.of(2024,5,18);//For reference
         IbDto ibDto = new IbDto(1, localDate, "BG005", 0, null, "");
         assertThat(ibMapper.findIb(ibDto)).isNotNull();
@@ -46,21 +46,21 @@ class IbMapperTest {
     }
 
     @Test
-    void test2() {
+    void findProductVolume() {
         assertThat(ibMapper.findProductVolume("BG003")).isEqualTo(6);
     }
 
     @Disabled
     @Test
-    void test3() {
+    void getIbInstructionToDo() {
         List<IbInstructionDto> getIbInstructionToDo = ibMapper.getIbInstructionToDo("worker1");
         assertThat(getIbInstructionToDo).isNotNull();
         System.out.println(getIbInstructionToDo);
     }
 
-//    @Disabled
+    @Disabled
     @Test
-    void test4(){
+    void updateIbStatus(){
         LocalDate localDate = LocalDate.of(2024,5,17);
         IbDto ibDto = ibMapper.findIb(new IbDto(3, localDate, "JK001", 0,null,"P"));
         assertThat(ibMapper.updateIbStatus(ibDto)).isEqualTo(1);

@@ -17,7 +17,7 @@
         <result column="expected_capacity" property="expectedCapacity"/>
     </resultMap>
 
-    <select id="getCurrentCapacity" resultType="subLocationDto">
+    <select id="getCurrentCapacity" resultType="int">
         select current_capacity
         from sub_location
         where id = #{targetLocationId}
