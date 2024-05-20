@@ -13,7 +13,7 @@ public interface ObMapper {
 
     ObDto findOb(ObDto targetOb);
 
-    IbInstructionDto findObInstruction(IbInstructionDto ibInstructionDto);
+    ObInstructionDto findObInstruction(ObInstructionDto obInstructionDto);
 
     // 예진 작업 시작
     int findProductVolume(String productId);
