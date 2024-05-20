@@ -11,10 +11,10 @@ public class ObDto {
     private String productId;
     private int quantity;
     private LocalDate obDate;
-    private char status;
+    private String status;
     private int trackingNumber;
 
-    public ObDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate obDate, char status, int trackingNumber) {
+    public ObDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate obDate, String status, int trackingNumber) {
         this.id = id;
         this.manufactureId = manufactureId;
         this.productId = productId;
@@ -64,11 +64,11 @@ public class ObDto {
         this.obDate = obDate;
     }
 
-    public char getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
