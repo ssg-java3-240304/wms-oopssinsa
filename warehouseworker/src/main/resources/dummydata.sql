@@ -1,5 +1,5 @@
 -- brand dummy table
-use wms_db;
+# use wms_db;
 insert into brand
 values (1, 'Nike', '2020-01-01', '2025-01-01'),
        (2, 'Adidas', '2020-02-01', '2025-02-01'),
@@ -528,6 +528,15 @@ set completion_date = null, status = 'P'
 where id = 3
   and product_id = 'JK001'
   and manufacture_id = 20240517;
+
+select *
+from stock_detail;
+
+# insert into ob_detail (id, manufacture_id, product_id, login_id, quantity, recipient_name, address, ob_date, status, tracking_number)
+# values (1, '20240501', 'SH001', )
+
+select *
+from stock;
 
 select *
 from sub_location;

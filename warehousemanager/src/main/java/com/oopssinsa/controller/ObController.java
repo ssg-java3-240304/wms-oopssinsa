@@ -7,6 +7,7 @@ import com.oopssinsa.model.dto.StockDto;
 import com.oopssinsa.model.dto.WorkerDto;
 import com.oopssinsa.model.service.ObService;
 import com.oopssinsa.model.service.WorkerService;
+import com.oopssinsa.view.ErrorView;
 import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.ObView;
 import com.oopssinsa.view.WorkerView;
@@ -14,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObController {
-
     private final ObService obService;
     private final ObView obView;
     private final WorkerService workerService;
     private final WorkerView workerView;
     private final InputView inputView;
+    private final ErrorView errorView;
 
     public ObController() {
         this.obService = new ObService();
@@ -27,6 +28,7 @@ public class ObController {
         this.workerService = new WorkerService();
         this.workerView = new WorkerView();
         this.inputView = new InputView();
+        this.errorView = new ErrorView();
     }
 
     public void findObByRequestState() {
@@ -39,19 +41,17 @@ public class ObController {
 
     public void updateState() {
         List<ObRequestAndStockDto> obRequestAndStock = obService.findObRequestAndStock();
-        System.out.println("상태를 변경할 출고요청을 선택해주세요.");
         obView.printObRequestAndStock(obRequestAndStock);
         int index = inputView.getNumber() - 1;
         ObRequestAndStockDto selectedOb = null;
         try {
             selectedOb = obRequestAndStock.get(index);
-
         } catch (IndexOutOfBoundsException e) {
-            System.err.println("없는 번호 입니다.");
+            errorView.printError("없는 번호 입니다.");
             return;
         }
         if (selectedOb.getObStatus() == 'F') {
-            System.out.println("해당 요청은 출고할 수 없습니다.");
+            obView.printImpossibleOb();
             return;
         }
         if (selectedOb.getObStatus() == 'T') {
@@ -93,19 +93,19 @@ public class ObController {
     public void insertObWorker() {
         List<ObDetailDto> obDetailDtos = obService.findObDetailByWaitingState();
         List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
-        System.out.println("출고 대기 상태 목록");
+
         obView.printObDetail(obDetailDtos);
+        workerView.printAssignableWorker(workerService.findWorkerByAssignableStatus());
 
-        System.out.println("배정 가능한 작업자 목록");
-        workerView.printWorker(workerService.findWorkerByAssignableStatus());
-
-        System.out.println("진행할 출고를 선택해 주세요.");
-        int obIndex = inputView.getNumber() - 1;
-        ObDetailDto selectedObDetailDto = obDetailDtos.get(obIndex);
-
-        System.out.println("배정할 작업자를 선택해 주세요.");
-        int workerIndex = inputView.getNumber()-1;
-        WorkerDto selectedWorkerDto = workerDtos.get(workerIndex);
+        ObDetailDto selectedObDetailDto = null;
+        WorkerDto selectedWorkerDto = null;
+        try {
+            selectedObDetailDto = obDetailDtos.get(obView.getObIndex());
+            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+        } catch (IndexOutOfBoundsException e) {
+            errorView.printError("없는 번호 입니다.");
+            return;
+        }
 
         // 지시테이블에 삽입
         workerService.insertIbWorker(new InstructionDto(selectedObDetailDto.getObId(), selectedObDetailDto.getManufactureDate(),
