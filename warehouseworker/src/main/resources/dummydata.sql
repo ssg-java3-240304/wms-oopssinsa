@@ -72,11 +72,11 @@ values ('worker1', '홍길동', 'password654', 'WW'),
        ('worker20', '전민지', 'mypassword789', 'WW');
 
 -- account에 외래키 추가
-ALTER TABLE account
-ADD constraint fk_brand_id FOREIGN KEY (brand_id)
-REFERENCES brand (id)
-on update cascade
-ON DELETE CASCADE;
+# ALTER TABLE account
+# ADD constraint fk_brand_id FOREIGN KEY (brand_id)
+# REFERENCES brand (id)
+# on update cascade
+# ON DELETE CASCADE;
 
 -- brand를 수정/삭제하면 해당 브랜드 소속 account도 수정/삭제된다
 
@@ -94,17 +94,17 @@ alter table sub_location
 modify id bigint auto_increment;
 
 -- product에 brand_id 외래키 추가
-ALTER TABLE product
-ADD constraint fk_brand_id2 FOREIGN KEY (brand_id)
-REFERENCES brand (id)
-on update cascade;
+# ALTER TABLE product
+# ADD constraint fk_brand_id2 FOREIGN KEY (brand_id)
+# REFERENCES brand (id)
+# on update cascade;
 
 -- section에 brand_id 외래키 추가
-ALTER TABLE section
-ADD constraint fk_brand_id3 FOREIGN KEY (brand_id)
-REFERENCES brand (id)
-on update cascade
-on delete cascade;
+# ALTER TABLE section
+# ADD constraint fk_brand_id3 FOREIGN KEY (brand_id)
+# REFERENCES brand (id)
+# on update cascade
+# on delete cascade;
 
 -- 구역ID 알파벳으로 하려고 바꿨습니다.
 # alter table section
@@ -149,8 +149,8 @@ values (1001, '티셔츠'),
        (6001, '바지/청바지'),
        (7001, '악세서리');
 
-alter table section
-modify id char(1);
+# alter table section
+# modify id char(1);
 
 insert into section (id, brand_id, current_capacity, max_capacity)
 VALUES ('A', 1, 840, 4600),
