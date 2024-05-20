@@ -46,7 +46,7 @@ public class IbController {
         ibService.updateIbStatus(updateIb);
 
         // 입고 처리 결과가 성공이면 재고 현황, 재고처리 내역, 구역별 용량 업데이트
-        if(updateStatus=="S"){
+        if(updateStatus.equals("S")){
             System.out.println("입고 성공 처리 진입");
             IbDto foundIb = ibService.findIb(new IbDto(ibInstructionId, manufactureId, productId, 0,null,updateStatus));
             IbInstructionDto foundIbInstruction = ibService.findIbInstruction(new IbInstructionDto(ibInstructionId, manufactureId,productId,this.workerId,0));
