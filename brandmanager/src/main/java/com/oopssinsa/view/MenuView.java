@@ -27,6 +27,8 @@ public class MenuView {
 //        System.out.println(Id);
 
 
+
+
         String menu = """
                 ==================================================================
                 ⚙️⚙️⚙️ 브랜드 매니저 메뉴 ⚙️⚙️⚙️
@@ -49,8 +51,8 @@ public class MenuView {
                 case "2" : menuController.ibRequest(inputIbRequest()); break;
                 case "3" : menuController.findByUserId(findByUserId()); break;
                 case "4" : menuController.obRequest(inputObRequest()); break;
-                case "5" : break;
-                case "6" : break;
+                case "5" : menuController.findObDetail(findObDetail()); break;
+                case "6" :  break;
                 case "7" : break;
                 case "0" : return;
                 default:
@@ -58,6 +60,13 @@ public class MenuView {
             }
         }
     }
+
+    private String findObDetail() {
+        System.out.println("==================================================================");
+        System.out.println(accountDto.getName() + "님의 입고 요청 현황입니다.");
+        return accountDto.getId();
+    }
+
 
     private ObDetailDto inputObRequest() {
         System.out.println("> ✏✏✏ 출고 요청서를 작성해주세요. ✏✏✏");

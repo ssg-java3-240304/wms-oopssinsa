@@ -55,4 +55,9 @@ public class MenuController {
         List<ProductDto> list = menuService.showProduct(brandId);
         ResultView.displayProductList(list);
     }
+
+    public void findObDetail(String obDetail) {
+        // 조인하게되면 Dto를 합친걸로 만들어야 되나?
+//        List<>
+    }
 }
