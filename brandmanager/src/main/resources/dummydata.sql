@@ -25,8 +25,8 @@ values (1, 'Nike', '2020-01-01', '2025-01-01'),
 -- account dummy table
 -- WM 계정
 insert into account
-VALUES ('user01', 1, '김철수', 'password123', 'WM'),
-       ('user02', 3, '이영희', 'qwerty456', 'WM'),
+VALUES ('user01', 1, '김철수', 'password123', 'BM'),
+       ('user02', 3, '이영희', 'qwerty456', 'BM'),
        ('user03', 5, '박민수', 'abc123xyz', 'WM'),
        ('user04', 7, '최지우', 'mypassword789', 'WM'),
        ('user05', 2, '강호동', 'letmein123', 'WM'),

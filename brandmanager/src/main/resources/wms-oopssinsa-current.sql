@@ -1,5 +1,5 @@
 ﻿# CREATE DATABASE wms_db;
-use osswmsdb;
+# use osswmsdb;
 DROP TABLE account; -- 1
 DROP TABLE brand; -- 13
 DROP TABLE category; -- 12
@@ -13,6 +13,7 @@ DROP TABLE product; # product테이블 삭제하려면 stock 먼저 삭제 -- 8
 DROP TABLE stock_detail; -- 7
 DROP TABLE sub_location; -- 9
 DROP TABLE worker; -- 10
+DROP TABLE ob_request;
 
 CREATE TABLE `product` (
                            `id`	varchar(10)	NOT NULL,

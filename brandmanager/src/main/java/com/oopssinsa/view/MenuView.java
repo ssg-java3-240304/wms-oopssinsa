@@ -8,6 +8,7 @@ import com.oopssinsa.model.dto.ProductDto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class MenuView {
@@ -18,7 +19,7 @@ public class MenuView {
     public void mainMenu() {
         System.out.println("📦 OOPSINSA WMS 서비스입니다 📦");
         // id 입력받아 해당하는 회원정보 보기 -> 로그인 기능
-        while (accountDto == null || accountDto.getRole() != "BM") {
+        while (accountDto == null || !Objects.equals(accountDto.getRole(), "BM")) {
             accountDto = menuController.login(loginId(), loginPassword());
         }
 //        System.out.println(accountDto);
