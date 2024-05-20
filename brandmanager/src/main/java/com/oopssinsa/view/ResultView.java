@@ -2,6 +2,7 @@ package com.oopssinsa.view;
 
 import com.oopssinsa.model.dto.AccountDto;
 import com.oopssinsa.model.dto.IbDetailDto;
+import com.oopssinsa.model.dto.ProductDto;
 
 import java.util.List;
 
@@ -45,5 +46,34 @@ public class ResultView {
             System.out.println("--------------------------------------------------------------------------");
             System.out.println();
         }
+    }
+
+    public static void displayObRequestResult(String type, int result) {
+        System.out.println("> 📢📢📢 " + type + " " + (result > 0 ? "성공!" : "실패!") + "📢📢📢");
+    }
+
+    public static void displayProductList(List<ProductDto> list) {
+        if (list.isEmpty()) {
+            System.out.println("> 😅😅😅 조회된 입고 요청이 없습니다. 😅😅😅");
+        } else {
+            System.out.println("📦 현재 등록된 상품 리스트");
+            System.out.println("--------------------------------------------------------------------------");
+            System.out.printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\n", "id", "brandId", "categoryId", "name", "size", "color", "volume");
+            System.out.println("--------------------------------------------------------------------------");
+            for (ProductDto productDto : list) {
+                System.out.printf("%s\t%d\t%d\t%s\t%s\t%s\t%d\n",
+                        productDto.getId(),
+                        productDto.getBrandId(),
+                        productDto.getCategoryId(),
+                        productDto.getName(),
+                        productDto.getSize(),
+                        productDto.getColor(),
+                        productDto.getVolume()
+                );
+            }
+            System.out.println("--------------------------------------------------------------------------");
+        }
+
+
     }
 }

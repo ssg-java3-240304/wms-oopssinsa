@@ -122,6 +122,27 @@ CREATE TABLE `stock_detail` (
                                 `quantity`	int	NOT NULL,
                                 `date`	date	NOT NULL
 );
+CREATE TABLE `ob_request` (
+                              `id`	bigint	NOT NULL,
+                              `product_id`	varchar(10)	NOT NULL,
+                              `login_id`	varchar(20)	NOT NULL,
+                              `quantity`	int	NOT NULL,
+                              `recipient_name`	varchar(20)	NOT NULL,
+                              `address`	varchar(255)	NOT NULL,
+                              `ob_date`	date	NULL	DEFAULT (CURRENT_DATE())
+);
+
+ALTER TABLE `ob_request` ADD CONSTRAINT `PK_OB_REQUEST` PRIMARY KEY (
+                                                                     `id`,
+                                                                     `product_id`
+);
+
+ALTER TABLE `ob_request` ADD CONSTRAINT `FK_product_TO_ob_request_1` FOREIGN KEY (
+                                                                                  `product_id`
+    )
+    REFERENCES `product` (
+                          `id`
+        );
 
 ALTER TABLE `product` ADD CONSTRAINT `PK_PRODUCT` PRIMARY KEY (
                                                                `id`
