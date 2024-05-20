@@ -25,5 +25,7 @@ public class LocationService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         LocationMapper locationMapper = sqlSession.getMapper(LocationMapper.class);
         locationMapper.updateCurrentCapacity(subLocationDto);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }
