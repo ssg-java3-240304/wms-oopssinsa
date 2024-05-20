@@ -27,7 +27,6 @@ public class ObInstructionView {
         obInfo[2] = scanner.nextLine();
         System.out.print("완료 상태 입력: ");
         String updateStatus = scanner.nextLine();
-//        return updateStatus.charAt(0);
         return updateStatus;
     }
 }

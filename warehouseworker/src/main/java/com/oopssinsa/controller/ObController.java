@@ -42,7 +42,7 @@ public class ObController {
 
 
         //출고 처리 결과가 성공이면 재고 현황 및 재고 내역에 반영
-        if(updateStatus=="S"){
+        if(updateStatus.equals("S")){
             ObDto foundOb = obService.findOb(new ObDto(obInstructionId,manufactureId,productId,0,null,updateStatus,0));
             ObInstructionDto foundObInstruction = obService.findObInstruction(new ObInstructionDto(obInstructionId, manufactureId,productId,this.workerId,0));
             StockDto foundStock = stockService.findStock(new StockDto(productId,manufactureId,0,0,0));
