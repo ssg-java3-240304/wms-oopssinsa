@@ -55,7 +55,7 @@ public class ObController {
             if(foundOb!=null && foundStock!=null){
                 int updateQuantity = foundOb.getQuantity();
                 int originalQuantity = foundStock.getQuantity();
-                int expectedQuantity = foundStock.getExpected_quantity();
+                int expectedQuantity = foundStock.getExpectedQuantity();
                 updateCapacity = productVolume * updateQuantity;
                 stockService.updateStock(new StockDto(productId,manufactureId, 0,
                         originalQuantity-updateQuantity,expectedQuantity-updateQuantity));

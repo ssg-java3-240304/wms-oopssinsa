@@ -8,7 +8,6 @@ import com.oopssinsa.view.IbInstructionView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class IbController {
@@ -64,7 +63,7 @@ public class IbController {
             if(foundIb!=null && foundStock!=null){
                 updateQuantity = foundIb.getQuantity();
                 originalQuantity = foundStock.getQuantity();
-                expectedQuantity = foundStock.getExpected_quantity();
+                expectedQuantity = foundStock.getExpectedQuantity();
                 updateCapacity = productVolume * updateQuantity;
                 stockService.updateStock(new StockDto(productId, manufactureId, 0, originalQuantity+updateQuantity,
                         expectedQuantity-updateQuantity));

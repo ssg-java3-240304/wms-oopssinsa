@@ -4,8 +4,9 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oopssinsa.model.dao.StockMapper">
     <resultMap id="stockDtoMap" type="stockDto">
-        <result column="product_id" property="id"/>
+        <result column="product_id" property="productId"/>
         <result column="manufacture_id" property="manufactureId"/>
+<!--        <result column="section_id" property="sectionId"/>-->
         <result column="location_id" property="locationId"/>
         <result column="quantity" property="quantity"/>
         <result column="expected_quantity" property="expectedQuantity"/>
@@ -29,7 +30,7 @@
     </update>
 
     <select id="findStock" parameterType="stockDto" resultMap="stockDtoMap">
-        select *
+        select product_id, manufacture_id, location_id, quantity, expected_quantity
         from stock
         where product_id = #{productId} and manufacture_id = #{manufactureId}
     </select>

@@ -534,3 +534,6 @@ from stock_detail;
 
 # insert into ob_detail (id, manufacture_id, product_id, login_id, quantity, recipient_name, address, ob_date, status, tracking_number)
 # values (1, '20240501', 'SH001', )
+
+select *
+from stock;
