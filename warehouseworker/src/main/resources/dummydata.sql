@@ -452,17 +452,22 @@ INSERT INTO stock_detail (manufacture_id, product_id, quantity, date) VALUES
 
 (select sum(quantity) from stock_detail where product_id = 'BG001' group by product_id);
 
+delete from stock
+where 1;
+select *
+from stock;
+
 insert into stock (manufacture_id, product_id, section_id, location_id, quantity)
-VALUES (20231101, 'BG001', 4, 9001, (select sum(quantity) from stock_detail where product_id = 'BG001' group by product_id)),
-       (20231001, 'AC001',7, 9001, (select sum(quantity) from stock_detail where product_id = 'AC001' group by product_id)),
-       (20230901, 'SH004',2, 4001, (select sum(quantity) from stock_detail where product_id = 'SH004' group by product_id)),
-       (20230801, 'JK001',3, 3001, (select sum(quantity) from stock_detail where product_id = 'JK001' group by product_id)),
-       (20230701, 'PA001',1, 6001, (select sum(quantity) from stock_detail where product_id = 'PA001' group by product_id)),
-       (20230601, 'TS010',6, 1001, (select sum(quantity) from stock_detail where product_id = 'TS010' group by product_id)),
-       (20230501, 'SH017',5,4001, (select sum(quantity) from stock_detail where product_id = 'SH017' group by product_id)),
-       (20230401, 'SH001',1, 4001, (select sum(quantity) from stock_detail where product_id = 'SH001' group by product_id)),
-       (20230301, 'SH040',5, 4001, (select sum(quantity) from stock_detail where product_id = 'SH040' group by product_id)),
-       (20230201, 'JK004',3, 3001, (select sum(quantity) from stock_detail where product_id = 'JK004' group by product_id));
+VALUES (20231101, 'BG001', 'G', 9001, (select sum(quantity) from stock_detail where product_id = 'BG001' group by product_id)),
+       (20231001, 'AC001','F', 9001, (select sum(quantity) from stock_detail where product_id = 'AC001' group by product_id)),
+       (20230901, 'SH004','C', 4001, (select sum(quantity) from stock_detail where product_id = 'SH004' group by product_id)),
+       (20230801, 'JK001','E', 3001, (select sum(quantity) from stock_detail where product_id = 'JK001' group by product_id)),
+       (20230701, 'PA001','A', 6001, (select sum(quantity) from stock_detail where product_id = 'PA001' group by product_id)),
+       (20230601, 'TS010','B', 1001, (select sum(quantity) from stock_detail where product_id = 'TS010' group by product_id)),
+       (20230501, 'SH017','H',4001, (select sum(quantity) from stock_detail where product_id = 'SH017' group by product_id)),
+       (20230401, 'SH001','A', 4001, (select sum(quantity) from stock_detail where product_id = 'SH001' group by product_id)),
+       (20230301, 'SH040','H', 4001, (select sum(quantity) from stock_detail where product_id = 'SH040' group by product_id)),
+       (20230201, 'JK004','E', 3001, (select sum(quantity) from stock_detail where product_id = 'JK004' group by product_id));
 
 select *
 from sub_location;
