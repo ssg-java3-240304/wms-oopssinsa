@@ -12,20 +12,28 @@
         from
             account
         where
-            id = #{id}
+            id = #{id} and password = #{password}
     </select>
     <insert id="insertProduct">
         insert into
             product
         values (
-        #{Id}, #{brandId}, #{name}, #{size}, #{color}, #{categoryId}, #{volume}
+        #{id}, #{brandId}, #{name}, #{size}, #{color}, #{categoryId}, #{volume}
         )
     </insert>
     <insert id="ibRequest">
         insert into
             ib_detail
         values (
-        #{Id}, #{manufactureId}, #{productId}, #{loginId}, #{quantity}
+        #{id}, #{manufactureId}, #{productId}, #{loginId}, #{quantity}, #{ibDate}, #{completionDate}, #{status}
         )
     </insert>
+    <select id="findByUserID" resultType="ibDetailDto">
+        select
+            *
+        from
+            ib_detail
+        where
+            login_id = #{id}
+    </select>
 </mapper>
