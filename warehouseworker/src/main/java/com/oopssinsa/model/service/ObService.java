@@ -18,6 +18,7 @@ public class ObService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         List<ObInstructionDto> obInstructions = obMapper.getObIntructionToDo(workerId);
+        System.out.println(obInstructions);
         return obInstructions;
     }
 
@@ -31,6 +32,8 @@ public class ObService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         obMapper.updateObStatus(updateOb);
+        sqlSession.commit();
+        sqlSession.close();
     }
 
     /*
@@ -48,10 +51,10 @@ public class ObService {
     obInstructionDto에 담겨 전달된 출고id, 상품id, 제조일자로 특정 출고 요청을 찾아 반환한다.
     위치별 용량 업데이트를 위해 추가했습니다.
      */
-    public IbInstructionDto findObInstruction(IbInstructionDto ibInstructionDto) {
+    public ObInstructionDto findObInstruction(ObInstructionDto obInstructionDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-        return obMapper.findObInstruction(ibInstructionDto);
+        return obMapper.findObInstruction(obInstructionDto);
     }
 
     // 예진 작업 시작
