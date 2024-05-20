@@ -1,38 +1,39 @@
 package com.oopssinsa.model.dto;
 
 import java.time.LocalDate;
-
+//고치기
 // 작업자는 본인의 ID로 입고지시 테이블을 조회한다
 // locationId를 통해 브랜드와 카테고리를 알 수 있다
 public class ObInstructionDto {
-    private long id;
-    private LocalDate manufactureId;
+    private long obId;
+
+    private LocalDate manufactureDate;
     private String productId;
     private String workerId;
     private long locationId;
 
-    public ObInstructionDto(long id, LocalDate manufactureId, String productId, String workerId, long locationId) {
-        this.id = id;
-        this.manufactureId = manufactureId;
+    public ObInstructionDto(long ObId, LocalDate manufactureDate, String productId, String workerId, long locationId) {
+        this.obId = ObId;
+        this.manufactureDate = manufactureDate;
         this.productId = productId;
         this.workerId = workerId;
         this.locationId = locationId;
     }
 
     public long getId() {
-        return id;
+        return obId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setObId(long obId) {
+        this.obId = obId;
     }
 
-    public LocalDate getManufactureId() {
-        return manufactureId;
+    public LocalDate getManufactureDate() {
+        return manufactureDate;
     }
 
-    public void setManufactureId(LocalDate manufactureId) {
-        this.manufactureId = manufactureId;
+    public void setManufactureDate(LocalDate manufactureDate) {
+        this.manufactureDate = manufactureDate;
     }
 
     public String getProductId() {

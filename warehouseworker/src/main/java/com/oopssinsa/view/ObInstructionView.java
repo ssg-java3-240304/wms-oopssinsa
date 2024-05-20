@@ -2,8 +2,6 @@ package com.oopssinsa.view;
 
 import com.oopssinsa.model.dto.ObInstructionDto;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,7 +10,7 @@ public class ObInstructionView {
         System.out.println("-----------------------------------------------------------");
         for(ObInstructionDto obInstructionDto : obInstructions){
             System.out.println("출고ID: "+obInstructionDto.getId() + " 상품ID: "+obInstructionDto.getProductId()+
-                    " 제조일자ID: "+ obInstructionDto.getManufactureId() + " 위치: "+ obInstructionDto.getLocationId()+
+                    " 제조일자ID: "+ obInstructionDto.getManufactureDate() + " 위치: "+ obInstructionDto.getLocationId()+
                     " 작업자ID: "+obInstructionDto.getWorkerId()
                     );
         }
