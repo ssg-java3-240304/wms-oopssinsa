@@ -17,20 +17,20 @@
         <result column="date" property="date"/>
     </resultMap>
 
-    <update id="insertStockHistory">
-
+    <update id="insertStockHistory" parameterType="stockHistoryDto">
+        insert into stock_detail
+        values (#{manufactureId}, #{productId}, #{quantity}, #{date})
     </update>
 
-    <update id="updateStock">
+    <update id="updateStock" parameterType="stockDto">
         update stock
         set quantity = #{quantity} and expected_quantity = #{expected_quantity}
-        where
+        where manufacture_id = #{manufactureId} and product_id = #{productId}
     </update>
 
-    <select id="findStock" parameterType="stockDto" resultMap="stockDto">
+    <select id="findStock" parameterType="stockDto" resultMap="stockDtoMap">
         select *
         from stock
         where product_id = #{productId} and manufacture_id = #{manufactureId}
     </select>
-
 </mapper>

@@ -32,24 +32,10 @@ class IbMapperTest {
 
     @AfterEach
     void tearDown() {
-        this.sqlSession.commit();
-//        this.sqlSession.rollback();
+//        this.sqlSession.commit();
+        this.sqlSession.rollback();
         this.sqlSession.close();
     }
-
-//    @Disabled
-//    @ParameterizedTest
-//    @MethodSource("ibDto")
-//    void findIb(IbDto ibDto) {
-//        IbDto ibDto1 = ibMapper.findIb(ibDto);
-//        assertThat(ibDto1).isNotNull();
-//
-//    }
-//    public static Stream<IbDto> ibDto() {
-//        LocalDate localDate = LocalDate.of(24,5,1);//For reference
-//        IbDto ibDto = new IbDto(202405181, localDate, "UA001", 0, null, "");
-//        return Stream.of(ibDto);
-//    }
     @Disabled
     @Test
     void test1() {

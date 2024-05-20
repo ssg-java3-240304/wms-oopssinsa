@@ -25,8 +25,9 @@ public class StockService {
     public void updateStock(StockDto updateStock){
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         StockMapper stockMapper = sqlSession.getMapper(StockMapper.class);
-        stockMapper.updateStock(updateStock);
-        sqlSession.commit();
+        int result = stockMapper.updateStock(updateStock);
+        if (result == 1)
+            sqlSession.commit();
         sqlSession.close();
     }
 
@@ -37,8 +38,9 @@ public class StockService {
     public void insertStockHistory(StockHistoryDto stockHistoryDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         StockMapper stockMapper = sqlSession.getMapper(StockMapper.class);
-        stockMapper.insertStockHistory(stockHistoryDto);
-        sqlSession.commit();
+        int result = stockMapper.insertStockHistory(stockHistoryDto);
+        if (result == 1)
+           sqlSession.commit();
         sqlSession.close();
     }
 }

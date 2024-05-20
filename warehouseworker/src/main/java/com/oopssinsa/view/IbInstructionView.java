@@ -19,7 +19,7 @@ public class IbInstructionView {
         }
         System.out.println("-----------------------------------------------------------");
     }
-    public char inputUpdateIbInstructionStatus(String[] ibInfo){
+    public String inputUpdateIbInstructionStatus(String[] ibInfo){
         Scanner scanner = new Scanner(System.in);
         System.out.print("입고ID 입력: ");
         ibInfo[0] = scanner.nextLine();
@@ -29,6 +29,7 @@ public class IbInstructionView {
         ibInfo[2] = scanner.nextLine();
         System.out.println("완료 상태 입력: ");
         String updateStatus = scanner.nextLine();
-        return updateStatus.charAt(0);
+//        return updateStatus.charAt(0);
+        return updateStatus;
     }
 }
