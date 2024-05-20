@@ -1,7 +1,8 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.model.dao.MenuMapper;
-import com.oopssinsa.model.dto.IbDatailDto;
+import com.oopssinsa.model.dto.AccountDto;
+import com.oopssinsa.model.dto.IbDetailDto;
 import com.oopssinsa.model.dto.ProductDto;
 import org.apache.ibatis.session.SqlSession;
 
@@ -28,12 +29,12 @@ public class MenuService {
         }
     }
 
-    public int ibRequest(IbDatailDto ibDatailDto) {
+    public int ibRequest(IbDetailDto ibDetailDto) {
         SqlSession sqlSession = getSqlSession();
         MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
 
         try {
-            int result = menuMapper.ibRequest(ibDatailDto);
+            int result = menuMapper.ibRequest(ibDetailDto);
             sqlSession.commit();
             return result;
         } catch (Exception e) {
@@ -43,5 +44,13 @@ public class MenuService {
             sqlSession.close();
         }
 
+    }
+
+    public AccountDto login(String id) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+        AccountDto accountDto = menuMapper.login(id);
+        sqlSession.close();
+        return accountDto;
     }
 }

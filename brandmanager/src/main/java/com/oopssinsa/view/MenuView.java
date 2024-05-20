@@ -1,19 +1,25 @@
 package com.oopssinsa.view;
 
 import com.oopssinsa.controller.MenuController;
-import com.oopssinsa.model.dto.IbDatailDto;
+import com.oopssinsa.model.dto.AccountDto;
+import com.oopssinsa.model.dto.IbDetailDto;
 import com.oopssinsa.model.dto.ProductDto;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuView {
     private MenuController menuController = new MenuController();
     private Scanner sc = new Scanner(System.in);
-
+    private AccountDto accountDto = null;
     public void mainMenu() {
+        // id 입력받아 해당하는 회원정보 보기 -> 로그인 기능
+        while (accountDto == null) {
+            accountDto = menuController.login(login());
+        }
+        System.out.println(accountDto);
+
         String menu = """
-                ======================
+                ==================================================================
                 1. 상품 등록
                 2. 입고 요청
                 3. 입고 조회
@@ -21,7 +27,8 @@ public class MenuView {
                 5. 출고 조회
                 6. 전체 재고 현황 조회
                 7. 카테고리별 재고 조회
-                ======================
+                0. 종료
+                ==================================================================
                 입력 : """;
         while (true) {
             System.out.print(menu);
@@ -34,13 +41,14 @@ public class MenuView {
                 case "5" : break;
                 case "6" : break;
                 case "7" : break;
+                case "0" : return;
                 default:
                     System.out.println("잘못 입력하셨습니다...");
             }
         }
     }
 
-    private IbDatailDto inputIbRequest() {
+    private IbDetailDto inputIbRequest() {
         System.out.println("> ✏✏✏ 입고 요청서를 작성해주세요. ✏✏✏");
         System.out.println("입고 ID : ");
         int Id = sc.nextInt();
@@ -54,7 +62,7 @@ public class MenuView {
         int quantity = sc.nextInt();
         // null값인 행도 적어줘야 되는지?
 //        LocalDate ibRequestDate = null;
-        return new IbDatailDto(Id, manufactureId, productId, loginId, quantity);
+        return new IbDetailDto(Id, manufactureId, productId, loginId, quantity);
     }
 
     private ProductDto inputProduct() {
@@ -74,5 +82,21 @@ public class MenuView {
         System.out.println("부피 : ");
         int volume = sc.nextInt();
         return new ProductDto(Id, brandId, categoryId, name, size, color, volume);
+    }
+
+    //    private AccountDto login() {
+//        System.out.print("ID를 입력해 주세요 : ");
+//        String id = sc.next();
+//        System.out.print("비밀번호를 입력해 주세요 :");
+//        String password = sc.next();
+//        return new AccountDto(id, password);
+//    }
+    private String login() {
+        System.out.println("==================================================================");
+        System.out.print("ID를 입력해 주세요 : ");
+        String id = sc.next();
+        System.out.print("비밀번호를 입력해 주세요 :");
+        String password = sc.next();
+        return id;
     }
 }
