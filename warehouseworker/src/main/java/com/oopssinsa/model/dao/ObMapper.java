@@ -7,7 +7,7 @@ import com.oopssinsa.model.dto.ObInstructionDto;
 import java.util.List;
 
 public interface ObMapper {
-    List<ObInstructionDto> getObIntructionToDo(String workerId);
+    List<ObInstructionDto> getObInstructionToDo(String workerId);
 
     void updateObStatus(ObDto updateOb);
 

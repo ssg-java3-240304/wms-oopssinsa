@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.oopssinsa.model.dao.WorkerMapper">
+<mapper namespace="com.oopssinsa.model.dao.ObMapper">
 
-    <resultMap id="ObInsMap" type="ObInstructionDto">
+    <resultMap id="obInsMap" type="obInstructionDto">
         <result column="id" property="id"/>
         <result column="manufacture_id" property="manufactureId"/>
         <result column="product_id" property="productId"/>
@@ -23,15 +23,15 @@
         <result column="tracking_number" property="trackingNumber"/>
     </resultMap>
 
-    <update id="updateObStatus" parameterMap="obDto">
+    <update id="updateObStatus" parameterType="ObDto">
         update ob_detail
-        set ob_date = CURDATE(), status = #{status}
+        set ob_date = CURDATE(), status = #{status}, tracking_number = #{trackingNumber}
         where id = #{id}
         and product_id = #{productId}
         and manufacture_id = #{manufactureId}
     </update>
 
-    <select id="findOb" parameterType="obDto" resultMap="obDtoMap">
+    <select id="findOb" parameterType="ObDto" resultMap="obDtoMap">
         select *
         from ob_detail
         where id = #{id}
@@ -39,16 +39,16 @@
         and product_id = #{productId}
     </select>
 
-    <select id="getObInstructionToDo" resultMap="ObInsMap">
+    <select id="getObInstructionToDo" resultMap="obInsMap">
         select obw.*
         from ob_detail obd
-        join ob_worker obw
+        left join ob_worker obw
         on (obd.id = obw.id and obd.manufacture_id = obw.manufacture_id and obd.product_id = obw.product_id)
         where status = 'P'
         and worker_id = #{workerId};
     </select>
 
-    <select id="findObInstruction" parameterType="ObInstructionDto" resultMap="ObInsMap">
+    <select id="findObInstruction" parameterType="ObInstructionDto" resultMap="obInsMap">
         select *
         from ob_worker
         where id = #{id}
@@ -67,6 +67,6 @@
 
 
 
-<mapper namespace="com.oopssinsa.model.dao.ObMapper">
+<!--<mapper namespace="com.oopssinsa.model.dao.ObMapper">-->
 
 </mapper>
