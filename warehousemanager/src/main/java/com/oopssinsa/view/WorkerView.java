@@ -34,7 +34,7 @@ public class WorkerView {
 //        System.out.println("작업자ID" + "  " + "이름" + "  " + "상태");
         for (WorkerDto workerDto : workerDtos) {
             System.out.printf("|%5d| %7s| %5s| %4c|\n",
-                    (count++), workerDto.getId(), workerDto.getName(), workerDto.getState());
+                    (count++), workerDto.getId(), workerDto.getName(), workerDto.getStatus());
 //            System.out.println(
 //                    (count++) + ". " + workerDto.getId() + "  " + workerDto.getName() + "  " + workerDto.getState());
         }
