@@ -13,11 +13,11 @@
     </resultMap>
 
     <resultMap id="obDtoMap" type="obDto">
-        <result column="ob_id" property="id"/>
+        <result column="ob_id" property="obId"/>
         <result column="manufacture_date" property="manufactureId"/>
         <result column="product_id" property="productId"/>
         <result column="quantity" property="quantity"/>
-        <result column="completion_date" property="obDate"/>
+        <result column="completion_date" property="completionDate"/>
         <result column="status" property="status"/>
         <result column="tracking_number" property="trackingNumber"/>
     </resultMap>
@@ -25,7 +25,7 @@
     <update id="updateObStatus" parameterType="obDto">
         update ob_detail
         set completion_date = CURDATE(), status = #{status}, tracking_number = #{trackingNumber}
-        where ob_id = #{id}
+        where ob_id = #{obId}
 <!--        and product_id = #{productId}-->
 <!--        and manufacture_date = #{manufactureId}-->
     </update>
@@ -33,7 +33,7 @@
     <select id="findOb" parameterType="obDto" resultMap="obDtoMap">
         select *
         from ob_detail
-        where ob_id = #{id}
+        where ob_id = #{obId}
         and manufacture_date = #{manufactureId}
         and product_id = #{productId}
     </select>

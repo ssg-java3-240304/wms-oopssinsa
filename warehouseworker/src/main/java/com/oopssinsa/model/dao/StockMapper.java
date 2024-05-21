@@ -9,4 +9,6 @@ public interface StockMapper {
     int updateStock(StockDto updateStock);
 
     StockDto findStock(StockDto targetStock);
+
+    int insertStock(StockDto stockDto);
 }

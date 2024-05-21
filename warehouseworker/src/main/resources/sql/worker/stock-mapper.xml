@@ -5,14 +5,14 @@
 <mapper namespace="com.oopssinsa.model.dao.StockMapper">
     <resultMap id="stockDtoMap" type="stockDto">
         <result column="product_id" property="productId"/>
-        <result column="manufacture_id" property="manufactureId"/>
+        <result column="manufacture_date" property="manufactureId"/>
 <!--        <result column="section_id" property="sectionId"/>-->
         <result column="location_id" property="locationId"/>
         <result column="quantity" property="quantity"/>
         <result column="expected_quantity" property="expectedQuantity"/>
     </resultMap>
     <resultMap id="stockHisMap" type="stockHistoryDto">
-        <result column="manufacture_id" property="manufactureId"/>
+        <result column="manufacture_date" property="manufactureId"/>
         <result column="product_id" property="productId"/>
         <result column="quantity" property="quantity"/>
         <result column="date" property="date"/>
@@ -25,13 +25,20 @@
 
     <update id="updateStock" parameterType="stockDto">
         update stock
-        set quantity = #{quantity} and expected_quantity = #{expected_quantity}
-        where manufacture_id = #{manufactureId} and product_id = #{productId}
+        set quantity = #{quantity}, expected_quantity = #{expectedQuantity}
+        where manufacture_date = #{manufactureId} and product_id = #{productId}
     </update>
 
     <select id="findStock" parameterType="stockDto" resultMap="stockDtoMap">
-        select product_id, manufacture_id, location_id, quantity, expected_quantity
+        select product_id, manufacture_date, location_id, quantity, expected_quantity
         from stock
-        where product_id = #{productId} and manufacture_id = #{manufactureId}
+        where product_id = #{productId} and manufacture_date = #{manufactureId}
     </select>
+
+    <insert id="insertStock" parameterType="stockDto">
+        insert into stock
+        values (#{manufactureId}, #{productId}, (
+            select section_id from sub_location where id = #{locationId}),
+        #{locationId}, #{quantity}, #{expectedQuantity})
+    </insert>
 </mapper>
