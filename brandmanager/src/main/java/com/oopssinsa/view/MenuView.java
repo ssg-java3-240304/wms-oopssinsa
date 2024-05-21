@@ -131,7 +131,7 @@ public class MenuView {
         System.out.println("수량 : ");
         int quantity = sc.nextInt();
         // null값인 행도 적어줘야 되는지?
-        LocalDate ibRequestDate = null;
+        LocalDate ibRequestDate = LocalDate.now();
         LocalDate completionDate = null;
         String status = "R";
         return new IbDetailDto(id, manufactureId, productId, loginId, quantity, ibRequestDate, completionDate, status);

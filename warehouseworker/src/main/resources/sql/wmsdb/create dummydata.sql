@@ -146,6 +146,7 @@ VALUES (1240521, 240520, 'SH002', 'user01', 10, null, 'R'),
        (3240521, 240510, 'JK002', 'user03', 30, null, 'P');
 
 # insert into ib_worker (ib_id, manufacture_date, product_id, worker_id, location_id)
+# insert into ib_worker (ib_id, manufacture_date, product_id, worker_id)
 # VALUES (2240521, 240516, 'TS001', 'worker1', (select id
 #                                               from sub_location
 #                                               where (section_id, category_id) =
@@ -189,6 +190,15 @@ VALUES (230721, 3240521, 'JK003', 1, 'P', null, null);
 
 insert into ob_worker (manufacture_date, ob_id, product_id, worker_id)
 values (230721, 3240521, 'JK003', 'worker2');
+
+# insert into ob_worker (manufacture_date, ob_id, product_id, worker_id)
+# values (230721, 3240521, 'JK003', 'worker2', (select id
+#                                               from sub_location
+#                                               where (section_id, category_id) =
+#                                                     (select s.id, p.category_id
+#                                                      from product p
+#                                                               left join section s on (s.brand_id = p.brand_id)
+#                                                      where p.id ='JK003')));
 
 select obw.*
 from ob_detail obd

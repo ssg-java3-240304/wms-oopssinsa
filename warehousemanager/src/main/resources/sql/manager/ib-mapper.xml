@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oopssinsa.model.dao.IbMapper">
-<!--    나경작업시작-->
     <resultMap id="ProductDto" type="productDto">
         <result column="id" property="id"></result>
         <result column="brand_id" property="brandId"></result>
@@ -23,8 +22,6 @@
     </resultMap>
 
 
-<!--    나경작업끝-->
-
     <!-- Result Map for IbDto -->
     <resultMap id="ibDtoMap" type="IbDto">
         <id property="id" column="id"/>
@@ -36,10 +33,8 @@
         <result property="ibDate" column="completion_date"/>
         <result property="status" column="status"/>
 
-        <!-- 다른 속성에 대한 매핑 추가 -->
     </resultMap>
 
-    <!-- Result Map for LocationDto -->
     <resultMap id="locationResultMap" type="LocationDto">
         <id property="id" column="id"/>
         <result property="sectionId" column="section_id"/>
@@ -47,20 +42,16 @@
         <result property="currentCapacity" column="current_capacity"/>
         <result property="expectedCapacity" column="expected_capacity"/>
         <result property="maxCapacity" column="max_capacity"/>
-
-        <!-- 다른 속성에 대한 매핑 추가 -->
     </resultMap>
 
     <resultMap id="productResultMap" type="ProductDto">
         <id property="productId" column="id"/>
-        <!-- 다른 속성에 대한 매핑 추가 -->
     </resultMap>
 
     <resultMap id="productDtoMap" type="ProductDto">
         <result column="product_id" property="productId"/>
         <result column="name" property="name"/>
         <result column="category" property="category"/>
-        <!-- 기타 필요한 필드 매핑 -->
     </resultMap>
 
     <resultMap id="sectionResultMap" type="SectionDto">
@@ -68,7 +59,6 @@
         <result property="brandId" column="brand_id"/>
         <result property="name" column="name"/>
         <result property="expectedCapacity" column="expected_capacity"/>
-        <!-- 추가적인 필드 매핑 -->
     </resultMap>
 
     <resultMap id="ibRequestAndLocationMap" type="IbRequestAndLocationDto">
@@ -138,82 +128,6 @@
         SELECT * FROM ib_detail WHERE status = 'W'
     </select>
 
-
-    <!-- 입고 요청 및 위치 정보 조회 -->
-    <!--    <select id="findIbRequestAndLocation" parameterType="list" resultMap="ibRequestAndLocationMap">-->
-    <!--        SELECT-->
-    <!--        ib.id AS ib_id,-->
-    <!--        ib.ib_date AS ib_date,-->
-    <!--        ib.product_id,-->
-    <!--        prod.brand_id,-->
-    <!--        ib.quantity,-->
-    <!--        ib.status AS ib_status,-->
-    <!--        loc.id AS location_id,-->
-    <!--        loc.section_id,-->
-    <!--        loc.category_id,-->
-    <!--        loc.max_capacity,-->
-    <!--        loc.current_capacity,-->
-    <!--        (loc.current_capacity + ib.quantity * prod.volume) AS ibCapacity,-->
-    <!--        CASE-->
-    <!--        WHEN (loc.current_capacity + ib.quantity * prod.volume) <= loc.max_capacity-->
-    <!--        THEN '가능'-->
-    <!--        ELSE '불가능'-->
-    <!--        END AS 입고가능상태-->
-    <!--        FROM-->
-    <!--        ib_detail ib-->
-    <!--        join brand b on p.brand_id = b.id-->
-    <!--        join section s on s.brand_id = b.id-->
-    <!--        join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id-->
-    <!--        WHERE-->
-    <!--        ib.id IN-->
-    <!--        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">-->
-    <!--            #{item.id}-->
-    <!--        </foreach>-->
-    <!--    </select>-->
-
-    <!--    select *-->
-    <!--    from-->
-    <!--    product p-->
-    <!--    join brand b on p.brand_id = b.id-->
-    <!--    join section s on s.brand_id = b.id-->
-    <!--    join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id-->
-    <!--    where p.id = 'AC001';-->
-
-    <!--    <select id="findIbRequestAndLocation" parameterType="list" resultMap="ibRequestAndLocationMap">-->
-    <!--        SELECT-->
-    <!--        p.id AS product_id,-->
-    <!--        p.volume AS volume,-->
-    <!--        ib. quantity AS quantity,-->
-    <!--        sl.current_capacity AS current_capacity,-->
-    <!--        sl.expected_capacity AS expected_capacity,-->
-    <!--        sl.max_capacity AS max_capacity,-->
-    <!--        (p.volume * ib. quantity) AS ib_capacity,-->
-    <!--        sl.id AS location_id,-->
-    <!--        sl.section_id,-->
-    <!--        sl.category_id,-->
-    <!--        sl.max_capacity,-->
-    <!--        sl.current_capacity-->
-    <!--        FROM-->
-    <!--        product p-->
-    <!--        JOIN ib_detail ib ON p.id = ib.product_id-->
-    <!--        JOIN section s ON p.brand_id = s.brand_id-->
-    <!--        JOIN sub_location sl ON s.id = sl.section_id AND p.category_id = sl.category_id-->
-    <!--        WHERE-->
-    <!--        p.id IN (#{productIds})-->
-    <!--    </select>-->
-
-    <!--    <select id="findIbRequestAndLocation" resultMap="ibRequestAndLocationMap" parameterType="java.util.List">-->
-    <!--        select-->
-    <!--        *-->
-    <!--        from product p-->
-    <!--        join section s on s.brand_id = p.brand_id-->
-    <!--        join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id-->
-    <!--        where p.id in-->
-    <!--        <foreach collection="list" item="item" open="(" separator="," close=")">-->
-    <!--            #{item.productId}-->
-    <!--        </foreach>-->
-    <!--    </select>-->
-
     <select id="findIbRequestAndLocation" resultMap="ibRequestAndLocationMap" parameterType="java.util.List">
         <foreach collection="list" item="ibDto" separator="union all">
             select
@@ -222,13 +136,16 @@
             #{ibDto.productId} as product_id,
             #{ibDto.brandId} as brand_id,
             #{ibDto.quantity} as quantity,
-            (select volume from product where id= #{ibDto.productId}) as volume,
-<!--            p.volume as volume,-->
+            p.volume as volume,
             (#{ibDto.quantity} *p.volume) as capacity,
             #{ibDto.ibRequestDate} as ib_request_date,
             #{ibDto.status} as status,
             IF((sl.current_capacity + sl.expected_capacity +
-            (select quantity from ib_detail where product_id = #{ibDto.productId}) * p.volume) &lt;= sl.max_capacity,
+            <![CDATA[ (select quantity
+                from ib_detail
+                where product_id = #{ibDto.productId}
+                and manufacture_date= #{ibDto.manufactureDate}
+                and id = #{ibDto.id} ) * p.volume) <= sl.max_capacity]]>,
             'T', 'F') as ib_availability,
             sl.current_capacity as current_capacity,
             sl.expected_capacity as expected_capacity,

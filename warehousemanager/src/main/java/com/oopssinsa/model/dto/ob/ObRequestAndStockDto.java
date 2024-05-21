@@ -1,10 +1,8 @@
 package com.oopssinsa.model.dto.ob;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Getter
@@ -21,8 +19,8 @@ public class ObRequestAndStockDto {
     // productId로 조인하되, ob_request의 quantity가 stock의 quantity보다 적은지 출력
     private char obStatus; // 출고 가능여부
     private String subLocationId;
-    private int stockQuantity;
-    private int expectedStockQuantity;
+    private Integer stockQuantity;
+    private Integer expectedStockQuantity;
 
 
 
