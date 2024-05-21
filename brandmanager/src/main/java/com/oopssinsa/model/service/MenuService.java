@@ -111,4 +111,12 @@ public class MenuService {
         sqlSession.close();
         return list;
     }
+
+    public List<StockListDto> findStockByProductId(long brandId, String productId) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+        List<StockListDto> list = menuMapper.findStockByProductId(Map.of("brandId", brandId, "productId", productId));
+        sqlSession.close();
+        return list;
+    }
 }

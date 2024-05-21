@@ -55,7 +55,7 @@ public class MenuView {
                 case "5" : menuController.findObDetail(findObDetail()); break;
                 case "6" : menuController.findAllStockDetail(brandId()); break;
                 case "7" : menuController.findStockByCategoryId(brandId(), categoryId()); break;
-//                case "8" : menuController.findStockByProductId(brandId(), productId()); break;
+                case "8" : menuController.findStockByProductId(brandId(), productId()); break;
                 case "0" : return;
                 default:
                     System.out.println("잘못 입력하셨습니다...");
@@ -64,7 +64,7 @@ public class MenuView {
     }
 
     private String productId() {
-
+        System.out.println("조회할 상품의 ID : ");
         return sc.next();
     }
 
