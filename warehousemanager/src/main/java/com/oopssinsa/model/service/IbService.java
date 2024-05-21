@@ -2,17 +2,12 @@ package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
 import com.oopssinsa.model.dao.IbMapper;
-import com.oopssinsa.model.dto.IbDto;
-import com.oopssinsa.model.dto.IbRequestAndLocationDto;
-import com.oopssinsa.model.dto.InstructionDto;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 import com.oopssinsa.model.dto.LocationDto;
 import com.oopssinsa.model.dto.ProductDto;
 import com.oopssinsa.model.dto.SectionDto;
-import com.oopssinsa.model.dto.WorkerDto;
 import org.apache.ibatis.session.SqlSession;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class IbService {

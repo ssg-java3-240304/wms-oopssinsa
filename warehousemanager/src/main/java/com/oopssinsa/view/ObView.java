@@ -1,9 +1,9 @@
 package com.oopssinsa.view;
 
-import com.oopssinsa.model.dto.ObDetailDto;
-import com.oopssinsa.model.dto.ObDto;
-import com.oopssinsa.model.dto.ObRequestAndStockDto;
-import com.oopssinsa.model.dto.ObRequestDto;
+import com.oopssinsa.model.dto.ob.ObDetailDto;
+import com.oopssinsa.model.dto.ob.ObDto;
+import com.oopssinsa.model.dto.ob.ObRequestAndStockDto;
+import com.oopssinsa.model.dto.ob.ObRequestDto;
 
 import java.util.List;
 

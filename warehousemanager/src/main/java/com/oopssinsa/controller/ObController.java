@@ -2,8 +2,8 @@ package com.oopssinsa.controller;
 
 import com.oopssinsa.model.constants.Error;
 import com.oopssinsa.model.dto.InstructionDto;
-import com.oopssinsa.model.dto.ObDetailDto;
-import com.oopssinsa.model.dto.ObRequestAndStockDto;
+import com.oopssinsa.model.dto.ob.ObDetailDto;
+import com.oopssinsa.model.dto.ob.ObRequestAndStockDto;
 import com.oopssinsa.model.dto.StockDto;
 import com.oopssinsa.model.dto.WorkerDto;
 import com.oopssinsa.model.service.ObService;

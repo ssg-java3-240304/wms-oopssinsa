@@ -1,8 +1,8 @@
 package com.oopssinsa.controller;
 
 import com.oopssinsa.model.constants.Error;
-import com.oopssinsa.model.dto.IbDto;
-import com.oopssinsa.model.dto.IbRequestAndLocationDto;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.LocationDto;
 import com.oopssinsa.model.dto.ProductDto;
