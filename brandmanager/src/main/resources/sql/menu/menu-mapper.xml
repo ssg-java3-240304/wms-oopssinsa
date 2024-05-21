@@ -51,4 +51,12 @@
         #{id}, #{productId}, #{loginId}, #{quantity}, #{recipientName}, #{address}, #{obDate}
         )
     </insert>
+
+    <select id="findObDetail" resultType="obDto">
+        select
+        d.manufacture_date, d.ob_id, d.product_id, d.quantity, d.status, d.completion_date, d.tracking_number
+        from
+            ob_detail d left join ob_request r on d.ob_id = r.id
+        where r.login_id = #{userId};
+    </select>
 </mapper>
