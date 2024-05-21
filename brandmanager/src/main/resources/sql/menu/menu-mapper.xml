@@ -72,4 +72,10 @@
         where p.brand_id = #{brandId} and p.category_id = #{categoryId} ;
     </select>
 
+    <select id="findStockByProductId" resultType="stockListDto">
+        select sd.*, p.name, p.size, p.color
+        from stock_detail sd join product p on sd.product_id = p.id
+        where p.brand_id = #{brandId} and p.id = #{productId} ;
+    </select>
+
 </mapper>
