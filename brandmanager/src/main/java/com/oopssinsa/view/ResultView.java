@@ -115,6 +115,32 @@ public class ResultView {
         if (list.isEmpty()) {
             System.out.println("> 😅😅😅 조회된 재고내역이 없습니다. 😅😅😅");
         } else {
+            System.out.println("📦 현재 등록된 전체 재고 리스트");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.printf("%-10s\t %-10s\t %-10s\t %-13s\t %-17s\t  %-10s\t %-10s\t %-10s\n", "manufactureDate", "productId", "quantity", "date", "name", "size", "color", "volume");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            for(StockListDto stockListDto : list) {
+                System.out.printf("%-15s\t %-10s\t %-10d\t %-13s\t %-12s\t %-10s\t %-10s\t %-10s\n",
+                        stockListDto.getManufactureDate(),
+                        stockListDto.getProductId(),
+                        stockListDto.getQuantity(),
+                        stockListDto.getDate(),
+                        stockListDto.getName(),
+                        stockListDto.getSize(),
+                        stockListDto.getColor(),
+                        stockListDto.getVolume()
+                );
+            }
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.println();
+        }
+    }
+
+    public static void desplayStockByCategoryIdList(List<StockListDto> list) {
+        System.out.println();
+        if (list.isEmpty()) {
+            System.out.println("> 😅😅😅 조회된 재고내역이 없습니다. 😅😅😅");
+        } else {
             System.out.println("📦 현재 등록된 재고 리스트");
             System.out.println("------------------------------------------------------------------------------------------------");
             System.out.printf("%-10s\t %-10s\t %-10s\t %-13s\t %-17s\t  %-10s\t %-10s\t %-10s\n", "manufactureDate", "productId", "quantity", "date", "name", "size", "color", "volume");
