@@ -7,6 +7,7 @@ import com.oopssinsa.model.dto.ob.ObDetailDto;
 import com.oopssinsa.model.dto.ob.ObDto;
 import com.oopssinsa.model.dto.ob.ObRequestAndStockDto;
 import com.oopssinsa.model.dto.ob.ObRequestDto;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,13 +19,13 @@ public interface ObMapper {
 
     List<StockDto> findAllStock();
 
-    List<StockDto> findStockOrderableByProductId(String productId);
+    List<StockDto> findStockOrderableByProductId(@Param("productId") String productId);
 
     List<ObRequestAndStockDto> findObRequestAndStock();
 
     int updateStock(StockDto stockDto);
 
-    int insertObDetails(List<ObDetailDto> obDetailDtos);
+    int insertObDetails(ObDetailDto obDetailDto);
 
     int updateObState(ObDetailDto obDetailDto);
 

@@ -28,31 +28,31 @@ public class Controller {
         while (true) {
             switch (inputView.getWork()) {
                 case 1:
-                    ibController.findAllIb();
+                    ibController.findAllIb(); // 전체 입고 처리 내역 조회
                     break;
                 case 2:
-                    ibController.findIbByRequestState();
+                    ibController.findIbByRequestState(); // 입고 요청 상태인 입고 조회
                     break;
                 case 3:
-                    ibController.updateState();
+                    ibController.updateState(); // 입고 요청 상태 변경
                     break;
                 case 4:
-                    ibController.insertIbWorker();
+                    ibController.insertIbWorker(); // 입고 작업 배정
                     break;
                 case 5:
-                    obController.findAllOb();
+                    obController.findAllOb(); // 전체 출고 처리내역 조회
                     break;
                 case 6:
-                    obController.findObByRequestState();
+                    obController.findObByRequestState(); // 출고 요청 상태인 출고 조회
                     break;
                 case 7:
-                    obController.updateState();
+                    obController.updateState(); // 출고 요청 상태 변경
                     break;
                 case 8:
-                    obController.insertObWorker();
+                    obController.insertObWorker(); // 출고 작업 배정
                     break;
                 case 9:
-                    workerController.findAllWorker();
+                    workerController.findAllWorker(); // 작업자 목록 조회
                     break;
                 case 10:
                     return;

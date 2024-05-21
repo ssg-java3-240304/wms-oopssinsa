@@ -22,6 +22,7 @@ public class ObView {
         System.out.println("|" + "-".repeat(88) + "|");
 //        System.out.println(
 //                "출고ID" + "  " + "상품ID" + "  " + "발주자ID" + "  " + "수량" + "  " + "수령인" + "  "
+
 //                        + "배송지");
         for (ObRequestDto obRequestDto : obRequestDtos) {
             System.out.printf("|%5d|  %7s| %11s| %10s| %6d| %16s| %8s| %10s|\n",

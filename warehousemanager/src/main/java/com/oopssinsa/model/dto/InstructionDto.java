@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class InstructionDto {
-    private String iD;
+    private String id;
     private LocalDate manufactureDate;
     private String productId;
     private String workerId;

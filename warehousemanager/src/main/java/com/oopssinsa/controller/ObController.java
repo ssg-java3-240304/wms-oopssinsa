@@ -30,6 +30,7 @@ public class ObController {
         this.errorView = new ErrorView();
     }
 
+    // 출고 요청 조회하기
     public void findObByRequestState() {
         obView.printObRequestState(obService.findObByRequestState());
     }
