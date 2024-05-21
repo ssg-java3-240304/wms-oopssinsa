@@ -11,9 +11,7 @@
 
 
 ## 팀원 구성
-<div align="center">
-	<img src="https://capsule-render.vercel.app/api?type=cylinder&color=&text=OOPSINSA&fontAlignY=45&fontSize=40&height=150&animation=blinking&desc=김나경, 김홍현(발표), &descAlignY=70">
-</div>
+
 
 
 ---
