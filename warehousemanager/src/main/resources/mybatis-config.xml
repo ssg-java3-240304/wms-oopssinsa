@@ -40,6 +40,7 @@
         <mapper resource="sql/manager/ob-mapper.xml"/>
         <mapper resource="sql/manager/location-mapper.xml"/>
         <mapper resource="sql/manager/ib-mapper.xml"/>
+        <mapper resource="sql/manager/worker-mapper.xml"/>
         <mapper resource="sql/manager/account-mapper.xml"/>
     </mappers>
 </configuration>

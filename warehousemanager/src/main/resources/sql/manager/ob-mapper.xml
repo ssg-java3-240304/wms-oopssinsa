@@ -5,12 +5,12 @@
 <mapper namespace="com.oopssinsa.model.dao.ObMapper">
 
     <!-- 모든 OB 요청 상태 조회 -->
-    <select id="findObByRequestState" resultType="com.oopssinsa.model.dto.ObRequestDto">
+    <select id="findObByRequestState" resultType="com.oopssinsa.model.dto.ob.ObRequestDto">
         SELECT * FROM ob_request
     </select>
 
     <!-- 모든 OB 상세 조회 -->
-    <select id="findAllOb" resultType="com.oopssinsa.model.dto.ObDto">
+    <select id="findAllOb" resultType="com.oopssinsa.model.dto.ob.ObDto">
         SELECT * FROM ob_detail
     </select>
 
@@ -25,7 +25,7 @@
     </select>
 
     <!-- OB 요청과 재고 정보 조회 -->
-    <select id="findObRequestAndStock" resultType="com.oopssinsa.model.dto.ObRequestAndStockDto">
+    <select id="findObRequestAndStock" resultType="com.oopssinsa.model.dto.ob.ObRequestAndStockDto">
         SELECT *
         FROM ob_request ob
         JOIN stock st
@@ -46,12 +46,12 @@
     </insert>
 
     <!-- OB 상태 업데이트 -->
-    <update id="updateObState" parameterType="com.oopssinsa.model.dto.ObDetailDto">
+    <update id="updateObState" parameterType="com.oopssinsa.model.dto.ob.ObDetailDto">
         UPDATE ob_detail SET status = #{status} WHERE id = #{id}
     </update>
 
     <!-- 대기 상태의 OB 상세 정보 조회 -->
-    <select id="findObDetailByWaitingState" resultType="com.oopssinsa.model.dto.ObDetailDto">
+    <select id="findObDetailByWaitingState" resultType="com.oopssinsa.model.dto.ob.ObDetailDto">
         SELECT * FROM ob_detail WHERE status = 'W'
     </select>
 
