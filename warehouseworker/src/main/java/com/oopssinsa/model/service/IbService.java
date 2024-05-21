@@ -63,4 +63,10 @@ public class IbService {
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
         return ibMapper.findProductVolume(productId);
     }
+
+    public long findProductLocation(String productId) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        return ibMapper.findProductLocation(productId);
+    }
 }

@@ -11,14 +11,14 @@ public class IbInstructionDto {
     private LocalDate manufactureId;
     private String productId;
     private String workerId;
-    private int locationId;
+//    private int locationId;
 
-    public IbInstructionDto(long ibId, LocalDate manufactureId, String productId, String workerId, int locationId) {
+    public IbInstructionDto(long ibId, LocalDate manufactureId, String productId, String workerId) {
         this.ibId = ibId;
         this.manufactureId = manufactureId;
         this.productId = productId;
         this.workerId = workerId;
-        this.locationId = locationId;
+//        this.locationId = locationId;
     }
 
     public long getIbId() {
@@ -53,11 +53,11 @@ public class IbInstructionDto {
         this.workerId = workerId;
     }
 
-    public int getLocationId() {
-        return locationId;
-    }
-
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
-    }
+//    public int getLocationId() {
+//        return locationId;
+//    }
+//
+//    public void setLocationId(int locationId) {
+//        this.locationId = locationId;
+//    }
 }

@@ -59,4 +59,17 @@
             ob_detail d left join ob_request r on d.ob_id = r.id
         where r.login_id = #{userId};
     </select>
+
+    <select id="findAllStockDetail" resultType="stockListDto">
+        select sd.*, p.name, p.size, p.color
+        from stock_detail sd join product p on sd.product_id = p.id
+        where p.brand_id = #{brandId};
+    </select>
+
+    <select id="findStockByCategoryId" resultType="stockListDto">
+        select sd.*, p.name, p.size, p.color
+        from stock_detail sd join product p on sd.product_id = p.id
+        where p.brand_id = #{brandId} and p.category_id = #{categoryId} ;
+    </select>
+
 </mapper>

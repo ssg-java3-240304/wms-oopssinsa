@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 //import static com.oopssinsa.common.MyBatisTemplate.getSqlSession;
 import java.util.List;
+import java.util.Map;
 
 import static com.oopssinsa.myBatisTemplate.MyBatisTemplate.getSqlSession;
 
@@ -91,6 +92,22 @@ public class MenuService {
         SqlSession sqlSession = getSqlSession();
         MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
         List<ObDto> list = menuMapper.findObDetail(userId);
+        sqlSession.close();
+        return list;
+    }
+
+    public List<StockListDto> findAllStockDetail(long brandId) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+        List<StockListDto> list = menuMapper.findAllStockDetail(brandId);
+        sqlSession.close();
+        return list;
+    }
+
+    public List<StockListDto> findStockByCategoryId(long brandId, long categoryId) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+        List<StockListDto> list = menuMapper.findStockByCategoryId(Map.of("brandId", brandId, "categoryId", categoryId));
         sqlSession.close();
         return list;
     }

@@ -52,13 +52,23 @@ public class MenuView {
                 case "3" : menuController.findByUserId(findByUserId()); break;
                 case "4" : menuController.obRequest(inputObRequest()); break;
                 case "5" : menuController.findObDetail(findObDetail()); break;
-                case "6" :  break;
-                case "7" : break;
+                case "6" : menuController.findAllStockDetail(brandId()); break;
+                case "7" : menuController.findStockByCategoryId(brandId(), categoryId()); break;
                 case "0" : return;
                 default:
                     System.out.println("잘못 입력하셨습니다...");
             }
         }
+    }
+
+    private long categoryId() {
+        displayCategoryList();
+        System.out.println("조회할 상품의 카테고리 ID : ");
+        return sc.nextLong();
+    }
+
+    private long brandId() {
+        return accountDto.getBrandId();
     }
 
     private String findObDetail() {
@@ -129,23 +139,7 @@ public class MenuView {
         String id = sc.next();
         // 브랜드 ID
         long brandId = accountDto.getBrandId();
-        String categoryMenu= """
-                ---------------------------
-                 카테고리 ID     카테고리 이름
-                ---------------------------
-                  1001      |   티셔츠
-                  1002      |   니트/스웨터
-                  2001      |   운동복 상의
-                  2002      |   운동복 하의
-                  3001      |   재킷/아우터
-                  4001      |   신발
-                  5001      |   블라우스/셔츠
-                  5002      |   원피스/스커트
-                  6001      |   바지/청바지
-                  9001      |   악세사리
-                ---------------------------
-                """;
-        System.out.println(categoryMenu);
+        displayCategoryList();
         System.out.println("카테고리 ID : ");
         long categoryId = sc.nextLong();
         sc.nextLine();
@@ -190,6 +184,26 @@ public class MenuView {
 
     private long loginBrandId() {
         return accountDto.getBrandId();
+    }
+
+    private void displayCategoryList() {
+        String categoryMenu= """
+                ---------------------------
+                 카테고리 ID     카테고리 이름
+                ---------------------------
+                  1001      |   티셔츠
+                  1002      |   니트/스웨터
+                  2001      |   운동복 상의
+                  2002      |   운동복 하의
+                  3001      |   재킷/아우터
+                  4001      |   신발
+                  5001      |   블라우스/셔츠
+                  5002      |   원피스/스커트
+                  6001      |   바지/청바지
+                  9001      |   악세사리
+                ---------------------------
+                """;
+        System.out.println(categoryMenu);
     }
 
 }

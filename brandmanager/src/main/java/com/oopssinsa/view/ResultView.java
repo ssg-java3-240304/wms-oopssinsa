@@ -2,7 +2,9 @@ package com.oopssinsa.view;
 
 import com.oopssinsa.model.dto.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ResultView {
@@ -79,6 +81,13 @@ public class ResultView {
     }
 
     public static void displayObDetailList(List<ObDto> list) {
+//        Map<String, String> map = new HashMap<>();
+//        map.put("W", "출고대기");
+//        map.put("P", "출고진행");
+//        map.put("S", "출고완료");
+//        map.put("F", "출고실패");
+//        map.put("N", "운송장 대기");
+
         if (list.isEmpty()) {
             System.out.println("> 😅😅😅 조회된 출고 요청이 없습니다. 😅😅😅");
         } else {
@@ -94,6 +103,58 @@ public class ResultView {
                         obDto.getStatus(),
                         obDto.getCompletionDate(),
                         obDto.getTrackingNumber()
+                );
+            }
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.println();
+        }
+    }
+
+    public static void desplayStockDetailList(List<StockListDto> list) {
+        System.out.println();
+        if (list.isEmpty()) {
+            System.out.println("> 😅😅😅 조회된 재고내역이 없습니다. 😅😅😅");
+        } else {
+            System.out.println("📦 현재 등록된 전체 재고 리스트");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.printf("%-10s\t %-10s\t %-10s\t %-13s\t %-17s\t  %-10s\t %-10s\t %-10s\n", "manufactureDate", "productId", "quantity", "date", "name", "size", "color", "volume");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            for(StockListDto stockListDto : list) {
+                System.out.printf("%-15s\t %-10s\t %-10d\t %-13s\t %-12s\t %-10s\t %-10s\t %-10s\n",
+                        stockListDto.getManufactureDate(),
+                        stockListDto.getProductId(),
+                        stockListDto.getQuantity(),
+                        stockListDto.getDate(),
+                        stockListDto.getName(),
+                        stockListDto.getSize(),
+                        stockListDto.getColor(),
+                        stockListDto.getVolume()
+                );
+            }
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.println();
+        }
+    }
+
+    public static void desplayStockByCategoryIdList(List<StockListDto> list) {
+        System.out.println();
+        if (list.isEmpty()) {
+            System.out.println("> 😅😅😅 조회된 재고내역이 없습니다. 😅😅😅");
+        } else {
+            System.out.println("📦 현재 등록된 재고 리스트");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.printf("%-10s\t %-10s\t %-10s\t %-13s\t %-17s\t  %-10s\t %-10s\t %-10s\n", "manufactureDate", "productId", "quantity", "date", "name", "size", "color", "volume");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            for(StockListDto stockListDto : list) {
+                System.out.printf("%-15s\t %-10s\t %-10d\t %-13s\t %-12s\t %-10s\t %-10s\t %-10s\n",
+                        stockListDto.getManufactureDate(),
+                        stockListDto.getProductId(),
+                        stockListDto.getQuantity(),
+                        stockListDto.getDate(),
+                        stockListDto.getName(),
+                        stockListDto.getSize(),
+                        stockListDto.getColor(),
+                        stockListDto.getVolume()
                 );
             }
             System.out.println("------------------------------------------------------------------------------------------------");
