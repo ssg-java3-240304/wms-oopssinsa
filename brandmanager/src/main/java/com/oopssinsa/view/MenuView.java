@@ -40,6 +40,7 @@ public class MenuView {
                 5. 출고 처리 조회
                 6. 전체 재고 현황 조회
                 7. 카테고리별 재고 조회
+                8. 상품별 재고 조회
                 0. 종료
                 ==================================================================
                 입력 : """;
@@ -54,11 +55,17 @@ public class MenuView {
                 case "5" : menuController.findObDetail(findObDetail()); break;
                 case "6" : menuController.findAllStockDetail(brandId()); break;
                 case "7" : menuController.findStockByCategoryId(brandId(), categoryId()); break;
+//                case "8" : menuController.findStockByProductId(brandId(), productId()); break;
                 case "0" : return;
                 default:
                     System.out.println("잘못 입력하셨습니다...");
             }
         }
+    }
+
+    private String productId() {
+
+        return sc.next();
     }
 
     private long categoryId() {
