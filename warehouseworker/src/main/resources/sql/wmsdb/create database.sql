@@ -38,6 +38,7 @@ CREATE TABLE `stock`
 (
     `manufacture_date`  date        NOT NULL,
     `product_id`        varchar(10) NOT NULL,
+    `section_id`        char(1) NULL,
     `location_id`   bigint      NOT NULL,
     `quantity`          int         NOT NULL COMMENT '재고 0이면 테이블에서 삭제',
     `expected_quantity` int         NULL DEFAULT 0
@@ -218,7 +219,7 @@ ALTER TABLE `ib_detail`
         REFERENCES `product` (
                               `id`
             );
-
+--
 ALTER TABLE ob_detail
     ADD CONSTRAINT `FK_ob_request_TO_ob_detail_1` FOREIGN KEY (
                                                                `ob_id`
@@ -350,3 +351,8 @@ ALTER TABLE `sub_location`
 ALTER TABLE `sub_location`
     ADD CONSTRAINT `FK_sub_location_table_category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
+CREATE TABLE `tracking_number`
+(
+    `ob_id`            bigint      NOT NULL     primary key ,
+    `number` bigint        NOT NULL
+);

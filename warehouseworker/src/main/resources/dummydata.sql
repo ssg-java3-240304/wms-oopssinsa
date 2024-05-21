@@ -1,14 +1,16 @@
 -- brand dummy table
 
 # use wms_db;
+select *
+from brand;
 insert into brand
 values (1, 'Nike', '2020-01-01', '2025-01-01'),
        (2, 'Adidas', '2020-02-01', '2025-02-01'),
        (3, 'Zara', '2020-03-01', '2025-03-01'),
-       (4, 'H&M', '2020-04-01', '2025-04-01'),
-       (5, 'Uniqlo', '2020-05-01', '2025-05-01'),
-       (6, 'Under Armour', '2020-06-01', '2025-06-01'),
-       (7, 'Gucci', '2020-07-01', '2025-07-01');
+       (4, 'H&M', '2020-04-01', '2025-04-01');
+#        (5, 'Uniqlo', '2020-05-01', '2025-05-01'),
+#        (6, 'Under Armour', '2020-06-01', '2025-06-01'),
+#        (7, 'Gucci', '2020-07-01', '2025-07-01',
 #        (8, 'Prada', '2020-08-01', '2025-08-01'),
 #        (9, 'Levi\'s', '2020-09-01', '2025-09-01'),
 #        (10, 'Puma', '2020-10-01', '2025-10-01'),
@@ -490,8 +492,8 @@ INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
 delete from stock
 where 1;
 
-alter table stock
-add section_id char(1);
+# alter table stock
+# add section_id char(1);
 
 insert into stock (manufacture_date, product_id, section_id, location_id, quantity)
 VALUES (20231101, 'BG001', 'G', 19, (select sum(quantity) from stock_detail where product_id = 'BG001' group by product_id)),
@@ -504,9 +506,6 @@ VALUES (20231101, 'BG001', 'G', 19, (select sum(quantity) from stock_detail wher
        (20230401, 'SH001','A', 5, (select sum(quantity) from stock_detail where product_id = 'SH001' group by product_id)),
 #        (20230301, 'SH040','H', 4001, (select sum(quantity) from stock_detail where product_id = 'SH040' group by product_id)),
        (20230201, 'JK004','E', 15, (select sum(quantity) from stock_detail where product_id = 'JK004' group by product_id));
-
-select *
-from stock;
 
 select product.brand_id, category_id, sum(volume * quantity)
 from stock left join product on stock.product_id = product.id
@@ -531,28 +530,11 @@ insert into ib_worker (ib_id, manufacture_date, product_id, worker_id, location_
 VALUES (3, 20240516, 'AC001', 'worker1', 9001),
        (3, 20240516, 'BG009', 'worker1', 9001);
 
-select *
-from product
-where id = 'JK001';
-
-select *
-from account
-where brand_id = 3;
-
-select *
-from ib_worker;
-
 select ibw.*
 from ib_detail ibd left join ib_worker ibw
                              on (ibd.id = ibw.ib_id and ibd.manufacture_date = ibw.manufacture_date and ibd.product_id = ibw.product_id)
 where ibd.status = 'P'
   and worker_id = 'worker1';
-
-select *
-from stock_detail;
-
-select *
-from ib_worker;
 
 update ib_detail
 set completion_date = null, status = 'P'
@@ -567,8 +549,5 @@ from stock_detail;
 # values (1, '20240501', 'SH001', )
 
 select *
-from stock;
+from ob_detail;
 
-select *
-
-from sub_location;
