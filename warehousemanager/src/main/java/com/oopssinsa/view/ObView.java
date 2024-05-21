@@ -118,7 +118,9 @@ public class ObView {
 //                "출고ID" + "  " + "상품ID" + "  " + "제조일자" + "  " + "수량" + "  " + "출고처리상태" + "  "
 //                        + "출고일자" + "  " + "운송장번호");
         for (ObDetailDto obDetailDto : obDetailDtos) {
-            System.out.printf("|%5d|  %7s| %11s| %11s| %,6d| %11c| %11s| %11s| %9d|\n",
+//            System.out.printf("|%5d|  %7s| %11s| %11s| %,6d| %11c| %11s| %11s| %9d|\n",
+            // 예작시
+            System.out.printf("|%5d|  %7s| %11s| %11s| %,6d| %11c| %11s| %9d|\n",
                     (count++), obDetailDto.getObId(), obDetailDto.getProductId(),
                     obDetailDto.getManufactureDate(), obDetailDto.getQuantity(), obDetailDto.getStatus(),
                     obDetailDto.getObDate(), obDetailDto.getCompletionDate(), obDetailDto.getTrackingNumber());
