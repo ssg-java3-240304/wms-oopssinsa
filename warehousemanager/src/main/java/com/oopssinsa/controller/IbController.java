@@ -49,7 +49,6 @@ public class IbController {
         int ibIndex = ibView.getChangeIbIndex();
         IbDto ibDto = selectRequestIb(ibIndex, requestIbs, ibRequestAndLocation);
         if (ibDto == null) {
-            errorView.printError("존재하지 않는 입고 요청 id입니다.");
             return;
         }
 
@@ -86,6 +85,7 @@ public class IbController {
                 }
             }
         } catch (IndexOutOfBoundsException e) {
+            errorView.printError("존재하지 않는 입고 요청 id입니다.");
             return null;
         }
 

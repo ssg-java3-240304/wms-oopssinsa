@@ -11,6 +11,7 @@ import com.oopssinsa.view.ErrorView;
 import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.ObView;
 import com.oopssinsa.view.WorkerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,58 +40,128 @@ public class ObController {
         obView.printAllOb(obService.findAllOb());
     }
 
+
+
+
     public void updateState() {
         List<ObRequestAndStockDto> obRequestAndStock = obService.findObRequestAndStock();
         obView.printObRequestAndStock(obRequestAndStock);
-        int index = inputView.getNumber() - 1;
-        ObRequestAndStockDto selectedOb = null;
-        try {
-            selectedOb = obRequestAndStock.get(index);
-        } catch (IndexOutOfBoundsException e) {
-            errorView.printError("없는 번호 입니다.");
+        ObRequestAndStockDto selectedOb = selectRequestOb(obRequestAndStock);
+
+        if (selectedOb == null) {
             return;
         }
+
         if (selectedOb.getObStatus() == 'F') {
             obView.printImpossibleOb();
             return;
         }
         if (selectedOb.getObStatus() == 'T') {
-            List<StockDto> stockDtos = obService.findStockOrderableByProductId(
-                    selectedOb.getProductId());
-            List<ObDetailDto> obDetailDtos = new ArrayList<>();
-
-            int count = selectedOb.getQuantity();
-            for (StockDto stockDto : stockDtos) {
-                if (count > stockDto.getQuantity()) {
-                    count -= stockDto.getQuantity();
-                    obDetailDtos.add(new ObDetailDto(stockDto.getManufactureDate(), selectedOb.getId(),
-                            selectedOb.getProductId(), stockDto.getQuantity(), 'W', selectedOb.getObDate(),
-                            null, null));
-
-                    // 재고 예정 수량 업데이트
-                    stockDto.setExpectedQuantity(stockDto.getExpectedQuantity() + stockDto.getQuantity());
-                    obService.updateStock(stockDto);
-
-                } else if (count <= stockDto.getQuantity()) {
-                    obDetailDtos.add(new ObDetailDto(stockDto.getManufactureDate(), selectedOb.getId(),
-                            selectedOb.getProductId(), count, 'W', selectedOb.getObDate(),
-                            null, null));
-                    // 재고 예정 수량 업데이트
-                    stockDto.setExpectedQuantity(stockDto.getExpectedQuantity() + count);
-                    obService.updateStock(stockDto);
-                    break;
-                }
-            }
-            // 삭제필요
-            for (ObDetailDto obDetailDto : obDetailDtos) {
-                System.out.println(obDetailDto.getObId() +" "+ obDetailDto.getStatus() + " "+obDetailDto.getQuantity()
-                        + " "+obDetailDto.getManufactureDate() + " "+obDetailDto.getProductId());
-            }
-
-            // ob_detail에 삽입
-            obService.insertObDetails(obDetailDtos);
+            processOrderableOb(selectedOb);
         }
     }
+
+    private ObRequestAndStockDto selectRequestOb(List<ObRequestAndStockDto> obRequestAndStock) {
+        ObRequestAndStockDto selectedOb = null;
+        try {
+            selectedOb = obRequestAndStock.get(obView.getChangeObIndex());
+        } catch (IndexOutOfBoundsException e) {
+            errorView.printError("없는 번호 입니다.");
+        }
+        return selectedOb;
+    }
+
+    private ObDetailDto createObDetail(ObRequestAndStockDto selectedOb, StockDto stockDto, int quantity) {
+        return new ObDetailDto(
+                stockDto.getManufactureDate(),
+                selectedOb.getId(),
+                selectedOb.getProductId(),
+                quantity,
+                'W',
+                selectedOb.getObDate(),
+                null,
+                null
+        );
+    }
+
+    private void updateStockExpectedQuantity(StockDto stockDto, int requestQuantity) {
+        stockDto.setExpectedQuantity(stockDto.getExpectedQuantity() + requestQuantity);
+        obService.updateStock(stockDto);
+    }
+
+    private void insertObDetails(List<ObDetailDto> obDetailDtos) {
+        obService.insertObDetails(obDetailDtos);
+    }
+
+    private void processOrderableOb(ObRequestAndStockDto selectedOb) {
+        List<StockDto> stockDtos = obService.findStockOrderableByProductId(selectedOb.getProductId());
+        List<ObDetailDto> obDetailDtos = new ArrayList<>();
+        int requestQuantity = selectedOb.getQuantity();
+
+        for (StockDto stockDto : stockDtos) {
+            if (requestQuantity > stockDto.getQuantity()) {
+                requestQuantity -= stockDto.getQuantity();
+                obDetailDtos.add(createObDetail(selectedOb, stockDto, stockDto.getQuantity()));
+                updateStockExpectedQuantity(stockDto, stockDto.getQuantity());
+            } else {
+                obDetailDtos.add(createObDetail(selectedOb, stockDto, requestQuantity));
+                updateStockExpectedQuantity(stockDto, stockDto.getQuantity());
+                break;
+            }
+        }
+
+        insertObDetails(obDetailDtos);
+    }
+
+
+//    public void updateState() {
+//        List<ObRequestAndStockDto> obRequestAndStock = obService.findObRequestAndStock();
+//        obView.printObRequestAndStock(obRequestAndStock);
+//
+//
+//        ObRequestAndStockDto selectedOb = null;
+//        try {
+//            selectedOb = obRequestAndStock.get(obView.getChangeObIndex());
+//        } catch (IndexOutOfBoundsException e) {
+//            errorView.printError("없는 번호 입니다.");
+//            return;
+//        }
+//        if (selectedOb.getObStatus() == 'F') {
+//            obView.printImpossibleOb();
+//            return;
+//        }
+//        if (selectedOb.getObStatus() == 'T') {
+//            List<StockDto> stockDtos = obService.findStockOrderableByProductId(
+//                    selectedOb.getProductId());
+//            List<ObDetailDto> obDetailDtos = new ArrayList<>();
+//
+//            int count = selectedOb.getQuantity();
+//            for (StockDto stockDto : stockDtos) {
+//                if (count > stockDto.getQuantity()) {
+//                    count -= stockDto.getQuantity();
+//                    obDetailDtos.add(new ObDetailDto(stockDto.getManufactureDate(), selectedOb.getId(),
+//                            selectedOb.getProductId(), stockDto.getQuantity(), 'W', selectedOb.getObDate(),
+//                            null, null));
+//
+//                    // 재고 예정 수량 업데이트
+//                    stockDto.setExpectedQuantity(stockDto.getExpectedQuantity() + stockDto.getQuantity());
+//                    obService.updateStock(stockDto);
+//
+//                } else if (count <= stockDto.getQuantity()) {
+//                    obDetailDtos.add(new ObDetailDto(stockDto.getManufactureDate(), selectedOb.getId(),
+//                            selectedOb.getProductId(), count, 'W', selectedOb.getObDate(),
+//                            null, null));
+//                    // 재고 예정 수량 업데이트
+//                    stockDto.setExpectedQuantity(stockDto.getExpectedQuantity() + count);
+//                    obService.updateStock(stockDto);
+//                    break;
+//                }
+//            }
+//
+//            // ob_detail에 삽입
+//            obService.insertObDetails(obDetailDtos);
+//        }
+//    }
 
     public void insertObWorker() {
         List<ObDetailDto> obDetailDtos = obService.findObDetailByWaitingState();
