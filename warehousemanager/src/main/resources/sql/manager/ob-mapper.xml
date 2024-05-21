@@ -25,6 +25,20 @@
         <result column="ob_date" property="obDate"/>
     </resultMap>
 
+    <resultMap id="obDtoMap" type="com.oopssinsa.model.dto.ob.ObDto">
+        <result column="manufacture_date" property="manufactureDate"/>
+        <result column="ob_id" property="obId"/>
+        <result column="product_id" property="productId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="status" property="status"/>
+        <result column="completion_date" property="completionDate"/>
+        <result column="tracking_number" property="trackingNumber"/>
+        <result column="login_id" property="loginId"/>
+        <result column="recipient_name" property="recipientName"/>
+        <result column="address" property="address"/>
+        <result column="ob_date" property="obDate"/>
+    </resultMap>
+
 
     <!-- 모든 OB 요청 상태 조회 -->
     <select id="findObByRequestState" resultMap="obRequestMap">
@@ -32,16 +46,24 @@
     </select>
 
     <!-- 모든 OB 상세 조회 -->
-    <select id="findAllOb" resultMap="obDetailMap">
+<!--    <select id="findAllOb" resultMap="obDetailMap">-->
+<!--        SELECT-->
+<!--        od.*, obr.ob_date-->
+<!--        FROM ob_detail od left join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)-->
+<!--    </select>-->
+    <select id="findAllOb" resultMap="obDtoMap">
         SELECT
         od.manufacture_date as manufacture_date,
         od.ob_id as ob_id,
         od.product_id as product_id,
+        obr.login_id as login_id,
+        obr.recipient_name as recipient_name,
+        obr.address as address,
         od.quantity as quantity,
         od.status as status,
-        od.completion_date as completion_date,
-        od.tracking_number as tracking_number,
         obr.ob_date as ob_date
+        od.completion_date as completion_date,
+        od.tracking_number as tracking_number
         FROM ob_detail od left join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)
     </select>
 

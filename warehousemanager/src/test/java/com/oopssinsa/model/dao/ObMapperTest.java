@@ -1,5 +1,6 @@
 package com.oopssinsa.model.dao;
 
+import com.oopssinsa.model.dto.ob.ObDetailDto;
 import com.oopssinsa.model.dto.ob.ObDto;
 import com.oopssinsa.model.dto.ob.ObRequestDto;
 import org.apache.ibatis.session.SqlSession;
