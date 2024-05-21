@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oopssinsa.model.dao.MenuMapper">
+<!--    <select id="insertProduct" resultType="String">-->
+<!--        select * from test1-->
+<!--    </select>-->
+    <select id="login" resultType="accountDto">
+        select
+            *
+        from
+            account
+        where
+            id = #{id} and password = #{password}
+    </select>
+    <select id="showProduct" resultType="productDto">
+        select
+            *
+        from
+            product
+        where
+            brand_id = #{brandId}
+    </select>
+    <insert id="insertProduct">
+        insert into
+            product
+        values (
+        #{id}, #{brandId}, #{name}, #{size}, #{color}, #{categoryId}, #{volume}
+        )
+    </insert>
+    <insert id="ibRequest">
+        insert into
+            ib_detail
+        values (
+        #{id}, #{manufactureId}, #{productId}, #{loginId}, #{quantity}, #{ibDate}, #{completionDate}, #{status}
+        )
+    </insert>
+    <select id="findByUserID" resultType="ibDetailDto">
+        select
+            *
+        from
+            ib_detail
+        where
+            login_id = #{id}
+    </select>
+    <insert id="obRequest">
+        insert into
+            ob_request
+        values(
+        #{id}, #{productId}, #{loginId}, #{quantity}, #{recipientName}, #{address}, #{obDate}
+        )
+    </insert>
+
+    <select id="findObDetail" resultType="obDto">
+        select
+        d.manufacture_date, d.ob_id, d.product_id, d.quantity, d.status, d.completion_date, d.tracking_number
+        from
+            ob_detail d left join ob_request r on d.ob_id = r.id
+        where r.login_id = #{userId};
+    </select>
+</mapper>

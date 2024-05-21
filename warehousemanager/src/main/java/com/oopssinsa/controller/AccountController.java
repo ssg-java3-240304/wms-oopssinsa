@@ -5,6 +5,7 @@ import com.oopssinsa.model.service.AccountService;
 import com.oopssinsa.view.AccountView;
 
 public class AccountController {
+
     private final AccountService accountService;
     private final AccountView accountView;
 
@@ -24,8 +25,9 @@ public class AccountController {
             }
 
             String password = accountView.getPassword();
-
-            AccountDto account = accountService.findAccountById(id);
+            // 나경 작업시작
+            AccountDto account = accountService.findAccountById(id,password);
+            // 나경 작업 끝
             if (account == null) {
                 accountView.printNonexistentAccount();
                 continue;

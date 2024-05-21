@@ -2,38 +2,59 @@ package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
 import com.oopssinsa.model.dao.IbMapper;
-import com.oopssinsa.model.dto.IbDto;
-import com.oopssinsa.model.dto.IbRequestAndLocationDto;
-import com.oopssinsa.model.dto.InstructionDto;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 import com.oopssinsa.model.dto.LocationDto;
 import com.oopssinsa.model.dto.ProductDto;
 import com.oopssinsa.model.dto.SectionDto;
-import com.oopssinsa.model.dto.WorkerDto;
 import org.apache.ibatis.session.SqlSession;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class IbService {
-    public void updateIbState(IbDto updateIb) {
+    public int updateIbState(IbDto updateIb) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
-        ibMapper.updateIbState(updateIb);
+        try {
+            int result = ibMapper.updateIbState(updateIb);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }finally {
+            sqlSession.close();
+        }
     }
 
     public int updateExpectedCapacityLocation(LocationDto locationDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
-        return ibMapper.updateExpectedCapacityLocation(locationDto);
+        try {
+            int result = ibMapper.updateExpectedCapacityLocation(locationDto);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }finally {
+            sqlSession.close();
+        }
     }
 
     public int updateExpectedCapacitySection(SectionDto sectionDto) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
-        return ibMapper.updateExpectedCapacitySection(sectionDto);
+        try {
+            int result = ibMapper.updateExpectedCapacitySection(sectionDto);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        }finally {
+            sqlSession.close();
+        }
     }
-
 
     public LocationDto findLocationByCategoryIdAndSectionId(String categoryId, char sectionId) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
@@ -41,10 +62,10 @@ public class IbService {
         return ibMapper.findLocationByCategoryIdAndSectionId(categoryId, sectionId);
     }
 
-    public ProductDto findProductByProductId(String productID) {
+    public ProductDto findProductByProductId(String productId) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
-        return ibMapper.findProductByProductId(productID);
+        return ibMapper.findProductByProductId(productId);
     }
 
     public SectionDto findSectionByBrandId(String brandId) {

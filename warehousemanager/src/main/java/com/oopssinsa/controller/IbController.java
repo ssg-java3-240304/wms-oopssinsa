@@ -1,7 +1,8 @@
 package com.oopssinsa.controller;
 
-import com.oopssinsa.model.dto.IbDto;
-import com.oopssinsa.model.dto.IbRequestAndLocationDto;
+import com.oopssinsa.model.constants.Error;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.LocationDto;
 import com.oopssinsa.model.dto.ProductDto;
@@ -13,7 +14,6 @@ import com.oopssinsa.view.ErrorView;
 import com.oopssinsa.view.IbView;
 import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.WorkerView;
-
 import java.util.List;
 
 public class IbController {
@@ -43,104 +43,201 @@ public class IbController {
 
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
-//        ibView.printIbAndCapacity(requestIbs, ibService.findLocationsByIbDtos(requestIbs));
-
         List<IbRequestAndLocationDto> ibRequestAndLocation = ibService.findIbRequestAndLocation(requestIbs);
         ibView.printIbAndCapacity(ibRequestAndLocation);
-//        ibView.printIbState(requestIbs);
 
         int ibIndex = ibView.getChangeIbIndex();
-        IbDto ibDto = null;
-        char ibAvailability = ' ';
-        try {
-            ibAvailability = ibRequestAndLocation.get(ibIndex).getIbAvailability();
-
-            for (IbDto requestIb : requestIbs) {
-                if (ibRequestAndLocation.get(ibIndex).getIbId().equals(requestIb.getId())
-                        && ibRequestAndLocation.get(ibIndex).getManufactureDate().equals(requestIb.getManufactureDate())
-                        && ibRequestAndLocation.get(ibIndex).getProductId().equals(requestIb.getProductId())) {
-                    ibDto = requestIb;
-                }
-            }
-//            ibDto = requestIbs.get(ibIndex); // index error 처리
-        } catch (IndexOutOfBoundsException e) {
-            errorView.printError("존재하지 않는 입고 요청 id입니다.");
+        IbDto ibDto = selectRequestIb(ibIndex, requestIbs, ibRequestAndLocation);
+        // 제거 필요
+        System.out.println(ibDto.toString());
+        if (ibDto == null) {
             return;
         }
 
         String select = inputView.getYesOrNo();
-
-        // 대기상태로 업데이트
         if (select.equalsIgnoreCase("y")) {
-            SectionDto sectionDto = ibService.findSectionByBrandId(ibDto.getBrandId());
-            ProductDto productDto = ibService.findProductByProductId(ibDto.getProductId());
-            LocationDto locationDto = ibService.findLocationByCategoryIdAndSectionId(
-                    productDto.getCategoryId(),
-                    sectionDto.getId());
-
-            // 제거필요
-            System.out.println(locationDto.getExpectedCapacity());
-            System.out.println(sectionDto.getExpectedCapacity());
-
-            // 각 테이블 업데이트 (입고테이블 - 상태, 서브위치테이블 - 예정용량, 구역테이블 - 예정용량)
-//            if (locationDto.getCurrentCapacity() + locationDto.getExpectedCapacity() + ibDto.getQuantity()
-//                    <= locationDto.getMaxCapacity()) {
-            if (ibAvailability == 'T') {
-                ibDto.setStatus('W');
-                locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity());
-                sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity());
-                ibService.updateIbState(ibDto);
-                ibService.updateExpectedCapacityLocation(locationDto);
-                ibService.updateExpectedCapacitySection(sectionDto);
-            } else {
-                ibView.printOverCapacity();
-                return;
-            }
-
-            // 제거필요
-            System.out.println(locationDto.getExpectedCapacity());
-            System.out.println(sectionDto.getExpectedCapacity());
+            handleApprovedRequest(ibDto, ibRequestAndLocation.get(ibIndex).getIbAvailability());
+        } else if (select.equalsIgnoreCase("n")) {
+            handleFailedRequest(ibDto);
         }
-
-        // 실패상태로 업데이트
-        if (select.equalsIgnoreCase("n")) {
-            ibDto.setStatus('F');
-            ibService.updateIbState(ibDto);
-        }
-
-        // 제거 필요 - 테스트
-        ibView.printAllIb(List.of(ibDto));
     }
 
     public void insertIbWorker() {
         List<IbDto> ibDtos = ibService.findIbByWaitingState();
         List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
-
         ibView.printIbWaitingState(ibDtos);
-
         workerView.printAssignableWorker(workerDtos);
-        IbDto selectedIbDto = null;
-        WorkerDto selectedWorkerDto = null;
         try {
-            selectedIbDto = ibDtos.get(ibView.getProcessIbIndex());
-            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+            IbDto selectedIbDto = ibDtos.get(ibView.getProcessIbIndex());
+            WorkerDto selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+
+            insertInstruction(selectedIbDto, selectedWorkerDto);
+            updateIbToProgressState(selectedIbDto);
+            updateWorkerToFalseStatus(selectedWorkerDto);
         } catch (IndexOutOfBoundsException e) {
-            errorView.printError("없는 번호 입니다.");
+            errorView.printError(Error.NON_EXISTENT_NUMBER_ERROR);
+        }
+    }
+
+    private IbDto selectRequestIb(int ibIndex, List<IbDto> requestIbs, List<IbRequestAndLocationDto> ibRequestAndLocation) {
+        try {
+            for (IbDto requestIb : requestIbs) {
+                if (isMatchingRequest(ibIndex, requestIb, ibRequestAndLocation)) {
+                    return requestIb;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            errorView.printError(Error.NON_EXISTENT_NUMBER_ERROR);
+            return null;
         }
 
-        // 지시테이블에 삽입
-        workerService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),
-                selectedIbDto.getProductId(), selectedWorkerDto.getId()));
+        return null;
+    }
 
-        // 입고테이블 상태 업데이트
+    private boolean isMatchingRequest(int ibIndex, IbDto requestIb, List<IbRequestAndLocationDto> ibRequestAndLocation) {
+        IbRequestAndLocationDto ibRequestAndLocationDto = ibRequestAndLocation.get(ibIndex);
+        return ibRequestAndLocationDto.getIbId().equals(requestIb.getId())
+                && ibRequestAndLocationDto.getManufactureDate().equals(requestIb.getManufactureDate())
+                && ibRequestAndLocationDto.getProductId().equals(requestIb.getProductId());
+    }
+
+    private void handleApprovedRequest(IbDto ibDto, char ibAvailability) {
+        SectionDto sectionDto = ibService.findSectionByBrandId(ibDto.getBrandId());
+        // 제거필요
+        System.out.println(sectionDto);
+        ProductDto productDto = ibService.findProductByProductId(ibDto.getProductId());
+        LocationDto locationDto = ibService.findLocationByCategoryIdAndSectionId(
+                productDto.getCategoryId(), sectionDto.getId());
+        System.out.println(locationDto);
+
+        if (ibAvailability == 'T') {
+            updateToWaitingState(ibDto, locationDto, sectionDto);
+        } else {
+            ibView.printOverCapacity();
+        }
+    }
+
+    private void handleFailedRequest(IbDto ibDto) {
+        ibDto.setStatus('F');
+        ibService.updateIbState(ibDto);
+    }
+
+    private void updateToWaitingState(IbDto ibDto, LocationDto locationDto, SectionDto sectionDto) {
+        ibDto.setStatus('W');
+        ProductDto productDto = ibService.findProductByProductId(ibDto.getProductId());
+
+        locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity()* productDto.getVolume());
+        sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity()* productDto.getVolume());
+
+        ibService.updateIbState(ibDto);
+        System.out.println(ibDto);
+        ibService.updateExpectedCapacityLocation(locationDto);
+        ibService.updateExpectedCapacitySection(sectionDto);
+
+    }
+
+    private void insertInstruction(IbDto selectedIbDto, WorkerDto selectedWorkerDto) {
+        workerService.insertIbWorker(new InstructionDto(
+                selectedIbDto.getId(),
+                selectedIbDto.getManufactureDate(),
+                selectedIbDto.getProductId(),
+                selectedWorkerDto.getId()
+        ));
+    }
+
+    private void updateIbToProgressState(IbDto selectedIbDto) {
         selectedIbDto.setStatus('P');
         ibService.updateIbState(selectedIbDto);
-
-        // 작업자 상태 업데이트
-        selectedWorkerDto.setState('F');
-        workerService.updateWorkerStatus(selectedWorkerDto);
-
-        System.out.println(selectedIbDto.getStatus());
-        System.out.println(selectedWorkerDto.getState());
     }
+
+    private void updateWorkerToFalseStatus(WorkerDto selectedWorkerDto) {
+        selectedWorkerDto.setStatus('F');
+        workerService.updateWorkerStatus(selectedWorkerDto);
+    }
+
+
+//    public void updateState() {
+//        List<IbDto> requestIbs = ibService.findIbByRequestState();
+//        List<IbRequestAndLocationDto> ibRequestAndLocation = ibService.findIbRequestAndLocation(requestIbs);
+//        ibView.printIbAndCapacity(ibRequestAndLocation);
+//
+//        int ibIndex = ibView.getChangeIbIndex();
+//        IbDto ibDto = null;
+//        char ibAvailability = ' ';
+//        try {
+//            ibAvailability = ibRequestAndLocation.get(ibIndex).getIbAvailability();
+//
+//            for (IbDto requestIb : requestIbs) {
+//                if (ibRequestAndLocation.get(ibIndex).getIbId().equals(requestIb.getId())
+//                        && ibRequestAndLocation.get(ibIndex).getManufactureDate().equals(requestIb.getManufactureDate())
+//                        && ibRequestAndLocation.get(ibIndex).getProductId().equals(requestIb.getProductId())) {
+//                    ibDto = requestIb;
+//                }
+//            }
+//        } catch (IndexOutOfBoundsException e) {
+//            errorView.printError("존재하지 않는 입고 요청 id입니다.");
+//            return;
+//        }
+//
+//        String select = inputView.getYesOrNo();
+//
+//        // 대기상태로 업데이트
+//        if (select.equalsIgnoreCase("y")) {
+//            SectionDto sectionDto = ibService.findSectionByBrandId(ibDto.getBrandId());
+//            ProductDto productDto = ibService.findProductByProductId(ibDto.getProductId());
+//            LocationDto locationDto = ibService.findLocationByCategoryIdAndSectionId(
+//                    productDto.getCategoryId(),
+//                    sectionDto.getId());
+//
+//            if (ibAvailability == 'T') {
+//                ibDto.setStatus('W');
+//                locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity());
+//                sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity());
+//                //입고 상태 업데이트
+//                ibService.updateIbState(ibDto);
+//                // 위치 예정용량 업데이트
+//                ibService.updateExpectedCapacityLocation(locationDto);
+//                // 구역 예정용량 업데이트
+//                ibService.updateExpectedCapacitySection(sectionDto);
+//            } else {
+//                ibView.printOverCapacity();
+//                return;
+//            }
+//        }
+//
+//        // 실패상태로 업데이트
+//        if (select.equalsIgnoreCase("n")) {
+//            ibDto.setStatus('F');
+//            ibService.updateIbState(ibDto);
+//        }
+//    }
+//public void insertIbWorker() {
+//        List<IbDto> ibDtos = ibService.findIbByWaitingState();
+//        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
+//
+//        ibView.printIbWaitingState(ibDtos);
+//        workerView.printAssignableWorker(workerDtos);
+//        IbDto selectedIbDto = null;
+//        WorkerDto selectedWorkerDto = null;
+//        try {
+//            selectedIbDto = ibDtos.get(ibView.getProcessIbIndex());
+//            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+//        } catch (IndexOutOfBoundsException e) {
+//            errorView.printError("없는 번호 입니다.");
+//        }
+//
+//        // 지시테이블에 삽입
+//        workerService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),
+//                selectedIbDto.getProductId(), selectedWorkerDto.getId()));
+//
+//        // 입고테이블 상태 업데이트
+//        selectedIbDto.setStatus('P');
+//        ibService.updateIbState(selectedIbDto);
+//
+//        // 작업자 상태 업데이트
+//        selectedWorkerDto.setState('F');
+//        workerService.updateWorkerStatus(selectedWorkerDto);
+//
+//    }
+
 }

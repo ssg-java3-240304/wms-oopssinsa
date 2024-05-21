@@ -1,4 +1,4 @@
-package com.oopssinsa.model.dto;
+package com.oopssinsa.model.dto.ib;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -17,6 +17,8 @@ public class IbRequestAndLocationDto {
     private String productId;
     private String brandId;
     private int quantity;
+    private int volume; // 추가
+    private int capacity;  // 추가
     private LocalDate ibRequestDate;
     private char ibStatus;
     private char ibAvailability;

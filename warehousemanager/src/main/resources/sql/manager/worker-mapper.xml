@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oopssinsa.model.dao.WorkerMapper">
+
+    <!-- IB 작업자 삽입 -->
+    <insert id="insertIbWorker" parameterType="com.oopssinsa.model.dto.InstructionDto">
+        INSERT INTO ib_worker (ib_id, manufacture_date, product_id, worker_id)
+        VALUES (#{id}, #{manufactureDate}, #{productId}, #{workerId})
+    </insert>
+
+    <!-- 직원 상태 업데이트 -->
+    <update id="updateWorkerStatus" parameterType="com.oopssinsa.model.dto.WorkerDto">
+        UPDATE worker SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <!-- 배정 가능한 상태의 직원 조회 -->
+    <select id="findWorkerByAssignableStatus" resultType="com.oopssinsa.model.dto.WorkerDto">
+        SELECT * FROM worker WHERE status = 'T'
+    </select>
+
+    <!-- 모든 직원 조회 -->
+    <select id="findAllWorker" resultType="com.oopssinsa.model.dto.WorkerDto">
+        SELECT * FROM worker
+    </select>
+
+</mapper>

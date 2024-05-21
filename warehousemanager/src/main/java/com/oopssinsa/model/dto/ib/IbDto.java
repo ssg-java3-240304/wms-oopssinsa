@@ -1,12 +1,14 @@
-package com.oopssinsa.model.dto;
+package com.oopssinsa.model.dto.ib;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 public class IbDto {
     private String id;
