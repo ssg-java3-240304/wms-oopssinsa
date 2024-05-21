@@ -31,15 +31,15 @@ CREATE TABLE ob_detail
     `quantity`         int         NOT NULL,
     `status`           char(1)     NOT NULL COMMENT '출고대기= W(waiting), 출고 진행 = P(progress),  출고 완료 = S(sucess),  출고 실패 = F(failure),',
     `completion_date`  date        NULL,
-    `tracking_number`  int         NULL
+    `tracking_number`  bigint      NULL
 );
 
 CREATE TABLE `stock`
 (
     `manufacture_date`  date        NOT NULL,
     `product_id`        varchar(10) NOT NULL,
-    `section_id`        char(1) NULL,
-    `location_id`   bigint      NOT NULL,
+    `section_id`        char(1)     NULL,
+    `location_id`       bigint      NOT NULL,
     `quantity`          int         NOT NULL COMMENT '재고 0이면 테이블에서 삭제',
     `expected_quantity` int         NULL DEFAULT 0
 );
@@ -353,6 +353,6 @@ ALTER TABLE `sub_location`
 
 CREATE TABLE `tracking_number`
 (
-    `ob_id`            bigint      NOT NULL     primary key ,
-    `number` bigint        NOT NULL
+    `ob_id`  bigint NOT NULL primary key,
+    `number` bigint NOT NULL
 );
