@@ -9,7 +9,7 @@ import java.util.List;
 public interface ObMapper {
     List<ObInstructionDto> getObInstructionToDo(String workerId);
 
-    void updateObStatus(ObDto updateOb);
+    int updateObStatus(ObDto updateOb);
 
     ObDto findOb(ObDto targetOb);
 
