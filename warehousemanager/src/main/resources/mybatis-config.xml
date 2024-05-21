@@ -8,9 +8,8 @@
     </settings>
     <typeAliases>
         <typeAlias type="com.oopssinsa.model.dto.AccountDto" alias="accountDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.IbDto" alias="ibDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.IbRequestAndLocationDto" alias="ibRequestAndLocationDto"></typeAlias>
-
+        <typeAlias type="com.oopssinsa.model.dto.ib.IbDto" alias="ibDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ib.IbRequestAndLocationDto" alias="ibRequestAndLocationDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.InstructionDto" alias="instructionDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.LocationDto" alias="locationDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ob.ObDetailDto" alias="obDetailDto"></typeAlias>
