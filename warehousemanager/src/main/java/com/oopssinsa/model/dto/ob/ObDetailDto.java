@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
+// 출고처리내역테이블
 @Getter
 @Setter
 @AllArgsConstructor

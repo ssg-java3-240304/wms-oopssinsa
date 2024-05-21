@@ -10,12 +10,13 @@
         <typeAlias type="com.oopssinsa.model.dto.AccountDto" alias="accountDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ib.IbDto" alias="ibDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ib.IbRequestAndLocationDto" alias="ibRequestAndLocationDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.InstructionDto" alias="instructionDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.LocationDto" alias="locationDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ob.ObDetailDto" alias="obDetailDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ob.ObDto" alias="obDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ob.ObRequestAndStockDto" alias="obRequestAndStockDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ob.ObRequestDto" alias="obRequestDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.AccountDto" alias="accountDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.InstructionDto" alias="instructionDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.LocationDto" alias="locationDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ProductDto" alias="productDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.SectionDto" alias="sectionDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.StockDto" alias="stockDto"></typeAlias>
