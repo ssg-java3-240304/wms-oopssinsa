@@ -94,4 +94,12 @@ public class MenuService {
         sqlSession.close();
         return list;
     }
+
+    public List<StockListDto> findAllStockDetail(long brandId) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+        List<StockListDto> list = menuMapper.findAllStockDetail(brandId);
+        sqlSession.close();
+        return list;
+    }
 }

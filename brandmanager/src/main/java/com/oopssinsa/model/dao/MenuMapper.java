@@ -19,4 +19,6 @@ public interface MenuMapper {
     List<ProductDto> showProduct(long brandId);
 
     List<ObDto> findObDetail(String userId);
+
+    List<StockListDto> findAllStockDetail(long brandId);
 }

@@ -52,13 +52,17 @@ public class MenuView {
                 case "3" : menuController.findByUserId(findByUserId()); break;
                 case "4" : menuController.obRequest(inputObRequest()); break;
                 case "5" : menuController.findObDetail(findObDetail()); break;
-                case "6" :  break;
+                case "6" : menuController.findAllStockDetail(brandId()); break;
                 case "7" : break;
                 case "0" : return;
                 default:
                     System.out.println("잘못 입력하셨습니다...");
             }
         }
+    }
+
+    private long brandId() {
+        return accountDto.getBrandId();
     }
 
     private String findObDetail() {
