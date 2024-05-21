@@ -1,9 +1,6 @@
 package com.oopssinsa.controller;
 
-import com.oopssinsa.model.dto.AccountDto;
-import com.oopssinsa.model.dto.IbDetailDto;
-import com.oopssinsa.model.dto.ObDetailDto;
-import com.oopssinsa.model.dto.ProductDto;
+import com.oopssinsa.model.dto.*;
 import com.oopssinsa.model.service.MenuService;
 import com.oopssinsa.view.MenuView;
 import com.oopssinsa.view.ResultView;
@@ -56,8 +53,14 @@ public class MenuController {
         ResultView.displayProductList(list);
     }
 
-    public void findObDetail(String obDetail) {
+    public void findObDetail(String userId) {
         // 조인하게되면 Dto를 합친걸로 만들어야 되나?
-//        List<>
+        try {
+            List<ObDto> list = menuService.findObDetail(userId);
+            ResultView.displayObDetailList(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

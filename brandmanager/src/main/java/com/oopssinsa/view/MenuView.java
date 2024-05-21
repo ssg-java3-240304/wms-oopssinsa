@@ -35,9 +35,9 @@ public class MenuView {
                 ==================================================================
                 1. 상품 등록
                 2. 입고 요청
-                3. 입고 조회
+                3. 입고 요청 조회
                 4. 출고 요청
-                5. 출고 조회
+                5. 출고 처리 조회
                 6. 전체 재고 현황 조회
                 7. 카테고리별 재고 조회
                 0. 종료
@@ -63,7 +63,7 @@ public class MenuView {
 
     private String findObDetail() {
         System.out.println("==================================================================");
-        System.out.println(accountDto.getName() + "님의 입고 요청 현황입니다.");
+        System.out.println(accountDto.getName() + "님의 출고 처리 현황입니다.");
         return accountDto.getId();
     }
 
@@ -98,6 +98,8 @@ public class MenuView {
 
 
     private IbDetailDto inputIbRequest() {
+        menuController.showProduct(accountDto.getBrandId());
+
         System.out.println("> ✏✏✏ 입고 요청서를 작성해주세요. ✏✏✏");
         // 입고 ID
         String Id1 = (Long.toString(accountDto.getBrandId())) + LocalDate.now().format(DateTimeFormatter.ofPattern("YYMMdd"));

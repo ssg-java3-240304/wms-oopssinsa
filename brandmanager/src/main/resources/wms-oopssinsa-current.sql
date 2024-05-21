@@ -36,16 +36,25 @@ CREATE TABLE `ib_detail` (
                              `status`	char(1)	NULL	DEFAULT 'R'	COMMENT '입고 완료 = S(sucess),  입고 요청 = R(request), 입고 진행 = P(progress), 입고 실패 = F(failure), 입고대기(waiting)'
 ); -- 수정 기존 ib_date 에서 cur_date() -> (CURRENT_DATE()) 변경
 
-CREATE TABLE ob_detail (
-                             `id`	bigint	NOT NULL,
-                             `manufacture_id`	date	NULL,
+# CREATE TABLE ob_detail (
+#                              `id`	bigint	NOT NULL,
+#                              `manufacture_id`	date	NULL,
+#                              `product_id`	varchar(10)	NOT NULL,
+#                              `login_id`	varchar(20)	NOT NULL,
+#                              `quantity`	int	NOT NULL,
+#                              `recipient_name`	varchar(20)	NOT NULL,
+#                              `address`	varchar(255)	NOT NULL,
+#                              `ob_date`	date	NULL,
+#                              `status`	char(1)	NULL	DEFAULT 'R'	COMMENT '출고 완료 = S(sucess),  출고 요청 = R(request), 출고 진행 = P(progress), 출고 실패 = F(failure), 출고대기(waiting)',
+#                              `tracking_number`	int	NULL
+# );
+CREATE TABLE `ob_detail` (
+                             `manufacture_date`	date	NOT NULL,
+                             `ob_id`	bigint	NOT NULL,
                              `product_id`	varchar(10)	NOT NULL,
-                             `login_id`	varchar(20)	NOT NULL,
                              `quantity`	int	NOT NULL,
-                             `recipient_name`	varchar(20)	NOT NULL,
-                             `address`	varchar(255)	NOT NULL,
-                             `ob_date`	date	NULL,
-                             `status`	char(1)	NULL	DEFAULT 'R'	COMMENT '출고 완료 = S(sucess),  출고 요청 = R(request), 출고 진행 = P(progress), 출고 실패 = F(failure), 출고대기(waiting)',
+                             `status`	char(1)	NOT NULL	COMMENT '출고대기= W(waiting), 출고 진행 = P(progress),  출고 완료 = S(sucess),  출고 실패 = F(failure),',
+                             `completion_date`	date	NULL,
                              `tracking_number`	int	NULL
 );
 
