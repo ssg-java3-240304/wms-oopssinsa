@@ -49,12 +49,13 @@ public class IbController {
         if(updateStatus.equals("S")){
             System.out.println("입고 성공 처리 진입");
             IbDto foundIb = ibService.findIb(new IbDto(ibInstructionId, manufactureId, productId, 0,null,updateStatus));
-            IbInstructionDto foundIbInstruction = ibService.findIbInstruction(new IbInstructionDto(ibInstructionId, manufactureId,productId,this.workerId,0));
+            IbInstructionDto foundIbInstruction = ibService.findIbInstruction(new IbInstructionDto(ibInstructionId, manufactureId,productId,this.workerId));
             StockDto foundStock = stockService.findStock(new StockDto(productId, manufactureId, 0,0,0));
             int updateQuantity; // 입고 요청의 수량
             int originalQuantity; // 원래 재고 수량
             int expectedQuantity; // 원래 재고 예정 수량(작업 예정 수량)
-            long locationId = foundIbInstruction.getLocationId();
+//            long locationId = foundIbInstruction.getLocationId();
+            long locationId = ibService.findProductLocation(foundIb.getProductId());
             int originalCapacity = locationService.getCurrentCapacity(locationId);
             // 예작시
             int productVolume = ibService.findProductVolume(foundStock.getProductId());

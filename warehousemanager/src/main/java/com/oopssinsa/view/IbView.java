@@ -1,8 +1,7 @@
 package com.oopssinsa.view;
 
-import com.oopssinsa.model.dto.IbDto;
-import com.oopssinsa.model.dto.IbRequestAndLocationDto;
-import com.oopssinsa.model.dto.LocationDto;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.IbMapper;
 import com.oopssinsa.model.dao.ObMapper;
 import com.oopssinsa.model.dto.IbInstructionDto;
 import com.oopssinsa.model.dto.ObDto;
@@ -12,13 +13,13 @@ import java.util.List;
 public class ObService {
     /*
     <getObInstructionToDo>
-    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "R"인 요청을 모두 반환한다.
+    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "P"인 요청을 모두 반환한다.
      */
     public List<ObInstructionDto> getObInstructionToDo(String workerId) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         List<ObInstructionDto> obInstructions = obMapper.getObInstructionToDo(workerId);
-        System.out.println(obInstructions);
+//        System.out.println(obInstructions);
         return obInstructions;
     }
 
@@ -63,5 +64,26 @@ public class ObService {
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         return obMapper.findProductVolume(productId);
     }
+
+    public Integer findTrackingNumber(long obId) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        Integer trackingNumber = obMapper.findTrackingNumber(obId);
+        return trackingNumber;
+    }
+
+    public int insertTrackingNumber(long obId, Integer trackingNumber) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        int result = obMapper.insertTrackingNumber(obId, trackingNumber);
+        return result;
+    }
+
+    public long findProductLocation(String productId) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        return ibMapper.findProductLocation(productId);
+    }
+
     // 예진 작업 끝
 }

@@ -2,40 +2,39 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.oopssinsa.model.dao.ObMapper">
 
     <resultMap id="obInsMap" type="obInstructionDto">
-        <result column="ob_id" property="obId"/>
-        <result column="manufacture_date" property="manufactureDate"/>
-        <result column="product_id" property="productId"/>
+        <id column="manufacture_date" property="manufactureId" />
+        <id column="ob_id" property="id"/>
+        <id column="product_id" property="productId"/>
         <result column="worker_id" property="workerId"/>
-        <result column="location_id" property="locationId"/>
+<!--        <result column="location_id" property="locationId"/>-->
     </resultMap>
 
     <resultMap id="obDtoMap" type="obDto">
-        <result column="id" property="id"/>
-        <result column="manufacture_date" property="manufactureDate"/>
+        <result column="ob_id" property="id"/>
+        <result column="manufacture_date" property="manufactureId"/>
         <result column="product_id" property="productId"/>
         <result column="quantity" property="quantity"/>
-        <result column="completion_date" property="completionDate"/>
+        <result column="completion_date" property="obDate"/>
         <result column="status" property="status"/>
         <result column="tracking_number" property="trackingNumber"/>
     </resultMap>
 
-    <update id="updateObStatus" parameterType="ObDto">
+    <update id="updateObStatus" parameterType="obDto">
         update ob_detail
-        set ob_date = CURDATE(), status = #{status}, tracking_number = #{trackingNumber}
-        where id = #{id}
-        and product_id = #{productId}
-        and manufacture_id = #{manufactureId}
+        set completion_date = CURDATE(), status = #{status}, tracking_number = #{trackingNumber}
+        where ob_id = #{id}
+<!--        and product_id = #{productId}-->
+<!--        and manufacture_date = #{manufactureId}-->
     </update>
 
-    <select id="findOb" parameterType="ObDto" resultMap="obDtoMap">
+    <select id="findOb" parameterType="obDto" resultMap="obDtoMap">
         select *
         from ob_detail
-        where id = #{id}
-        and manufacture_id = #{manufactureId}
+        where ob_id = #{id}
+        and manufacture_date = #{manufactureId}
         and product_id = #{productId}
     </select>
 
@@ -43,17 +42,17 @@
         select obw.*
         from ob_detail obd
         left join ob_worker obw
-        on (obd.id = obw.id and obd.manufacture_id = obw.manufacture_id and obd.product_id = obw.product_id)
-        where status = 'P'
-        and worker_id = #{workerId};
+        on (obd.ob_id = obw.ob_id and obd.manufacture_date = obw.manufacture_date and obd.product_id = obw.product_id)
+        where obd.status = 'P'
+        and obw.worker_id = #{workerId};
     </select>
 
-    <select id="findObInstruction" parameterType="ObInstructionDto" resultMap="obInsMap">
+    <select id="findObInstruction" parameterType="obInstructionDto" resultMap="obInsMap">
         select *
         from ob_worker
-        where id = #{id}
-        and manufacture_id = #{manufactureId}
-        and product_id = #{product_id};
+        where ob_id = #{id}
+        and manufacture_date = #{manufactureId}
+        and product_id = #{productId};
     </select>
 
     <select id="findProductVolume" resultType="int">
@@ -61,12 +60,15 @@
         from product
         where id = #{productId}
     </select>
+    
+    <insert id="insertTrackingNumber">
+        insert into tracking_number
+        values (#{obId}, #{trackingNumber})
+    </insert>
 
-
-
-
-
-
-<!--<mapper namespace="com.oopssinsa.model.dao.ObMapper">-->
-
+    <select id="findTrackingNumber" parameterType="long" resultType="Integer">
+        select number
+        from tracking_number
+        where ob_id = #{obId}
+    </select>
 </mapper>

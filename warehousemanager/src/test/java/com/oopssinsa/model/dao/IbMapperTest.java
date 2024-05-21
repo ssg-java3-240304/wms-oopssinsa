@@ -1,6 +1,8 @@
 package com.oopssinsa.model.dao;
 
 import com.oopssinsa.model.dto.*;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -48,12 +50,21 @@ class IbMapperTest {
     }
 
     @Test
-    void testUpdateExpectedCapacity() {
+    void testUpdateExpectedCapacityLoc() {
         // LocationDto 생성자의 인자 중 'A'를 적절한 숫자 값으로 변경
         LocationDto locationDto = new LocationDto('B', "1001", 840, 10, 4600);
         ibMapper.updateExpectedCapacityLocation(locationDto);
         sqlSession.commit();
         System.out.println(locationDto);
+    }
+
+    @Test
+    void testUpdateExpectedCapacitySec() {
+        // LocationDto 생성자의 인자 중 'A'를 적절한 숫자 값으로 변경
+        SectionDto sectionDto = new SectionDto('B', "1001", 840, 10, 4600);
+        ibMapper.updateExpectedCapacitySection(sectionDto);
+        sqlSession.commit();
+        System.out.println(sectionDto);
     }
 
     @Test
@@ -97,8 +108,8 @@ class IbMapperTest {
 
         // 테스트 데이터 준비
         List<IbDto> ibDtos = new ArrayList<>();
-        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "TS010", "user07", 100, LocalDate.now(), null, 'R'));
-        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "TS001", "user07", 50, LocalDate.now(), null, 'R'));
+        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "TS001", "1", 100, LocalDate.now(), null, 'R'));
+        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "JK002", "3", 50, LocalDate.now(), null, 'R'));
 
         // 메소드 실행
         List<IbRequestAndLocationDto> results = ibMapper.findIbRequestAndLocation(ibDtos);
