@@ -41,7 +41,6 @@ public class IbController {
         ibView.printIbState(ibService.findIbByRequestState());
     }
 
-
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
         List<IbRequestAndLocationDto> ibRequestAndLocation = ibService.findIbRequestAndLocation(requestIbs);
@@ -59,6 +58,23 @@ public class IbController {
             handleApprovedRequest(ibDto, ibRequestAndLocation.get(ibIndex).getIbAvailability());
         } else if (select.equalsIgnoreCase("n")) {
             handleFailedRequest(ibDto);
+        }
+    }
+
+    public void insertIbWorker() {
+        List<IbDto> ibDtos = ibService.findIbByWaitingState();
+        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
+        ibView.printIbWaitingState(ibDtos);
+        workerView.printAssignableWorker(workerDtos);
+        try {
+            IbDto selectedIbDto = ibDtos.get(ibView.getProcessIbIndex());
+            WorkerDto selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+
+            insertInstruction(selectedIbDto, selectedWorkerDto);
+            updateIbToProgressState(selectedIbDto);
+            updateWorkerToFalseStatus(selectedWorkerDto);
+        } catch (IndexOutOfBoundsException e) {
+            errorView.printError("없는 번호 입니다.");
         }
     }
 
@@ -111,36 +127,25 @@ public class IbController {
         ibService.updateExpectedCapacitySection(sectionDto);
     }
 
-    public void insertIbWorker() {
-        List<IbDto> ibDtos = ibService.findIbByWaitingState();
-        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
 
-        ibView.printIbWaitingState(ibDtos);
 
-        workerView.printAssignableWorker(workerDtos);
-        IbDto selectedIbDto = null;
-        WorkerDto selectedWorkerDto = null;
-        try {
-            selectedIbDto = ibDtos.get(ibView.getProcessIbIndex());
-            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
-        } catch (IndexOutOfBoundsException e) {
-            errorView.printError("없는 번호 입니다.");
-        }
+    private void insertInstruction(IbDto selectedIbDto, WorkerDto selectedWorkerDto) {
+        workerService.insertIbWorker(new InstructionDto(
+                selectedIbDto.getId(),
+                selectedIbDto.getManufactureDate(),
+                selectedIbDto.getProductId(),
+                selectedWorkerDto.getId()
+        ));
+    }
 
-        // 지시테이블에 삽입
-        workerService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),
-                selectedIbDto.getProductId(), selectedWorkerDto.getId()));
-
-        // 입고테이블 상태 업데이트
+    private void updateIbToProgressState(IbDto selectedIbDto) {
         selectedIbDto.setStatus('P');
         ibService.updateIbState(selectedIbDto);
+    }
 
-        // 작업자 상태 업데이트
+    private void updateWorkerToFalseStatus(WorkerDto selectedWorkerDto) {
         selectedWorkerDto.setState('F');
         workerService.updateWorkerStatus(selectedWorkerDto);
-
-        System.out.println(selectedIbDto.getStatus());
-        System.out.println(selectedWorkerDto.getState());
     }
 
 
@@ -199,6 +204,33 @@ public class IbController {
 //            ibService.updateIbState(ibDto);
 //        }
 //    }
-
+//public void insertIbWorker() {
+//        List<IbDto> ibDtos = ibService.findIbByWaitingState();
+//        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
+//
+//        ibView.printIbWaitingState(ibDtos);
+//        workerView.printAssignableWorker(workerDtos);
+//        IbDto selectedIbDto = null;
+//        WorkerDto selectedWorkerDto = null;
+//        try {
+//            selectedIbDto = ibDtos.get(ibView.getProcessIbIndex());
+//            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+//        } catch (IndexOutOfBoundsException e) {
+//            errorView.printError("없는 번호 입니다.");
+//        }
+//
+//        // 지시테이블에 삽입
+//        workerService.insertIbWorker(new InstructionDto(selectedIbDto.getId(), selectedIbDto.getManufactureDate(),
+//                selectedIbDto.getProductId(), selectedWorkerDto.getId()));
+//
+//        // 입고테이블 상태 업데이트
+//        selectedIbDto.setStatus('P');
+//        ibService.updateIbState(selectedIbDto);
+//
+//        // 작업자 상태 업데이트
+//        selectedWorkerDto.setState('F');
+//        workerService.updateWorkerStatus(selectedWorkerDto);
+//
+//    }
 
 }
