@@ -15,13 +15,14 @@ public class IbDetailDto {
     public IbDetailDto() {
     }
 
-    public IbDetailDto(long id, LocalDate manufactureId, String productId, String loginId, int quantity) {
-        this.id = id;
-        this.manufactureId = manufactureId;
-        this.productId = productId;
-        this.loginId = loginId;
-        this.quantity = quantity;
-    }
+//    public IbDetailDto(long id, LocalDate manufactureId, String productId, String loginId, int quantity) {
+//        this.id = id;
+//        this.manufactureId = manufactureId;
+//        this.productId = productId;
+//        this.loginId = loginId;
+//        this.quantity = quantity;
+//    }
+
 
     public IbDetailDto(long id, LocalDate manufactureId, String productId, String loginId, int quantity, LocalDate ibDate, LocalDate completionDate, String status) {
         this.id = id;

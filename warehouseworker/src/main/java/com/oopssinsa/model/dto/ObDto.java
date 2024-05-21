@@ -15,22 +15,20 @@ import java.time.LocalDate;
 @NoArgsConstructor
 //@ToString
 public class ObDto {
-    private long id;
-    private LocalDate manufactureId;
+    private long obId;
+    private LocalDate manufactureDate;
     private String productId;
     private int quantity;
-    private LocalDate obDate;
+    private LocalDate completionDate;
     private String status;
     private int trackingNumber;
 
-    public ObDto(long id, LocalDate manufactureId, String productId, int quantity, LocalDate obDate, String status, int trackingNumber) {
-        this.id = id;
-        this.manufactureId = manufactureId;
+    public ObDto(long obId, LocalDate manufactureDate, String productId, int quantity, LocalDate completionDate, String status, int trackingNumber) {
+        this.obId = obId;
+        this.manufactureDate = manufactureDate;
         this.productId = productId;
         this.quantity = quantity;
-        this.obDate = obDate;
+        this.completionDate = completionDate;
         this.status = status;
         this.trackingNumber = trackingNumber;
     }
-
-}

@@ -6,7 +6,11 @@ import com.oopssinsa.model.service.ObService;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+<<<<<<< HEAD
 import org.junit.jupiter.api.Disabled;
+=======
+import org.junit.jupiter.api.DisplayName;
+>>>>>>> aaf534052346b71e5f7369201e735c5d61c3256d
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -36,21 +40,33 @@ class ObMapperTest {
 
     /*
     <getObInstructionToDo>
-    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "R"인 요청을 모두 반환한다.
+    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "P"인 요청을 모두 반환한다.
      */
 
     // 출고요청 더미 데이터가 없어서 테스트 못함..
 
+<<<<<<< HEAD
     @Disabled
+=======
+    @DisplayName("출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 P인 요청을 모두 반환한다.")
+>>>>>>> aaf534052346b71e5f7369201e735c5d61c3256d
     @Test
     void getObInstructionToDo() {
         //given
         String workerId = "worker2";
         //then
+<<<<<<< HEAD
         List<ObInstructionDto> test = obMapper.getObInstructionToDo(workerId);
         assertThat(test).isNotNull().isNotEmpty();
         //when
         System.out.println(test);
+=======
+        //when
+        List<ObInstructionDto> test = obService.getObInstructionToDo(workerId);
+
+        assertNotNull(test);
+
+>>>>>>> aaf534052346b71e5f7369201e735c5d61c3256d
     }
 
     /*

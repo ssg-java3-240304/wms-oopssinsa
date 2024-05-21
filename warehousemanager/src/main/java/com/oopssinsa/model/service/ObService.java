@@ -15,9 +15,9 @@ public class ObService {
     public List<ObRequestDto> findObByRequestState() {
         List<ObRequestDto> obRequestDto = new ArrayList<>();
         obRequestDto.add(new ObRequestDto("ob_id1", "product_id1", "login_id1", 30,
-                "recipient_name1", "address1"));
+                "recipient_name1", "address1", LocalDate.now()));
         obRequestDto.add(new ObRequestDto("ob_id2", "product_id2", "login_id2", 10,
-                "recipient_name2", "address2"));
+                "recipient_name2", "address2",LocalDate.now()));
 
         return obRequestDto;
     }
@@ -27,10 +27,10 @@ public class ObService {
         List<ObDto> obDtos = new ArrayList<>();
         obDtos.add(
                 new ObDto(LocalDate.of(2024, 1, 1), "ob_id1", "procuct_id1", "login_id1", "recipient_name1", "address1",
-                        10, 'W', null, 1));
+                        10, 'W', LocalDate.now() ,null, 1));
         obDtos.add(
                 new ObDto(LocalDate.of(2022, 2, 2), "ob_id1", "procuct_id1", "login_id1", "recipient_name1", "address1",
-                        120, 'W', null, 1));
+                        120, 'W', LocalDate.now(),null, 1));
 
         return obDtos;
     }
@@ -64,12 +64,12 @@ public class ObService {
         List<ObRequestAndStockDto> obRequestAndStockDto = new ArrayList<>();
         obRequestAndStockDto.add(
                 new ObRequestAndStockDto("ob_id1", "product_id1", "login_id1", 30,
-                        "recipient_name1", "address1", 'T',
-                        "sub_locationid1", 30, 0)
+                        "recipient_name1", "address1", LocalDate.now(),'T',
+                         "sub_locationid1", 30, 0)
         );
         obRequestAndStockDto.add(
                 new ObRequestAndStockDto("ob_id2", "product_id2", "login_id1", 20,
-                        "recipient_name1", "address1", 'F',
+                        "recipient_name1", "address1", LocalDate.now(),'F',
                         "sub_locationid2", 10, 0)
         );
 
@@ -94,9 +94,9 @@ public class ObService {
     public List<ObDetailDto> findObDetailByWaitingState() {
         List<ObDetailDto> obDetailDto = new ArrayList<>();
         obDetailDto.add(new ObDetailDto(LocalDate.of(2022, 1, 1), "ob_id1", "product_id1", 10,
-                'W', null, null));
+                'W', LocalDate.now(),null, null));
         obDetailDto.add(new ObDetailDto(LocalDate.of(2024, 2, 2), "ob_id1", "product_id1", 20,
-                'W', null, null));
+                'W',LocalDate.now(), null, null));
 
         return obDetailDto;
     }

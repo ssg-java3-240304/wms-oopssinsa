@@ -14,6 +14,14 @@
         where
             id = #{id} and password = #{password}
     </select>
+    <select id="showProduct" resultType="productDto">
+        select
+            *
+        from
+            product
+        where
+            brand_id = #{brandId}
+    </select>
     <insert id="insertProduct">
         insert into
             product
@@ -36,4 +44,11 @@
         where
             login_id = #{id}
     </select>
+    <insert id="obRequest">
+        insert into
+            ob_request
+        values(
+        #{id}, #{productId}, #{loginId}, #{quantity}, #{recipientName}, #{address}, #{obDate}
+        )
+    </insert>
 </mapper>

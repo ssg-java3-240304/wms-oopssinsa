@@ -27,12 +27,10 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-<!--                <property name="url" value="jdbc:mysql://mysql.coffit.today/osswmsdb"/>-->
-                <property name="url" value="jdbc:mysql://localhost:3306/menudb"/>
-<!--                <property name="username" value="oops"/>-->
-<!--                <property name="password" value="oops"/>-->
-                <property name="username" value="sh"/>
-                <property name="password" value="sh"/>
+<!--                <property name="url" value="jdbc:mysql://techbrew4.iptime.org:3306/osswmsdb"/>-->
+                <property name="url" value="jdbc:mysql://localhost:3306/osswmsdb"/>
+                <property name="username" value="root"/>
+                <property name="password" value="mysql"/>
             </dataSource>
         </environment>
     </environments>

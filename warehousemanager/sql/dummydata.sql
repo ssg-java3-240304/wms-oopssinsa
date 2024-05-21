@@ -1,16 +1,13 @@
 -- brand dummy table
-
 # use wms_db;
-select *
-from brand;
 insert into brand
 values (1, 'Nike', '2020-01-01', '2025-01-01'),
        (2, 'Adidas', '2020-02-01', '2025-02-01'),
        (3, 'Zara', '2020-03-01', '2025-03-01'),
-       (4, 'H&M', '2020-04-01', '2025-04-01');
-#        (5, 'Uniqlo', '2020-05-01', '2025-05-01'),
-#        (6, 'Under Armour', '2020-06-01', '2025-06-01'),
-#        (7, 'Gucci', '2020-07-01', '2025-07-01',
+       (4, 'H&M', '2020-04-01', '2025-04-01'),
+       (5, 'Uniqlo', '2020-05-01', '2025-05-01'),
+       (6, 'Under Armour', '2020-06-01', '2025-06-01'),
+       (7, 'Gucci', '2020-07-01', '2025-07-01');
 #        (8, 'Prada', '2020-08-01', '2025-08-01'),
 #        (9, 'Levi\'s', '2020-09-01', '2025-09-01'),
 #        (10, 'Puma', '2020-10-01', '2025-10-01'),
@@ -352,7 +349,7 @@ values -- 바지
        ('UA003', 6, 'Under Armour HeatGear Leggings', 'L', 'Black', 2002, 1),
        ('UA004', 6, 'Under Armour Rival Fleece Joggers', 'S', 'Grey', 2002, 1),
        ('UA005', 6, 'Under Armour Rival Fleece Joggers', 'M', 'Grey', 2002, 1),
-       ('UA006', 6, 'Under Armour Rival Fleece Joggers', 'L', 'Grey', 2002, 1),
+       ('UA006', 6, 'Under Armour Rival Fleece Joggers', 'L', 'Grey', 2002, 1)
 -- Gucci 액세서리
        ('AC001', 7, 'Gucci GG Marmont Belt', 'S', 'Black', 9001, 1),
        ('AC002', 7, 'Gucci GG Marmont Belt', 'M', 'Black', 9001, 1),
@@ -492,8 +489,8 @@ INSERT INTO stock_detail (manufacture_date, product_id, quantity, date) VALUES
 delete from stock
 where 1;
 
-# alter table stock
-# add section_id char(1);
+alter table stock
+add section_id char(1);
 
 insert into stock (manufacture_date, product_id, section_id, location_id, quantity)
 VALUES (20231101, 'BG001', 'G', 19, (select sum(quantity) from stock_detail where product_id = 'BG001' group by product_id)),
@@ -515,9 +512,11 @@ select *
 from product join account using (brand_id);
 
 insert into ib_detail (id, manufacture_date, product_id, login_id, quantity, completion_date, status)
-VALUES (1, 20240519, 'TS010', 'user07', 50, null, 'R'),
-       (1, 20240518, 'BG005', 'user01', 50, null, 'R'),
-       (2, 20240519, 'JK001', 'user02', 50, null, 'R');
+VALUES (1, 20240519, 'TS010', 'user07', 50, null, 'R');
+insert into ib_detail (id, manufacture_date, product_id, login_id, quantity, completion_date, status)
+VALUES (1, 20240519, 'TS001', 'user07', 100, null, 'R');
+#        (1, 20240518, 'BG005', 'user01', 50, null, 'R'),
+#        (2, 20240519, 'JK001', 'user02', 50, null, 'R');
 
 insert into ib_detail (id, manufacture_date, product_id, login_id, quantity, completion_date, status)
 VALUES (3, 20240517, 'JK001', 'user02', 100, null, 'P'); -- 3001
@@ -550,4 +549,3 @@ from stock_detail;
 
 select *
 from ob_detail;
-

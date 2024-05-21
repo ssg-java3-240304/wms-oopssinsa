@@ -111,7 +111,7 @@ public class IbView {
 //                + "  " + "현재 용량" + "  " + "예정 용량" + "  " + "최대 용량");
         for (IbRequestAndLocationDto ibRequestAndLocationDto : ibRequestAndLocationDtos) {
             System.out.printf("|%5d|  %7s| %12s| %12s| %10s| %,6d| %13s| %11c| %11c| %,7d| %,8d| %,7d|\n",
-                    (count++), ibRequestAndLocationDto.getId(), ibRequestAndLocationDto.getManufactureDate(),
+                    (count++), ibRequestAndLocationDto.getIbId(), ibRequestAndLocationDto.getManufactureDate(),
                     ibRequestAndLocationDto.getProductId(), ibRequestAndLocationDto.getBrandId(),
                     ibRequestAndLocationDto.getQuantity(), ibRequestAndLocationDto.getIbRequestDate(),
                     ibRequestAndLocationDto.getIbStatus(), ibRequestAndLocationDto.getIbAvailability(),
