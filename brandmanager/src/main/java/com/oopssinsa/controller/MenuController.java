@@ -63,4 +63,13 @@ public class MenuController {
         }
 
     }
+
+    public void findAllStockDetail(long brandId) {
+        try {
+            List<StockListDto> list = menuService.findAllStockDetail(brandId);
+            ResultView.desplayStockDetailList(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
