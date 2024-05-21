@@ -66,24 +66,10 @@
         where p.brand_id = #{brandId};
     </select>
 
-<!--    <resultMap id="productDtoMap" type="productDto">-->
-<!--        &lt;!&ndash; id : PK컬럼 매핑용 &ndash;&gt;-->
-<!--        <id column="id" property="id"/>-->
-<!--        &lt;!&ndash; result : 그외 컬럼 매핑용 &ndash;&gt;-->
-<!--        <result column="brand_id" property="brandId"/>-->
-<!--        <result column="category_id" property="categoryId"/>-->
-<!--        <result column="name" property="name"/>-->
-<!--        <result column="size" property="size"/>-->
-<!--        <result column="color" property="color"/>-->
-<!--        <result column="volume" property="volume"/>-->
-<!--        &lt;!&ndash; 1:N관계의 테이블 행 매핑 &ndash;&gt;-->
-<!--        <collection property="stockDetailList" ofType="stockListDto">-->
-<!--&lt;!&ndash;            <id column="order_code" property="orderCode"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <id column="menu_code" property="menuCode"/>&ndash;&gt;-->
-<!--            <result column="manufacture_date" property="manufactureDate"/>-->
-<!--            <result column="product_id" property="productId"/>-->
-<!--            <result column="quantity" property="quantity"/>-->
-<!--            <result column="date" property="date"/>-->
-<!--        </collection>-->
-<!--    </resultMap>-->
+    <select id="findStockByCategoryId" resultType="stockListDto">
+        select sd.*, p.name, p.size, p.color
+        from stock_detail sd join product p on sd.product_id = p.id
+        where p.brand_id = #{brandId} and p.category_id = #{categoryId} ;
+    </select>
+
 </mapper>

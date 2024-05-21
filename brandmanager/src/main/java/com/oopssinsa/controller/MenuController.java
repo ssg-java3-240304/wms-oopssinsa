@@ -72,4 +72,14 @@ public class MenuController {
             e.printStackTrace();
         }
     }
+
+    public void findStockByCategoryId(long brandId, long categoryId) {
+        try {
+            List<StockListDto> list = menuService.findStockByCategoryId(brandId, categoryId);
+            ResultView.desplayStockByCategoryIdList(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

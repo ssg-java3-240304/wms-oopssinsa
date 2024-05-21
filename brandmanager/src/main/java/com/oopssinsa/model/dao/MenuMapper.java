@@ -4,6 +4,7 @@ import com.oopssinsa.model.dto.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MenuMapper {
     int insertProduct(ProductDto productDto);
@@ -21,4 +22,7 @@ public interface MenuMapper {
     List<ObDto> findObDetail(String userId);
 
     List<StockListDto> findAllStockDetail(long brandId);
+
+    List<StockListDto> findStockByCategoryId(Map<String, Object> param);
+
 }
