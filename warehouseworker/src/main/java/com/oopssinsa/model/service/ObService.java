@@ -63,5 +63,20 @@ public class ObService {
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         return obMapper.findProductVolume(productId);
     }
+
+    public Integer findTrackingNumber(long obId) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        Integer trackingNumber = obMapper.findTrackingNumber(obId);
+        return trackingNumber;
+    }
+
+    public int insertTrackingNumber(long obId, Integer trackingNumber) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        int result = obMapper.insertTrackingNumber(obId, trackingNumber);
+        return result;
+    }
+
     // 예진 작업 끝
 }

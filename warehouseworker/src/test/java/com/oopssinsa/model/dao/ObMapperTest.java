@@ -1,22 +1,25 @@
 package com.oopssinsa.model.dao;
 
+import com.oopssinsa.model.dto.ObDto;
 import com.oopssinsa.model.dto.ObInstructionDto;
 import com.oopssinsa.model.service.ObService;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.oopssinsa.common.MyBatisTemplate.getSqlSession;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ObMapperTest {
 
     SqlSession sqlSession;
     ObMapper obMapper;
-    ObService obService;
 
     @BeforeEach
     void setUp() {
@@ -26,7 +29,8 @@ class ObMapperTest {
 
     @AfterEach
     void tearDown() {
-        this.sqlSession.rollback();
+        this.sqlSession.commit();
+//        this.sqlSession.rollback();
         this.sqlSession.close();
     }
 
@@ -37,15 +41,16 @@ class ObMapperTest {
 
     // 출고요청 더미 데이터가 없어서 테스트 못함..
 
+    @Disabled
     @Test
-    void getObIntructionToDo() {
+    void getObInstructionToDo() {
         //given
-        String workerId = "worker01";
+        String workerId = "worker2";
         //then
-        List<ObInstructionDto> test = obService.getObInstructionToDo(workerId);
-
+        List<ObInstructionDto> test = obMapper.getObInstructionToDo(workerId);
+        assertThat(test).isNotNull().isNotEmpty();
         //when
-
+        System.out.println(test);
     }
 
     /*
@@ -54,20 +59,52 @@ class ObMapperTest {
     - findOb 출고 요청 조회를 먼저 해야 테스트 가능
     */
 
+    @Disabled
     @Test
     void updateObStatus() {
-
+        LocalDate localDate = LocalDate.of(2023, 8, 23);
+        ObDto obDto = new ObDto(4240521, localDate, "BG003", 1, null, "F", 0);
+        System.out.println(obDto);
+        int result = obMapper.updateObStatus(obDto);
+        assertThat(result).isEqualTo(1);
+//        System.out.println(result);
     }
 
+    @Disabled
     @Test
     void findOb() {
+        LocalDate localDate = LocalDate.of(2023, 7, 21);
+        ObDto obDto = new ObDto(3240521, localDate, "JK003", 1, null, "P", 0);
+        obDto = obMapper.findOb(obDto);
+        System.out.println(obDto);
+        assertThat(obDto).isNotNull();
     }
 
     @Test
     void findObInstruction() {
+        LocalDate localDate = LocalDate.of(2023, 7, 21);
+        ObInstructionDto obInstructionDto = new ObInstructionDto(3240521, localDate, "JK003", null, 0);
+        obInstructionDto = obMapper.findObInstruction(obInstructionDto);
+        System.out.println(obInstructionDto);
+        assertThat(obInstructionDto).isNotNull();
     }
 
     @Test
     void findProductVolume() {
+        assertThat(obMapper.findProductVolume("JK003")).isEqualTo(2);
     }
+
+//    @Disabled
+    @Test
+    void insertTrackingNumber() {
+        int result = obMapper.insertTrackingNumber(1, 35);
+        assertThat(result).isEqualTo(1);
+    };
+
+//    @Disabled
+    @Test
+    void findTrackingNumber(){
+        Integer trackingNumber = obMapper.findTrackingNumber(1);
+        assertThat(trackingNumber).isEqualTo(35);
+    };
 }
