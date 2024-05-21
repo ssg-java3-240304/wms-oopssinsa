@@ -18,9 +18,9 @@ public class Controller {
     }
 
     public void run() {
-//        if (!accountController.logIn()) {
-//            return;
-//        }
+        if (!accountController.logIn()) {
+            return;
+        }
         workWarehouseManager();
     }
 

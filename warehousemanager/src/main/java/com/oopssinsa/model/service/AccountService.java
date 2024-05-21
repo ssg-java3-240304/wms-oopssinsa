@@ -10,16 +10,14 @@ import org.apache.ibatis.session.SqlSession;
 public class AccountService {
 
     // 나경 작업 시작
-    public AccountDto findAccountById(String id ,String password) {
+    public AccountDto findAccountById(String id) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         AccountMapper accountMapper = sqlSession.getMapper(AccountMapper.class);
 
-        return accountMapper.findAccountById(id, password, "WM");
+        return accountMapper.findAccountById(id);
 
-    }}
-//public class AccountService {
-//    public static void displayLoginResult(boolean result, String id) {
-//    }
+    }
+
 //    public AccountDto findAccountById(String id) {
 //        return new AccountDto(id, "1234567a!", "WM");
 //
@@ -37,4 +35,4 @@ public class AccountService {
 //            return true;
 //        }
 //    }
-//}
+}

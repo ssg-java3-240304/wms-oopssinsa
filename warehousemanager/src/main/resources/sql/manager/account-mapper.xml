@@ -12,7 +12,7 @@
     <select id="findAccountById" parameterType="String" resultMap="accountDtoMap">
         select id,password,role
         from account
-        where id = #{id} and password = #{password}
+        where id = #{id}
     </select>
 
 </mapper>
