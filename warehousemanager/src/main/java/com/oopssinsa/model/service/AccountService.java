@@ -16,7 +16,11 @@ public class AccountService {
 
         return accountMapper.findAccountById(id, password, "WM");
 
-    }}
+    }
+}
+
+    // 나경 작업 끝
+
 //public class AccountService {
 //    public static void displayLoginResult(boolean result, String id) {
 //    }
@@ -24,7 +28,8 @@ public class AccountService {
 //        return new AccountDto(id, "1234567a!", "WM");
 //
 //    }
-//    // 나경 작업 끝
+//    public static void displayLoginResult(boolean result, String id) {
+//    }
 //
 //    public boolean loginValidation(String id, String password){
 //        SqlSession sqlSession = MyBatisTemplate.getSqlSession();

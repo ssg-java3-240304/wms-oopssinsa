@@ -90,8 +90,7 @@ public class ObController {
                 'W',
                 selectedOb.getObDate(),
                 null,
-                null
-        );
+                null);
     }
 
     private void updateStockExpectedQuantity(StockDto stockDto, int requestQuantity) {
