@@ -16,19 +16,20 @@ import java.time.LocalDate;
 //@ToString
 public class ObDto {
     private long obId;
-    private LocalDate manufactureDate;
+    private LocalDate manufactureId;
     private String productId;
     private int quantity;
     private LocalDate completionDate;
     private String status;
     private int trackingNumber;
 
-    public ObDto(long obId, LocalDate manufactureDate, String productId, int quantity, LocalDate completionDate, String status, int trackingNumber) {
+    public ObDto(long obId, LocalDate manufactureId, String productId, int quantity, LocalDate completionDate, String status, int trackingNumber) {
         this.obId = obId;
-        this.manufactureDate = manufactureDate;
+        this.manufactureId = manufactureId;
         this.productId = productId;
         this.quantity = quantity;
         this.completionDate = completionDate;
         this.status = status;
         this.trackingNumber = trackingNumber;
     }
+}

@@ -75,8 +75,8 @@ CREATE TABLE `ib_worker`
     `ib_id`            bigint      NOT NULL COMMENT 'id 타입 bigint로 통합',
     `manufacture_date` date        NOT NULL,
     `product_id`       varchar(10) NOT NULL,
-    `worker_id`        varchar(20) NOT NULL,
-    `location_id`      bigint      NULL
+    `worker_id`        varchar(20) NOT NULL
+#     `location_id`      bigint      NULL
 );
 
 CREATE TABLE `sub_location`
@@ -107,8 +107,8 @@ CREATE TABLE `ob_worker`
     `manufacture_date` date        NOT NULL,
     `ob_id`            bigint      NOT NULL,
     `product_id`       varchar(10) NOT NULL,
-    `worker_id`        varchar(20) NOT NULL,
-    `location_id`      bigint      NULL
+    `worker_id`        varchar(20) NOT NULL
+#     `location_id`      bigint      NULL
 );
 
 CREATE TABLE `stock_detail`
@@ -199,11 +199,11 @@ ALTER TABLE `ob_worker`
                                                `product_id`
         );
 
-ALTER TABLE `stock_detail`
-    ADD CONSTRAINT `PK_STOCK_DETAIL` PRIMARY KEY (
-                                                  `manufacture_date`,
-                                                  `product_id`
-        );
+# ALTER TABLE `stock_detail`
+#     ADD CONSTRAINT `PK_STOCK_DETAIL` PRIMARY KEY (
+#                                                   `manufacture_date`,
+#                                                   `product_id`
+#         );
 
 ALTER TABLE `ob_request`
     ADD CONSTRAINT `PK_OB_REQUEST` PRIMARY KEY (

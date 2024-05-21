@@ -9,7 +9,7 @@
         <id column="ob_id" property="id"/>
         <id column="product_id" property="productId"/>
         <result column="worker_id" property="workerId"/>
-        <result column="location_id" property="locationId"/>
+<!--        <result column="location_id" property="locationId"/>-->
     </resultMap>
 
     <resultMap id="obDtoMap" type="obDto">
