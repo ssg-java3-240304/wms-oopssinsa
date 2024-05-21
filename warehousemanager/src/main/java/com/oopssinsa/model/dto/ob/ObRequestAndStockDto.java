@@ -1,4 +1,4 @@
-package com.oopssinsa.model.dto;
+package com.oopssinsa.model.dto.ob;
 
 
 import lombok.AllArgsConstructor;

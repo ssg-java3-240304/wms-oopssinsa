@@ -1,9 +1,9 @@
 package com.oopssinsa.view;
 
-import com.oopssinsa.model.dto.ObDetailDto;
-import com.oopssinsa.model.dto.ObDto;
-import com.oopssinsa.model.dto.ObRequestAndStockDto;
-import com.oopssinsa.model.dto.ObRequestDto;
+import com.oopssinsa.model.dto.ob.ObDetailDto;
+import com.oopssinsa.model.dto.ob.ObDto;
+import com.oopssinsa.model.dto.ob.ObRequestAndStockDto;
+import com.oopssinsa.model.dto.ob.ObRequestDto;
 
 import java.util.List;
 
@@ -70,9 +70,13 @@ public class ObView {
         System.out.println("+" + "-".repeat(136) + "+\n");
     }
 
+    public int getChangeObIndex() {
+        System.out.println("상태를 변경할 출고요청을 선택해주세요.");
+        return inputView.getNumber() - 1;
+    }
     public void printObRequestAndStock(List<ObRequestAndStockDto> obRequestAndStockDtos) {
         int count = 1;
-        System.out.println("상태를 변경할 출고요청을 선택해주세요.");
+        System.out.println("출고 요청 & 재고 목록");
         System.out.println("+" + "-".repeat(144) + "+");
         System.out.println("| 번호 |  출고ID  |   상품ID   |  발주자ID  |  출고요청수량  |      수령인      |  배송지  |"
                 + " 출고요청일자 | 출고상태여부 |     하위위치     | 재고수량 | 예정수량 |");

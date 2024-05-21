@@ -1,11 +1,10 @@
 package com.oopssinsa.model.service;
 
-import com.oopssinsa.model.dto.IbDto;
 import com.oopssinsa.model.dto.InstructionDto;
-import com.oopssinsa.model.dto.ObDetailDto;
-import com.oopssinsa.model.dto.ObDto;
-import com.oopssinsa.model.dto.ObRequestAndStockDto;
-import com.oopssinsa.model.dto.ObRequestDto;
+import com.oopssinsa.model.dto.ob.ObDetailDto;
+import com.oopssinsa.model.dto.ob.ObDto;
+import com.oopssinsa.model.dto.ob.ObRequestAndStockDto;
+import com.oopssinsa.model.dto.ob.ObRequestDto;
 import com.oopssinsa.model.dto.StockDto;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class ObService {
         return 1;
     }
 
-    public int updateIbState(ObDetailDto obDetailDto) {
+    public int updateObState(ObDetailDto obDetailDto) {
         return 1;
     }
 

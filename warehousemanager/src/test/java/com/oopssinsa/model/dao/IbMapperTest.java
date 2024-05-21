@@ -1,6 +1,8 @@
 package com.oopssinsa.model.dao;
 
 import com.oopssinsa.model.dto.*;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -97,8 +99,8 @@ class IbMapperTest {
 
         // 테스트 데이터 준비
         List<IbDto> ibDtos = new ArrayList<>();
-        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "TS010", "user07", 100, LocalDate.now(), null, 'R'));
-        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "TS001", "user07", 50, LocalDate.now(), null, 'R'));
+        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "TS001", "1", 100, LocalDate.now(), null, 'R'));
+        ibDtos.add(new IbDto("1", LocalDate.of(2024, 5, 19), "JK002", "3", 50, LocalDate.now(), null, 'R'));
 
         // 메소드 실행
         List<IbRequestAndLocationDto> results = ibMapper.findIbRequestAndLocation(ibDtos);

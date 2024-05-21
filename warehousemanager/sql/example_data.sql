@@ -61,13 +61,13 @@ select *,
        IF(sl.current_capacity +
           sl.expected_capacity + (select quantity
           from ib_detail
-          where product_id='TS010')*p.volume<=sl.max_capacity, 'T', 'F') as ibAvailability,
+          where product_id='TS001')*p.volume<=sl.max_capacity, 'T', 'F') as ibAvailability,
        (sl.current_capacity +
        sl.expected_capacity + (select quantity
                                from ib_detail
-                               where product_id='TS010')*p.volume) as value
+                               where product_id='TS001')*p.volume) as value
           from
           product p
           join section s on s.brand_id = p.brand_id
           join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id
-          where p.id = 'TS010';
+          where p.id = 'TS001';

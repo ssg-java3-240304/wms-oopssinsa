@@ -31,7 +31,7 @@
         and product_id = #{productId}
     </select>
 
-<!--    <select id="findIb" resultType="com.oopssinsa.model.dto.IbDto">-->
+<!--    <select id="findIb" resultType="com.oopssinsa.model.dto.ib.IbDto">-->
 <!--        select *-->
 <!--        from ib_detail-->
 <!--        where id = #{id}-->

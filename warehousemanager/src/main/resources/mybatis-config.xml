@@ -7,14 +7,14 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias type="com.oopssinsa.model.dto.IbDto" alias="ibDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.IbRequestAndLocationDto" alias="ibRequestAndLocationDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ib.IbDto" alias="ibDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ib.IbRequestAndLocationDto" alias="ibRequestAndLocationDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.InstructionDto" alias="instructionDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.LocationDto" alias="locationDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.ObDetailDto" alias="obDetailDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.ObDto" alias="obDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.ObRequestAndStockDto" alias="obRequestAndStockDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.ObRequestDto" alias="obRequestDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ob.ObDetailDto" alias="obDetailDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ob.ObDto" alias="obDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ob.ObRequestAndStockDto" alias="obRequestAndStockDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.ob.ObRequestDto" alias="obRequestDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ProductDto" alias="productDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.SectionDto" alias="sectionDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.StockDto" alias="stockDto"></typeAlias>
@@ -27,10 +27,10 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-<!--                <property name="url" value="jdbc:mysql://techbrew4.iptime.org:3306/osswmsdb"/>-->
-                <property name="url" value="jdbc:mysql://localhost:3306/osswmsdb"/>
-                <property name="username" value="root"/>
-                <property name="password" value="mysql"/>
+                <property name="url" value="jdbc:mysql://techbrew4.iptime.org:3306/osswmsdb"/>
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/osswmsdb"/>-->
+                <property name="username" value="oops"/>
+                <property name="password" value="oops"/>
             </dataSource>
         </environment>
     </environments>
