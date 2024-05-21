@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
 import java.time.LocalDate;
 //고치기
 // 작업자는 본인의 ID로 입고지시 테이블을 조회한다
@@ -13,18 +12,17 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 public class ObInstructionDto {
-    private long obId;
-
-    private LocalDate manufactureDate;
+    private long id;
+    private LocalDate manufactureId;
     private String productId;
     private String workerId;
-    private long locationId;
+//    private long locationId;
 
-    public ObInstructionDto(long ObId, LocalDate manufactureDate, String productId, String workerId, long locationId) {
-        this.obId = ObId;
-        this.manufactureDate = manufactureDate;
+    public ObInstructionDto(long id, LocalDate manufactureId, String productId, String workerId) {
+        this.id = id;
+        this.manufactureId = manufactureId;
         this.productId = productId;
         this.workerId = workerId;
-        this.locationId = locationId;
+//        this.locationId = locationId;
     }
 }

@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.IbMapper;
 import com.oopssinsa.model.dao.ObMapper;
 import com.oopssinsa.model.dto.IbInstructionDto;
 import com.oopssinsa.model.dto.ObDto;
@@ -18,7 +19,7 @@ public class ObService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         List<ObInstructionDto> obInstructions = obMapper.getObInstructionToDo(workerId);
-        System.out.println(obInstructions);
+//        System.out.println(obInstructions);
         return obInstructions;
     }
 
@@ -76,6 +77,12 @@ public class ObService {
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         int result = obMapper.insertTrackingNumber(obId, trackingNumber);
         return result;
+    }
+
+    public long findProductLocation(String productId) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
+        return ibMapper.findProductLocation(productId);
     }
 
     // 예진 작업 끝
