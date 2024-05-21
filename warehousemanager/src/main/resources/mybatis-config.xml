@@ -7,8 +7,10 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias type="com.oopssinsa.model.dto.ib.IbDto" alias="ibDto"></typeAlias>
-        <typeAlias type="com.oopssinsa.model.dto.ib.IbRequestAndLocationDto" alias="ibRequestAndLocationDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.AccountDto" alias="accountDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.IbDto" alias="ibDto"></typeAlias>
+        <typeAlias type="com.oopssinsa.model.dto.IbRequestAndLocationDto" alias="ibRequestAndLocationDto"></typeAlias>
+
         <typeAlias type="com.oopssinsa.model.dto.InstructionDto" alias="instructionDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.LocationDto" alias="locationDto"></typeAlias>
         <typeAlias type="com.oopssinsa.model.dto.ob.ObDetailDto" alias="obDetailDto"></typeAlias>
@@ -27,8 +29,8 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+<!--                <property name="url" value="jdbc:mysql://mysql.coffit.today/osswmsdb"/>-->
                 <property name="url" value="jdbc:mysql://techbrew4.iptime.org:3306/osswmsdb"/>
-<!--                <property name="url" value="jdbc:mysql://localhost:3306/osswmsdb"/>-->
                 <property name="username" value="oops"/>
                 <property name="password" value="oops"/>
             </dataSource>
@@ -39,6 +41,5 @@
         <mapper resource="sql/manager/location-mapper.xml"/>
         <mapper resource="sql/manager/ib-mapper.xml"/>
         <mapper resource="sql/manager/account-mapper.xml"/>
-        <mapper resource="sql/manager/worker-mapper.xml"/>
     </mappers>
 </configuration>
