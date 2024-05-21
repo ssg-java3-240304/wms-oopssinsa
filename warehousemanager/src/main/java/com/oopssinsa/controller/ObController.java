@@ -115,13 +115,13 @@ public class ObController {
 
         // 출고테이블 상태 업데이트
         selectedObDetailDto.setStatus('P');
-        obService.updateIbState(selectedObDetailDto);
+        obService.updateObState(selectedObDetailDto);
 
         // 작업자 상태 업데이트
-        selectedWorkerDto.setState('F');
+        selectedWorkerDto.setStatus('F');
         workerService.updateWorkerStatus(selectedWorkerDto);
 
         System.out.println(selectedObDetailDto.getStatus());
-        System.out.println(selectedWorkerDto.getState());
+        System.out.println(selectedWorkerDto.getStatus());
     }
 }

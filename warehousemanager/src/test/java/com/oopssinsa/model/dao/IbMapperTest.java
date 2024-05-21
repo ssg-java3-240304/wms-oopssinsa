@@ -48,12 +48,21 @@ class IbMapperTest {
     }
 
     @Test
-    void testUpdateExpectedCapacity() {
+    void testUpdateExpectedCapacityLoc() {
         // LocationDto 생성자의 인자 중 'A'를 적절한 숫자 값으로 변경
         LocationDto locationDto = new LocationDto('B', "1001", 840, 10, 4600);
         ibMapper.updateExpectedCapacityLocation(locationDto);
         sqlSession.commit();
         System.out.println(locationDto);
+    }
+
+    @Test
+    void testUpdateExpectedCapacitySec() {
+        // LocationDto 생성자의 인자 중 'A'를 적절한 숫자 값으로 변경
+        SectionDto sectionDto = new SectionDto('B', "1001", 840, 10, 4600);
+        ibMapper.updateExpectedCapacitySection(sectionDto);
+        sqlSession.commit();
+        System.out.println(sectionDto);
     }
 
     @Test
