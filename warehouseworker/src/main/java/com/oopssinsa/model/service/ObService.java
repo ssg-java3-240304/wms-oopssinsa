@@ -12,7 +12,7 @@ import java.util.List;
 public class ObService {
     /*
     <getObInstructionToDo>
-    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "R"인 요청을 모두 반환한다.
+    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "P"인 요청을 모두 반환한다.
      */
     public List<ObInstructionDto> getObInstructionToDo(String workerId) {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
