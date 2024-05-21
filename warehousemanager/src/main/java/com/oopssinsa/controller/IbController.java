@@ -1,5 +1,6 @@
 package com.oopssinsa.controller;
 
+import com.oopssinsa.model.constants.Error;
 import com.oopssinsa.model.dto.IbDto;
 import com.oopssinsa.model.dto.IbRequestAndLocationDto;
 import com.oopssinsa.model.dto.InstructionDto;
@@ -13,7 +14,6 @@ import com.oopssinsa.view.ErrorView;
 import com.oopssinsa.view.IbView;
 import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.WorkerView;
-
 import java.util.List;
 
 public class IbController {
@@ -73,7 +73,7 @@ public class IbController {
             updateIbToProgressState(selectedIbDto);
             updateWorkerToFalseStatus(selectedWorkerDto);
         } catch (IndexOutOfBoundsException e) {
-            errorView.printError("없는 번호 입니다.");
+            errorView.printError(Error.NON_EXISTENT_NUMBER_ERROR);
         }
     }
 
@@ -85,7 +85,7 @@ public class IbController {
                 }
             }
         } catch (IndexOutOfBoundsException e) {
-            errorView.printError("존재하지 않는 입고 요청 id입니다.");
+            errorView.printError(Error.NON_EXISTENT_NUMBER_ERROR);
             return null;
         }
 
@@ -98,7 +98,6 @@ public class IbController {
                 && ibRequestAndLocationDto.getManufactureDate().equals(requestIb.getManufactureDate())
                 && ibRequestAndLocationDto.getProductId().equals(requestIb.getProductId());
     }
-
 
     private void handleApprovedRequest(IbDto ibDto, char ibAvailability) {
         SectionDto sectionDto = ibService.findSectionByBrandId(ibDto.getBrandId());
@@ -126,8 +125,6 @@ public class IbController {
         ibService.updateExpectedCapacityLocation(locationDto);
         ibService.updateExpectedCapacitySection(sectionDto);
     }
-
-
 
     private void insertInstruction(IbDto selectedIbDto, WorkerDto selectedWorkerDto) {
         workerService.insertIbWorker(new InstructionDto(

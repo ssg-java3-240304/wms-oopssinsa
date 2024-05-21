@@ -1,5 +1,6 @@
 package com.oopssinsa.controller;
 
+import com.oopssinsa.model.constants.Error;
 import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.ObDetailDto;
 import com.oopssinsa.model.dto.ObRequestAndStockDto;
@@ -66,7 +67,7 @@ public class ObController {
             WorkerDto selectedWorkerDto = selectWorkerDto(workerDtos);
             processInsertObWorker(selectedObDetailDto, selectedWorkerDto);
         } catch (IndexOutOfBoundsException e) {
-            errorView.printError("없는 번호 입니다.");
+            errorView.printError(Error.NON_EXISTENT_NUMBER_ERROR);
         }
     }
 
@@ -75,7 +76,7 @@ public class ObController {
         try {
             selectedOb = obRequestAndStock.get(obView.getChangeObIndex());
         } catch (IndexOutOfBoundsException e) {
-            errorView.printError("없는 번호 입니다.");
+            errorView.printError(Error.NON_EXISTENT_NUMBER_ERROR);
         }
         return selectedOb;
     }
