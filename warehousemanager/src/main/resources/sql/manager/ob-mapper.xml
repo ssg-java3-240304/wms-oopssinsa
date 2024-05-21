@@ -41,7 +41,7 @@
 
 
     <!-- 모든 OB 요청 상태 조회 -->
-    <select id="findObByRequestState" resultMap="obRequestMap">
+    <select id="findObByRequestState" resultType="com.oopssinsa.model.dto.ob.ObRequestDto">
         SELECT * FROM ob_request
     </select>
 
@@ -65,6 +65,10 @@
         od.completion_date as completion_date,
         od.tracking_number as tracking_number
         FROM ob_detail od left join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)
+  </select>
+
+    <select id="findAllOb" resultType="com.oopssinsa.model.dto.ob.ObDto">
+        SELECT * FROM ob_detail
     </select>
 
     <!-- 모든 재고 조회 -->
