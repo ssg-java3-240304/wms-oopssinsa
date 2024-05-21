@@ -2,5 +2,63 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.oopssinsa.model.dao.WorkerMapper">
+<mapper namespace="com.oopssinsa.model.dao.ObMapper">
+
+    <!-- 모든 OB 요청 상태 조회 -->
+    <select id="findObByRequestState" resultType="com.oopssinsa.model.dto.ObRequestDto">
+        SELECT * FROM ob_request
+    </select>
+
+    <!-- 모든 OB 상세 조회 -->
+    <select id="findAllOb" resultType="com.oopssinsa.model.dto.ObDto">
+        SELECT * FROM ob_detail
+    </select>
+
+    <!-- 모든 재고 조회 -->
+    <select id="findAllStock" resultType="com.oopssinsa.model.dto.StockDto">
+        SELECT * FROM stock
+    </select>
+
+    <!-- 특정 제품 ID에 따른 주문 가능 재고 조회 -->
+    <select id="findStockOrderableByProductId" parameterType="string" resultType="com.oopssinsa.model.dto.StockDto">
+        SELECT * FROM stock WHERE product_id = #{productId} AND quantity > 0
+    </select>
+
+    <!-- OB 요청과 재고 정보 조회 -->
+    <select id="findObRequestAndStock" resultType="com.oopssinsa.model.dto.ObRequestAndStockDto">
+        SELECT *
+        FROM ob_request ob
+        JOIN stock st
+        ON ob.product_id = st.product_id
+    </select>
+
+    <!-- 재고 업데이트 -->
+    <update id="updateStock" parameterType="com.oopssinsa.model.dto.StockDto">
+        UPDATE stock SET quantity = #{quantity} WHERE id = #{id}
+    </update>
+
+    <!-- OB 상세 정보 삽입 -->
+    <insert id="insertObDetails" parameterType="list">
+        INSERT INTO ob_detail (manufacture_date, ob_id, product_id, quantity, status, completion_date, tracking_number) VALUES
+        <foreach collection="list" item="detail" separator=",">
+            (#{detail.manufactureDate}, #{detail.obId}, #{detail.productId}, #{detail.quantity}, #{detail.status}, #{detail.completionDate}, #{detail.trackingNumber})
+        </foreach>
+    </insert>
+
+    <!-- OB 상태 업데이트 -->
+    <update id="updateObState" parameterType="com.oopssinsa.model.dto.ObDetailDto">
+        UPDATE ob_detail SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <!-- 대기 상태의 OB 상세 정보 조회 -->
+    <select id="findObDetailByWaitingState" resultType="com.oopssinsa.model.dto.ObDetailDto">
+        SELECT * FROM ob_detail WHERE status = 'W'
+    </select>
+
+    <!-- OB 작업자 삽입 -->
+    <insert id="insertObWorker" parameterType="com.oopssinsa.model.dto.InstructionDto">
+        INSERT INTO ob_worker (manufacture_date, ob_id, product_id, worker_id, location_id) VALUES
+        (#{manufactureDate}, #{obId}, #{productId}, #{workerId}, #{locationId})
+    </insert>
+
 </mapper>

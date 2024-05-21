@@ -141,7 +141,7 @@ public class IbController {
     }
 
     private void updateWorkerToFalseStatus(WorkerDto selectedWorkerDto) {
-        selectedWorkerDto.setState('F');
+        selectedWorkerDto.setStatus('F');
         workerService.updateWorkerStatus(selectedWorkerDto);
     }
 

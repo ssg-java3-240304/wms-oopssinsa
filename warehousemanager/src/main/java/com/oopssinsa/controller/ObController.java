@@ -153,7 +153,7 @@ public class ObController {
     }
 
     private void updateWorkerStatusToFalse(WorkerDto selectedWorkerDto) {
-        selectedWorkerDto.setState('F');
+        selectedWorkerDto.setStatus('F');
         workerService.updateWorkerStatus(selectedWorkerDto);
     }
 
