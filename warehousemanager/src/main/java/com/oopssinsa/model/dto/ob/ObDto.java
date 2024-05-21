@@ -19,5 +19,5 @@ public class ObDto {
     private char status;
     private LocalDate obDate;
     private LocalDate completionObDate;
-    private int trackingNumber;
+    private String trackingNumber;
 }

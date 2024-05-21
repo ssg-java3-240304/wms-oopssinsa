@@ -4,17 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oopssinsa.model.dao.ObMapper">
 
-    <resultMap id="obRequestMap" type="ObRequestDto">
-        <id column="id" property="id"/>
-        <id column="product_id" property="productId"/>
-        <result column="login_id" property="loginId"/>
-        <result column="quantity" property="quantity"/>
-        <result column="recipient_name" property="recipientName"/>
-        <result column="address" property="address"/>
-        <result column="ob_date" property="obDate"/>
-    </resultMap>
-
-    <resultMap id="obDetailMap" type="com.oopssinsa.model.dto.ob.ObDetailDto">
+    <resultMap id="obDetailMap" type="obDetailDto">
         <id column="manufacture_date" property="manufactureDate"/>
         <id column="product_id" property="productId"/>
         <id column="ob_id" property="obId"/>
@@ -25,13 +15,13 @@
         <result column="ob_date" property="obDate"/>
     </resultMap>
 
-    <resultMap id="obDtoMap" type="com.oopssinsa.model.dto.ob.ObDto">
-        <result column="manufacture_date" property="manufactureDate"/>
-        <result column="ob_id" property="obId"/>
-        <result column="product_id" property="productId"/>
+    <resultMap id="obDtoMap" type="obDto">
+        <id column="manufacture_date" property="manufactureDate"/>
+        <id column="ob_id" property="obId"/>
+        <id column="product_id" property="productId"/>
         <result column="quantity" property="quantity"/>
         <result column="status" property="status"/>
-        <result column="completion_date" property="completionDate"/>
+        <result column="completion_date" property="completionObDate"/>
         <result column="tracking_number" property="trackingNumber"/>
         <result column="login_id" property="loginId"/>
         <result column="recipient_name" property="recipientName"/>
@@ -39,18 +29,27 @@
         <result column="ob_date" property="obDate"/>
     </resultMap>
 
+    <resultMap id="obRequestAndStockMap" type="ObRequestAndStockDto">
+        <id property="id" column="ob_id"/>
+        <id property="productId" column="product_id"/>
+        <id property="loginId" column="login_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="recipientName" column="recipient_name"/>
+        <result property="address" column="address"/>
+        <result property="obDate" column="ob_date"/>
+        <result property="obStatus" column="ob_status"/>
+        <result property="subLocationId" column="sub_location_id"/>
+        <result property="stockQuantity" column="stock_quantity"/>
+        <result property="expectedStockQuantity" column="expected_stock_quantity"/>
+    </resultMap>
 
-    <!-- 모든 OB 요청 상태 조회 -->
-    <select id="findObByRequestState" resultType="com.oopssinsa.model.dto.ob.ObRequestDto">
-        SELECT * FROM ob_request
+    <select id="findObByRequestState" resultType="obRequestDto">
+        SELECT *
+        FROM ob_request ob
+        where not exists (select 1 from ob_detail where ob.product_id = product_id and ob.id = ob_id )
     </select>
 
-    <!-- 모든 OB 상세 조회 -->
-<!--    <select id="findAllOb" resultMap="obDetailMap">-->
-<!--        SELECT-->
-<!--        od.*, obr.ob_date-->
-<!--        FROM ob_detail od left join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)-->
-<!--    </select>-->
+
     <select id="findAllOb" resultMap="obDtoMap">
         SELECT
         od.manufacture_date as manufacture_date,
@@ -61,56 +60,87 @@
         obr.address as address,
         od.quantity as quantity,
         od.status as status,
-        obr.ob_date as ob_date
+        obr.ob_date as ob_date,
         od.completion_date as completion_date,
         od.tracking_number as tracking_number
-        FROM ob_detail od left join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)
-  </select>
-
-    <select id="findAllOb" resultType="com.oopssinsa.model.dto.ob.ObDto">
-        SELECT * FROM ob_detail
+        FROM ob_detail od
+        join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)
     </select>
 
     <!-- 모든 재고 조회 -->
-    <select id="findAllStock" resultType="com.oopssinsa.model.dto.StockDto">
+    <select id="findAllStock" resultType="stockDto">
         SELECT * FROM stock
     </select>
 
     <!-- 특정 제품 ID에 따른 주문 가능 재고 조회 -->
-    <select id="findStockOrderableByProductId" parameterType="string" resultType="com.oopssinsa.model.dto.StockDto">
+    <select id="findStockOrderableByProductId" parameterType="string" resultType="stockDto">
         SELECT * FROM stock WHERE product_id = #{productId} AND quantity > 0
     </select>
 
     <!-- OB 요청과 재고 정보 조회 -->
-    <select id="findObRequestAndStock" resultType="com.oopssinsa.model.dto.ob.ObRequestAndStockDto">
-        SELECT *
-        FROM ob_request ob
-        JOIN stock st
+    <select id="findObRequestAndStock" resultMap="obRequestAndStockMap">
+        SELECT
+        ob.id as ob_id,
+        ob.product_id as product_id,
+        ob.login_id as login_id,
+        ob.quantity as quantity,
+        ob.recipient_name as recipient_name,
+        ob.address as address,
+        ob.ob_date as ob_date,
+        <![CDATA[IF(ob.quantity+ st.expected_quantity<=st.quantity,'T','F')]]> as ob_status,
+        st.location_id as sub_location_id,
+        st.quantity as stock_quantity,
+        st.expected_quantity as expected_stock_quantity
+        FROM (SELECT *
+        FROM ob_request orq
+        where not exists (select 1 from ob_detail where orq.product_id = product_id and orq.id = ob_id )) ob
+        left JOIN (select product_id, location_id, SUM(quantity) as quantity, SUM(expected_quantity) as
+        expected_quantity from stock group by product_id, location_id) st
         ON ob.product_id = st.product_id
     </select>
 
+
     <!-- 재고 업데이트 -->
-    <update id="updateStock" parameterType="com.oopssinsa.model.dto.StockDto">
-        UPDATE stock SET quantity = #{quantity} WHERE id = #{id}
+    <update id="updateStock">
+        UPDATE stock SET expected_quantity = #{expectedQuantity} WHERE manufacture_date = #{manufactureDate} and
+        product_id = #{productId}
     </update>
+
 
     <!-- OB 상세 정보 삽입 -->
     <insert id="insertObDetails" parameterType="list">
-        INSERT INTO ob_detail (manufacture_date, ob_id, product_id, quantity, status, completion_date, tracking_number) VALUES
+        INSERT INTO ob_detail (manufacture_date, ob_id, product_id, quantity, status, completion_date, tracking_number)
+        VALUES
         <foreach collection="list" item="detail" separator=",">
-            (#{detail.manufactureDate}, #{detail.obId}, #{detail.productId}, #{detail.quantity}, #{detail.status}, #{detail.completionDate}, #{detail.trackingNumber})
+            (#{detail.manufactureDate}, #{detail.obId}, #{detail.productId}, #{detail.quantity}, #{detail.status},
+            #{detail.completionDate}, #{detail.trackingNumber})
         </foreach>
     </insert>
 
     <!-- OB 상태 업데이트 -->
-    <update id="updateObState" parameterType="com.oopssinsa.model.dto.ob.ObDetailDto">
-        UPDATE ob_detail SET status = #{status} WHERE id = #{id}
+    <update id="updateObState">
+        UPDATE ob_detail SET status = #{status} WHERE ob_id = #{obId}
     </update>
 
     <!-- 대기 상태의 OB 상세 정보 조회 -->
-    <select id="findObDetailByWaitingState" resultType="com.oopssinsa.model.dto.ob.ObDetailDto">
-        SELECT * FROM ob_detail WHERE status = 'W'
+    <select id="findObDetailByWaitingState" resultMap="obDetailMap">
+        SELECT
+        od.manufacture_date as manufacture_date,
+        od.ob_id as ob_id,
+        od.product_id as product_id,
+        <!--        obr.login_id as login_id,-->
+        <!--        obr.recipient_name as recipient_name,-->
+        <!--        obr.address as address,-->
+        od.quantity as quantity,
+        od.status as status,
+        obr.ob_date as ob_date,
+        od.completion_date as completion_date,
+        od.tracking_number as tracking_number
+        FROM ob_detail od
+        join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)
+        WHERE status = 'W'
     </select>
+
 
     <!-- OB 작업자 삽입 -->
     <insert id="insertObWorker" parameterType="com.oopssinsa.model.dto.InstructionDto">

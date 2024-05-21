@@ -77,3 +77,7 @@ SELECT *
 FROM sub_location
 WHERE category_id = 1001
   AND section_id = 'A';
+
+(SELECT *
+ FROM ob_request orq
+ where not exists (select 1 from ob_detail where orq.product_id = product_id and orq.id = ob_id ))

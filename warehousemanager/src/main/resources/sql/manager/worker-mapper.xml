@@ -5,8 +5,13 @@
 <mapper namespace="com.oopssinsa.model.dao.WorkerMapper">
 
     <!-- IB 작업자 삽입 -->
-    <insert id="insertIbWorker" parameterType="com.oopssinsa.model.dto.InstructionDto">
+    <insert id="insertIbWorker" parameterType="instructionDto">
         INSERT INTO ib_worker (ib_id, manufacture_date, product_id, worker_id)
+        VALUES (#{id}, #{manufactureDate}, #{productId}, #{workerId})
+    </insert>
+
+    <insert id="insertObWorker" parameterType="instructionDto">
+        INSERT INTO ob_worker (ob_id, manufacture_date, product_id, worker_id)
         VALUES (#{id}, #{manufactureDate}, #{productId}, #{workerId})
     </insert>
 
