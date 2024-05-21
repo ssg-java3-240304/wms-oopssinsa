@@ -1,4 +1,4 @@
-package com.oopssinsa.model.dto;
+package com.oopssinsa.model.dto.ob;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -8,13 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class IbDto {
-    private String id;
+public class ObDetailDto {
     private LocalDate manufactureDate;
+    private String obId;
     private String productId;
-    private String brandId;
     private int quantity;
-    private LocalDate ibRequestDate;
-    private LocalDate ibDate;
     private char status;
+    private LocalDate obDate;
+    private LocalDate completionDate;
+    private Integer trackingNumber;
 }

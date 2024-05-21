@@ -10,5 +10,5 @@ import lombok.Setter;
 public class WorkerDto {
     private String id;
     private String name;
-    private char state;
+    private char status;
 }

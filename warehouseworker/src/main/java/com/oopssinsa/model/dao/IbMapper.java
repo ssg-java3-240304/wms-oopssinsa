@@ -15,4 +15,6 @@ public interface IbMapper {
     IbInstructionDto findIbInstruction(IbInstructionDto ibInstructionDto);
 
     int findProductVolume(String productId);
+
+    long findProductLocation(String productId);
 }

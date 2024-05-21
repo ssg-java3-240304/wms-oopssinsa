@@ -5,6 +5,7 @@ import com.oopssinsa.model.service.AccountService;
 import com.oopssinsa.view.AccountView;
 
 public class AccountController {
+
     private final AccountService accountService;
     private final AccountView accountView;
 

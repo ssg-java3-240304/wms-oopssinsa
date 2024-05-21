@@ -6,7 +6,7 @@
 
     <resultMap id="ibDtoMap" type="ibDto">
         <result column="id" property="id"/>
-        <result column="manufacture_id" property="manufactureId"/>
+        <result column="manufacture_date" property="manufactureId"/>
         <result column="product_id" property="productId"/>
 <!--        <result column="login_id" property="accountId"/>-->
         <result column="quantity" property="quantity"/>
@@ -17,21 +17,21 @@
 
     <resultMap id="ibInsMap" type="ibInstructionDto">
         <result column="ib_id" property="ibId"/>
-        <result column="manufacture_id" property="manufactureId"/>
+        <result column="manufacture_date" property="manufactureId"/>
         <result column="product_id" property="productId"/>
         <result column="worker_id" property="workerId"/>
-        <result column="location_id" property="locationId"/>
+<!--        <result column="location_id" property="locationId"/>-->
     </resultMap>
 
     <select id="findIb" parameterType="ibDto" resultMap="ibDtoMap">
-        select id, manufacture_id, product_id, quantity, completion_date, status
+        select id, manufacture_date, product_id, quantity, completion_date, status
         from ib_detail
         where id = #{id}
-        and manufacture_id = #{manufactureId}
+        and manufacture_date = #{manufactureId}
         and product_id = #{productId}
     </select>
 
-<!--    <select id="findIb" resultType="com.oopssinsa.model.dto.IbDto">-->
+<!--    <select id="findIb" resultType="com.oopssinsa.model.dto.ib.IbDto">-->
 <!--        select *-->
 <!--        from ib_detail-->
 <!--        where id = #{id}-->
@@ -42,7 +42,7 @@
     <select id="getIbInstructionToDo" resultMap="ibInsMap">
         select ibw.*
         from ib_detail ibd left join ib_worker ibw
-        on (ibd.id = ibw.ib_id and ibd.manufacture_id = ibw.manufacture_id and ibd.product_id = ibw.product_id)
+        on (ibd.id = ibw.ib_id and ibd.manufacture_date = ibw.manufacture_date and ibd.product_id = ibw.product_id)
         where ibd.status = 'P'
         and worker_id = #{workerId};
     </select>
@@ -52,14 +52,14 @@
         set completion_date = curdate(), status = #{status}
         where id = #{id}
         and product_id = #{productId}
-        and manufacture_id = #{manufactureId}
+        and manufacture_date = #{manufactureId}
     </update>
 
     <select id="findIbInstruction" parameterType="ibInstructionDto" resultMap="ibInsMap">
         select *
         from ib_worker
         where ib_id = #{ibId}
-        and manufacture_id = #{manufactureId}
+        and manufacture_date = #{manufactureId}
         and product_id = #{productId}
     </select>
 
@@ -67,6 +67,15 @@
         select volume
         from product
         where id = #{productId}
+    </select>
+
+    <select id="findProductLocation" resultType="long">
+        select id
+        from sub_location
+        where (section_id, category_id) = (select s.id, p.category_id
+            from product p
+            left join section s on (s.brand_id = p.brand_id)
+        where p.id =#{productId})
     </select>
 
 </mapper>
