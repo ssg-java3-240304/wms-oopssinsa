@@ -1,6 +1,8 @@
 package com.oopssinsa.model.dao;
 
 import com.oopssinsa.model.dto.*;
+import com.oopssinsa.model.dto.ib.IbDto;
+import com.oopssinsa.model.dto.ib.IbRequestAndLocationDto;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 

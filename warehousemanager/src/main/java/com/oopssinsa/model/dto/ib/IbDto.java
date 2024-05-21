@@ -1,4 +1,4 @@
-package com.oopssinsa.model.dto;
+package com.oopssinsa.model.dto.ib;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

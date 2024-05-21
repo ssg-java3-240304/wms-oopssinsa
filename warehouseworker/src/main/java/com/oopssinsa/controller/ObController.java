@@ -6,6 +6,7 @@ import com.oopssinsa.model.service.ObService;
 import com.oopssinsa.model.service.StockService;
 import com.oopssinsa.view.ObInstructionView;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -32,11 +33,15 @@ public class ObController {
 
     public void updateObStatus(){
         String[] obInfo = new String[3];
-        String updateStatus = obView.inputUpdateObInstructionStatus(obInfo);
-        long obInstructionId =Integer.parseInt(obInfo[0]);
+        String updateStatus = obView.inputUpdateObInstructionStatus(obInfo); // 작업자가 입력한 상태값
+        long obInstructionId =Integer.parseInt(obInfo[0]); // 작업자가 입력한 작업한 복합키 값
         String productId = obInfo[1];
         LocalDate manufactureId = LocalDate.parse(obInfo[2], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        int trackingNumber = (int)(Math.random()*100000)+1;
+        Integer trackingNumber = obService.findTrackingNumber(obInstructionId);
+        if (trackingNumber == null) {
+            trackingNumber = (int)(Math.random()*100000)+1;
+            obService.insertTrackingNumber(obInstructionId, trackingNumber);
+        }
         ObDto updateOb = new ObDto(obInstructionId, manufactureId, productId, 0,LocalDate.now(),updateStatus,trackingNumber);
         obService.updateObStatus(updateOb);
 
@@ -64,7 +69,6 @@ public class ObController {
                 locationService.updateCurrentCapacity(new SubLocationDto(locationId,originalCapacity-updateCapacity,+updateCapacity));
                 // 예진 작업 끝
             }
-
         }
     }
 }

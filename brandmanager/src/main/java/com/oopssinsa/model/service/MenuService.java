@@ -1,10 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.model.dao.MenuMapper;
-import com.oopssinsa.model.dto.AccountDto;
-import com.oopssinsa.model.dto.IbDetailDto;
-import com.oopssinsa.model.dto.ObDetailDto;
-import com.oopssinsa.model.dto.ProductDto;
+import com.oopssinsa.model.dto.*;
 import org.apache.ibatis.session.SqlSession;
 
 //import static com.oopssinsa.common.MyBatisTemplate.getSqlSession;
@@ -86,6 +83,14 @@ public class MenuService {
         SqlSession sqlSession = getSqlSession();
         MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
         List<ProductDto> list = menuMapper.showProduct(brandId);
+        sqlSession.close();
+        return list;
+    }
+
+    public List<ObDto> findObDetail(String userId) {
+        SqlSession sqlSession = getSqlSession();
+        MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+        List<ObDto> list = menuMapper.findObDetail(userId);
         sqlSession.close();
         return list;
     }
