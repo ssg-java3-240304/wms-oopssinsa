@@ -8,7 +8,6 @@ import com.oopssinsa.model.dto.WorkerDto;
 import com.oopssinsa.model.service.ObService;
 import com.oopssinsa.model.service.WorkerService;
 import com.oopssinsa.view.ErrorView;
-import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.ObView;
 import com.oopssinsa.view.WorkerView;
 
@@ -20,7 +19,6 @@ public class ObController {
     private final ObView obView;
     private final WorkerService workerService;
     private final WorkerView workerView;
-    private final InputView inputView;
     private final ErrorView errorView;
 
     public ObController() {
@@ -28,7 +26,6 @@ public class ObController {
         this.obView = new ObView();
         this.workerService = new WorkerService();
         this.workerView = new WorkerView();
-        this.inputView = new InputView();
         this.errorView = new ErrorView();
     }
 
@@ -39,9 +36,6 @@ public class ObController {
     public void findAllOb() {
         obView.printAllOb(obService.findAllOb());
     }
-
-
-
 
     public void updateState() {
         List<ObRequestAndStockDto> obRequestAndStock = obService.findObRequestAndStock();
@@ -58,6 +52,21 @@ public class ObController {
         }
         if (selectedOb.getObStatus() == 'T') {
             processOrderableOb(selectedOb);
+        }
+    }
+
+    public void insertObWorker() {
+        List<ObDetailDto> obDetailDtos = obService.findObDetailByWaitingState();
+        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
+        obView.printObDetail(obDetailDtos);
+        workerView.printAssignableWorker(workerDtos);
+
+        try {
+            ObDetailDto selectedObDetailDto = selectObDetailDto(obDetailDtos);
+            WorkerDto selectedWorkerDto = selectWorkerDto(workerDtos);
+            processInsertObWorker(selectedObDetailDto, selectedWorkerDto);
+        } catch (IndexOutOfBoundsException e) {
+            errorView.printError("없는 번호 입니다.");
         }
     }
 
@@ -114,6 +123,39 @@ public class ObController {
     }
 
 
+    private void processInsertObWorker(ObDetailDto selectedObDetailDto, WorkerDto selectedWorkerDto) {
+        insertInstruction(selectedObDetailDto, selectedWorkerDto);
+        updateObDetailStateToProgress(selectedObDetailDto);
+        updateWorkerStatusToFalse(selectedWorkerDto);
+    }
+
+    private ObDetailDto selectObDetailDto(List<ObDetailDto> obDetailDtos) {
+        return obDetailDtos.get(obView.getObIndex());
+    }
+
+    private WorkerDto selectWorkerDto(List<WorkerDto> workerDtos) {
+        return workerDtos.get(workerView.getWorkerIndex());
+    }
+
+    private void insertInstruction(ObDetailDto selectedObDetailDto, WorkerDto selectedWorkerDto) {
+        workerService.insertIbWorker(new InstructionDto(
+                selectedObDetailDto.getObId(),
+                selectedObDetailDto.getManufactureDate(),
+                selectedObDetailDto.getProductId(),
+                selectedWorkerDto.getId()
+        ));
+    }
+
+    private void updateObDetailStateToProgress(ObDetailDto selectedObDetailDto) {
+        selectedObDetailDto.setStatus('P');
+        obService.updateIbState(selectedObDetailDto);
+    }
+
+    private void updateWorkerStatusToFalse(WorkerDto selectedWorkerDto) {
+        selectedWorkerDto.setState('F');
+        workerService.updateWorkerStatus(selectedWorkerDto);
+    }
+
 //    public void updateState() {
 //        List<ObRequestAndStockDto> obRequestAndStock = obService.findObRequestAndStock();
 //        obView.printObRequestAndStock(obRequestAndStock);
@@ -163,36 +205,33 @@ public class ObController {
 //        }
 //    }
 
-    public void insertObWorker() {
-        List<ObDetailDto> obDetailDtos = obService.findObDetailByWaitingState();
-        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
-
-        obView.printObDetail(obDetailDtos);
-        workerView.printAssignableWorker(workerService.findWorkerByAssignableStatus());
-
-        ObDetailDto selectedObDetailDto = null;
-        WorkerDto selectedWorkerDto = null;
-        try {
-            selectedObDetailDto = obDetailDtos.get(obView.getObIndex());
-            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
-        } catch (IndexOutOfBoundsException e) {
-            errorView.printError("없는 번호 입니다.");
-            return;
-        }
-
-        // 지시테이블에 삽입
-        workerService.insertIbWorker(new InstructionDto(selectedObDetailDto.getObId(), selectedObDetailDto.getManufactureDate(),
-                selectedObDetailDto.getProductId(), selectedWorkerDto.getId()));
-
-        // 출고테이블 상태 업데이트
-        selectedObDetailDto.setStatus('P');
-        obService.updateIbState(selectedObDetailDto);
-
-        // 작업자 상태 업데이트
-        selectedWorkerDto.setState('F');
-        workerService.updateWorkerStatus(selectedWorkerDto);
-
-        System.out.println(selectedObDetailDto.getStatus());
-        System.out.println(selectedWorkerDto.getState());
-    }
+//    public void insertObWorker1() {
+//        List<ObDetailDto> obDetailDtos = obService.findObDetailByWaitingState();
+//        List<WorkerDto> workerDtos = workerService.findWorkerByAssignableStatus();
+//
+//        obView.printObDetail(obDetailDtos);
+//        workerView.printAssignableWorker(workerService.findWorkerByAssignableStatus());
+//
+//        ObDetailDto selectedObDetailDto = null;
+//        WorkerDto selectedWorkerDto = null;
+//        try {
+//            selectedObDetailDto = obDetailDtos.get(obView.getObIndex());
+//            selectedWorkerDto = workerDtos.get(workerView.getWorkerIndex());
+//        } catch (IndexOutOfBoundsException e) {
+//            errorView.printError("없는 번호 입니다.");
+//            return;
+//        }
+//
+//        // 지시테이블에 삽입
+//        workerService.insertIbWorker(new InstructionDto(selectedObDetailDto.getObId(), selectedObDetailDto.getManufactureDate(),
+//                selectedObDetailDto.getProductId(), selectedWorkerDto.getId()));
+//
+//        // 출고테이블 상태 업데이트
+//        selectedObDetailDto.setStatus('P');
+//        obService.updateIbState(selectedObDetailDto);
+//
+//        // 작업자 상태 업데이트
+//        selectedWorkerDto.setState('F');
+//        workerService.updateWorkerStatus(selectedWorkerDto);
+//    }
 }
