@@ -48,6 +48,8 @@ public class IbController {
 
         int ibIndex = ibView.getChangeIbIndex();
         IbDto ibDto = selectRequestIb(ibIndex, requestIbs, ibRequestAndLocation);
+        // 제거 필요
+        System.out.println(ibDto.toString());
         if (ibDto == null) {
             return;
         }
@@ -101,9 +103,12 @@ public class IbController {
 
     private void handleApprovedRequest(IbDto ibDto, char ibAvailability) {
         SectionDto sectionDto = ibService.findSectionByBrandId(ibDto.getBrandId());
+        // 제거필요
+        System.out.println(sectionDto);
         ProductDto productDto = ibService.findProductByProductId(ibDto.getProductId());
         LocationDto locationDto = ibService.findLocationByCategoryIdAndSectionId(
                 productDto.getCategoryId(), sectionDto.getId());
+        System.out.println(locationDto);
 
         if (ibAvailability == 'T') {
             updateToWaitingState(ibDto, locationDto, sectionDto);
@@ -119,11 +124,16 @@ public class IbController {
 
     private void updateToWaitingState(IbDto ibDto, LocationDto locationDto, SectionDto sectionDto) {
         ibDto.setStatus('W');
-        locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity());
-        sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity());
+        ProductDto productDto = ibService.findProductByProductId(ibDto.getProductId());
+
+        locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity()* productDto.getVolume());
+        sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity()* productDto.getVolume());
+
         ibService.updateIbState(ibDto);
+        System.out.println(ibDto);
         ibService.updateExpectedCapacityLocation(locationDto);
         ibService.updateExpectedCapacitySection(sectionDto);
+
     }
 
     private void insertInstruction(IbDto selectedIbDto, WorkerDto selectedWorkerDto) {

@@ -16,25 +16,25 @@ public class AccountService {
 
         return accountMapper.findAccountById(id, password, "WM");
 
-
-public class AccountService {
-    public static void displayLoginResult(boolean result, String id) {
-    }
-    public AccountDto findAccountById(String id) {
-        return new AccountDto(id, "1234567a!", "WM");
-
-    }
-    // 나경 작업 끝
-
-    public boolean loginValidation(String id, String password){
-        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
-        AccountMapper accountMapper = sqlSession.getMapper(AccountMapper.class);
-        AccountDto accountDto = accountMapper.loginValidation(id, password);
-        if(accountDto==null || accountDto.getId()==null || accountDto.getPassword()==null){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-}
+    }}
+//public class AccountService {
+//    public static void displayLoginResult(boolean result, String id) {
+//    }
+//    public AccountDto findAccountById(String id) {
+//        return new AccountDto(id, "1234567a!", "WM");
+//
+//    }
+//    // 나경 작업 끝
+//
+//    public boolean loginValidation(String id, String password){
+//        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+//        AccountMapper accountMapper = sqlSession.getMapper(AccountMapper.class);
+//        AccountDto accountDto = accountMapper.loginValidation(id, password);
+//        if(accountDto==null || accountDto.getId()==null || accountDto.getPassword()==null){
+//            return false;
+//        }
+//        else{
+//            return true;
+//        }
+//    }
+//}

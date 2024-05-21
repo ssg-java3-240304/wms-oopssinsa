@@ -35,6 +35,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.ObMapper;
 import com.oopssinsa.model.dao.WorkerMapper;
 import com.oopssinsa.model.dto.InstructionDto;
 import com.oopssinsa.model.dto.WorkerDto;
@@ -44,30 +45,44 @@ import java.util.List;
 
 public class WorkerService {
     public int insertIbWorker(InstructionDto instructionDto) {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-            return workerMapper.insertIbWorker(instructionDto);
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
+        try {
+            int result = workerMapper.insertIbWorker(instructionDto);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
         }
     }
 
     public int updateWorkerStatus(WorkerDto workerDto) {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-            return workerMapper.updateWorkerStatus(workerDto);
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
+        try {
+            int result = workerMapper.updateWorkerStatus(workerDto);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
         }
     }
 
     public List<WorkerDto> findWorkerByAssignableStatus() {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-            return workerMapper.findWorkerByAssignableStatus();
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
+        return workerMapper.findWorkerByAssignableStatus();
     }
 
     public List<WorkerDto> findAllWorker() {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
-            return workerMapper.findAllWorker();
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        WorkerMapper workerMapper = sqlSession.getMapper(WorkerMapper.class);
+        return workerMapper.findAllWorker();
     }
 }
