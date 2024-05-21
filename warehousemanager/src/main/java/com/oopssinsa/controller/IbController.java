@@ -56,7 +56,7 @@ public class IbController {
             ibAvailability = ibRequestAndLocation.get(ibIndex).getIbAvailability();
 
             for (IbDto requestIb : requestIbs) {
-                if (ibRequestAndLocation.get(ibIndex).getId().equals(requestIb.getId())
+                if (ibRequestAndLocation.get(ibIndex).getIbId().equals(requestIb.getId())
                         && ibRequestAndLocation.get(ibIndex).getManufactureDate().equals(requestIb.getManufactureDate())
                         && ibRequestAndLocation.get(ibIndex).getProductId().equals(requestIb.getProductId())) {
                     ibDto = requestIb;
@@ -90,8 +90,8 @@ public class IbController {
                 locationDto.setExpectedCapacity(locationDto.getExpectedCapacity() + ibDto.getQuantity());
                 sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity());
                 ibService.updateIbState(ibDto);
-                ibService.updateExpectedCapacity(locationDto);
-                ibService.updateExpectedCapacity(sectionDto);
+                ibService.updateExpectedCapacityLocation(locationDto);
+                ibService.updateExpectedCapacitySection(sectionDto);
             } else {
                 ibView.printOverCapacity();
                 return;

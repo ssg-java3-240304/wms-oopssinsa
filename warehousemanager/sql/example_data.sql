@@ -1,15 +1,21 @@
-show databases ;
+show databases;
 use osswmsdb;
 show tables;
-select * from product;
+select *
+from product;
 
-select * from brand;
-select * from section;
-select * from category;
-select * from worker;
+select *
+from brand;
+select *
+from section;
+select *
+from category;
+select *
+from worker;
 select *
 from ib_detail;
-select * from sub_location;
+select *
+from sub_location;
 
 
 select *
@@ -35,33 +41,33 @@ where status = 'R';
 #         select product_id
 #         from ib_detail  where status ='R' ));
 
-WITH relevant_product_ids AS (
-    SELECT product_id
-    FROM ib_detail
-    WHERE status = 'R'
-    ORDER BY id -- ib_detail의 행 순서를 유지하기 위해 id에 따라 정렬
-),
+select *
+from product p
+         join brand b on p.brand_id = b.id
+         join section s on s.brand_id = b.id
+         join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id
+where p.id = 'TS001';
 
-     relevant_products AS (
-         SELECT p.id AS product_id, p.brand_id, p.category
-         FROM product p
-                  JOIN relevant_product_ids rpi ON p.id = rpi.product_id
-     ),
+# select *, IF(sl.current_capacity+ sl.expected_capacity +  #{quantity}*p.volume<=sl.max_capacity, 'T', 'F') as ibAvailability
+#              from
+#              product p
+#              join section s on s.brand_id = p.brand_id
+#              join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id
+#              where p.id = #{product_id};
 
-     relevant_sections AS (
-         SELECT s.id AS section_id, rp.category AS section_category
-         FROM section s
-                  JOIN relevant_products rp ON s.brand_id = rp.brand_id
-     ),
 
-     final_results AS (
-         SELECT
-             rs.section_id AS relevant_section_id,
-             rs.section_category AS relevant_section_category,
-             sl.*
-         FROM relevant_sections rs
-                  LEFT JOIN sub_location sl ON rs.section_id = sl.section_id AND rs.section_category = sl.category_id
-     )
 
-SELECT *
-FROM final_results;
+select *,
+       IF(sl.current_capacity +
+          sl.expected_capacity + (select quantity
+          from ib_detail
+          where product_id='TS010')*p.volume<=sl.max_capacity, 'T', 'F') as ibAvailability,
+       (sl.current_capacity +
+       sl.expected_capacity + (select quantity
+                               from ib_detail
+                               where product_id='TS010')*p.volume) as value
+          from
+          product p
+          join section s on s.brand_id = p.brand_id
+          join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id
+          where p.id = 'TS010';

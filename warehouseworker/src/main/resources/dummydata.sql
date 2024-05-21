@@ -1,4 +1,5 @@
 -- brand dummy table
+
 # use wms_db;
 insert into brand
 values (1, 'Nike', '2020-01-01', '2025-01-01'),
@@ -569,4 +570,5 @@ select *
 from stock;
 
 select *
+
 from sub_location;

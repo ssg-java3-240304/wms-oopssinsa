@@ -21,23 +21,36 @@
         <!-- 다른 속성에 대한 매핑 추가 -->
     </resultMap>
 
-    <!-- Select Queries -->
-    <select id="findAllIb" resultMap="ibDtoMap">
-        SELECT * FROM ib_detail
-    </select>
+    <resultMap id="productDtoMap" type="ProductDto">
+        <result column="product_id" property="productId"/>
+        <result column="name" property="name"/>
+        <result column="category" property="category"/>
+        <!-- 기타 필요한 필드 매핑 -->
+    </resultMap>
 
-    <select id="findIbByState" parameterType="String" resultMap="ibDtoMap">
-        SELECT * FROM ib_detail WHERE status = #{value}
-    </select>
+    <resultMap id="sectionResultMap" type="SectionDto">
+        <result property="sectionId" column="section_id"/>
+        <result property="name" column="name"/>
+        <result property="capacity" column="capacity"/>
+        <!-- 추가적인 필드 매핑 -->
+    </resultMap>
 
-    <select id="findIbRequestAndLocation" resultMap="ibDtoMap">
-        SELECT ib.*, loc.expected_capacity, loc.current_capacity
-        FROM ib_detail ib
-        JOIN sub_location loc ON ib.location_id = loc.id
-        WHERE ib.status = 'R'
-    </select>
+    <resultMap id="ibRequestAndLocationMap" type="IbRequestAndLocationDto">
+        <id property="ibId" column="ib_id"/>
+        <id property="productId" column="product_id"/>
+        <id property="manufactureDate" column="manufacture_date"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="ibDate" column="ib_date"/>
+        <result property="quantity" column="quantity"/>
+        <result property="ibStatus" column="status"/>
+        <result property="ibRequestDate" column="ib_request_date"/>
+        <result property="locationId" column="location_id"/>
+        <result property="currentCapacity" column="current_capacity"/>
+        <result property="expectedCapacity" column="expected_capacity"/>
+        <result property="maxCapacity" column="max_capacity"/>
+        <result property="ibAvailability" column="ib_availability"/>
+    </resultMap>
 
-    <!-- Update Queries -->
     <update id="updateIbState" parameterType="IbDto">
         UPDATE ib_detail
         SET status = #{status}
@@ -46,28 +59,141 @@
 
     <update id="updateExpectedCapacityLocation" parameterType="LocationDto">
         UPDATE sub_location
-        SET current_capacity = #{currentCapacity}
+        SET expected_capacity = #{expectedCapacity}
         WHERE id = #{id}
     </update>
 
     <update id="updateExpectedCapacitySection" parameterType="SectionDto">
         UPDATE section
-        SET current_capacity = #{currentCapacity}
+        SET expected_capacity = #{expectedCapacity}
         WHERE id = #{id}
     </update>
 
-    <!-- Select Queries for Location, Product, and Section -->
     <select id="findLocationByCategoryIdAndSectionId" parameterType="Map" resultMap="locationResultMap">
         SELECT * FROM sub_location
         WHERE category_id = #{categoryId} AND section_id = #{sectionId}
     </select>
 
-    <select id="findProductByProductId" parameterType="String" resultMap="ProductDto">
-        SELECT * FROM product WHERE product_id = #{value}
+    <select id="findProductByProductId" parameterType="String" resultMap="productDtoMap">
+        SELECT * FROM product WHERE product_id = #{productId}
     </select>
 
-    <select id="findSectionByBrandId" parameterType="String" resultMap="SectionDto">
-        SELECT * FROM section WHERE brand_id = #{value}
+    <select id="findSectionByBrandId" parameterType="String" resultMap="sectionResultMap">
+        SELECT * FROM section WHERE brand_id = #{brandId}
     </select>
 
+    <select id="findAllIb" resultMap="ibDtoMap">
+        SELECT * FROM ib_detail
+    </select>
+
+    <select id="findIbByState" parameterType="String" resultMap="ibDtoMap">
+        SELECT * FROM ib_detail WHERE status = #{status}
+    </select>
+
+    <select id="findIbByRequestState" parameterType="String" resultMap="ibDtoMap">
+        SELECT * FROM ib_detail WHERE status = 'R'
+    </select>
+
+    <select id="findIbByWaitingState" parameterType="String" resultMap="ibDtoMap">
+        SELECT * FROM ib_detail WHERE status = 'W'
+    </select>
+
+
+    <!-- 입고 요청 및 위치 정보 조회 -->
+    <!--    <select id="findIbRequestAndLocation" parameterType="list" resultMap="ibRequestAndLocationMap">-->
+    <!--        SELECT-->
+    <!--        ib.id AS ib_id,-->
+    <!--        ib.ib_date AS ib_date,-->
+    <!--        ib.product_id,-->
+    <!--        prod.brand_id,-->
+    <!--        ib.quantity,-->
+    <!--        ib.status AS ib_status,-->
+    <!--        loc.id AS location_id,-->
+    <!--        loc.section_id,-->
+    <!--        loc.category_id,-->
+    <!--        loc.max_capacity,-->
+    <!--        loc.current_capacity,-->
+    <!--        (loc.current_capacity + ib.quantity * prod.volume) AS ibCapacity,-->
+    <!--        CASE-->
+    <!--        WHEN (loc.current_capacity + ib.quantity * prod.volume) <= loc.max_capacity-->
+    <!--        THEN '가능'-->
+    <!--        ELSE '불가능'-->
+    <!--        END AS 입고가능상태-->
+    <!--        FROM-->
+    <!--        ib_detail ib-->
+    <!--        join brand b on p.brand_id = b.id-->
+    <!--        join section s on s.brand_id = b.id-->
+    <!--        join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id-->
+    <!--        WHERE-->
+    <!--        ib.id IN-->
+    <!--        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">-->
+    <!--            #{item.id}-->
+    <!--        </foreach>-->
+    <!--    </select>-->
+
+    <!--    select *-->
+    <!--    from-->
+    <!--    product p-->
+    <!--    join brand b on p.brand_id = b.id-->
+    <!--    join section s on s.brand_id = b.id-->
+    <!--    join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id-->
+    <!--    where p.id = 'AC001';-->
+
+    <!--    <select id="findIbRequestAndLocation" parameterType="list" resultMap="ibRequestAndLocationMap">-->
+    <!--        SELECT-->
+    <!--        p.id AS product_id,-->
+    <!--        p.volume AS volume,-->
+    <!--        ib. quantity AS quantity,-->
+    <!--        sl.current_capacity AS current_capacity,-->
+    <!--        sl.expected_capacity AS expected_capacity,-->
+    <!--        sl.max_capacity AS max_capacity,-->
+    <!--        (p.volume * ib. quantity) AS ib_capacity,-->
+    <!--        sl.id AS location_id,-->
+    <!--        sl.section_id,-->
+    <!--        sl.category_id,-->
+    <!--        sl.max_capacity,-->
+    <!--        sl.current_capacity-->
+    <!--        FROM-->
+    <!--        product p-->
+    <!--        JOIN ib_detail ib ON p.id = ib.product_id-->
+    <!--        JOIN section s ON p.brand_id = s.brand_id-->
+    <!--        JOIN sub_location sl ON s.id = sl.section_id AND p.category_id = sl.category_id-->
+    <!--        WHERE-->
+    <!--        p.id IN (#{productIds})-->
+    <!--    </select>-->
+
+    <!--    <select id="findIbRequestAndLocation" resultMap="ibRequestAndLocationMap" parameterType="java.util.List">-->
+    <!--        select-->
+    <!--        *-->
+    <!--        from product p-->
+    <!--        join section s on s.brand_id = p.brand_id-->
+    <!--        join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id-->
+    <!--        where p.id in-->
+    <!--        <foreach collection="list" item="item" open="(" separator="," close=")">-->
+    <!--            #{item.productId}-->
+    <!--        </foreach>-->
+    <!--    </select>-->
+
+    <select id="findIbRequestAndLocation" resultMap="ibRequestAndLocationMap" parameterType="java.util.List">
+        <foreach collection="list" item="ibDto" separator="union all">
+            select
+            #{ibDto.id} as ib_id,
+            #{ibDto.manufactureDate} as manufacture_date,
+            #{ibDto.productId} as product_id,
+            #{ibDto.brandId} as brand_id,
+            #{ibDto.quantity} as quantity,
+            #{ibDto.ibRequestDate} as ib_request_date,
+            #{ibDto.status} as status,
+            IF(sl.current_capacity + sl.expected_capacity +
+            (select quantity from ib_detail where product_id = #{ibDto.productId}) * p.volume &lt;= sl.max_capacity,
+            'T', 'F') as ib_availability,
+            sl.current_capacity as current_capacity,
+            sl.expected_capacity as expected_capacity,
+            sl.max_capacity as max_capacity
+            from product p
+            join section s on s.brand_id = p.brand_id
+            join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id
+            where p.id = #{ibDto.productId}
+        </foreach>
+    </select>
 </mapper>

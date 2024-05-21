@@ -2,6 +2,7 @@ package com.oopssinsa.model.dao;
 
 import com.oopssinsa.model.dto.AccountDto;
 import com.oopssinsa.model.dto.IbDetailDto;
+import com.oopssinsa.model.dto.ObDetailDto;
 import com.oopssinsa.model.dto.ProductDto;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,4 +16,8 @@ public interface MenuMapper {
     AccountDto login(@Param("id") String id, @Param("password") String password);
 
     List<IbDetailDto> findByUserID(String id);
+
+    int obRequest(ObDetailDto obDetailDto);
+
+    List<ProductDto> showProduct(long brandId);
 }

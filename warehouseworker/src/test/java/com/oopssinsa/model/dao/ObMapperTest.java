@@ -5,11 +5,13 @@ import com.oopssinsa.model.service.ObService;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.oopssinsa.common.MyBatisTemplate.getSqlSession;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ObMapperTest {
@@ -32,19 +34,21 @@ class ObMapperTest {
 
     /*
     <getObInstructionToDo>
-    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "R"인 요청을 모두 반환한다.
+    출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 "P"인 요청을 모두 반환한다.
      */
 
     // 출고요청 더미 데이터가 없어서 테스트 못함..
 
+    @DisplayName("출고 요청 테이블에서 workerId와 동일한 작업자에게 요청된 출고요청 중 현재 상태가 P인 요청을 모두 반환한다.")
     @Test
-    void getObIntructionToDo() {
+    void getObInstructionToDo() {
         //given
         String workerId = "worker01";
         //then
+        //when
         List<ObInstructionDto> test = obService.getObInstructionToDo(workerId);
 
-        //when
+        assertNotNull(test);
 
     }
 

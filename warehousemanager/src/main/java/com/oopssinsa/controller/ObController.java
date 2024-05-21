@@ -64,7 +64,8 @@ public class ObController {
                 if (count > stockDto.getQuantity()) {
                     count -= stockDto.getQuantity();
                     obDetailDtos.add(new ObDetailDto(stockDto.getManufactureDate(), selectedOb.getId(),
-                            selectedOb.getProductId(), stockDto.getQuantity(), 'W', null, null));
+                            selectedOb.getProductId(), stockDto.getQuantity(), 'W', selectedOb.getObDate(),
+                            null, null));
 
                     // 재고 예정 수량 업데이트
                     stockDto.setExpectedQuantity(stockDto.getExpectedQuantity() + stockDto.getQuantity());
@@ -72,7 +73,8 @@ public class ObController {
 
                 } else if (count <= stockDto.getQuantity()) {
                     obDetailDtos.add(new ObDetailDto(stockDto.getManufactureDate(), selectedOb.getId(),
-                            selectedOb.getProductId(), count, 'W', null, null));
+                            selectedOb.getProductId(), count, 'W', selectedOb.getObDate(),
+                            null, null));
                     // 재고 예정 수량 업데이트
                     stockDto.setExpectedQuantity(stockDto.getExpectedQuantity() + count);
                     obService.updateStock(stockDto);

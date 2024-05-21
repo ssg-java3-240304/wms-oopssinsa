@@ -2,6 +2,7 @@ package com.oopssinsa.controller;
 
 import com.oopssinsa.model.dto.AccountDto;
 import com.oopssinsa.model.dto.IbDetailDto;
+import com.oopssinsa.model.dto.ObDetailDto;
 import com.oopssinsa.model.dto.ProductDto;
 import com.oopssinsa.model.service.MenuService;
 import com.oopssinsa.view.MenuView;
@@ -43,5 +44,15 @@ public class MenuController {
             e.printStackTrace();
         }
 
+    }
+
+    public void obRequest(ObDetailDto obDetailDto) {
+        int result = menuService.obRequest(obDetailDto);
+        ResultView.displayObRequestResult("출고 요청", result);
+    }
+
+    public void showProduct(long brandId) {
+        List<ProductDto> list = menuService.showProduct(brandId);
+        ResultView.displayProductList(list);
     }
 }
