@@ -6,8 +6,8 @@
 
     <!-- IB 작업자 삽입 -->
     <insert id="insertIbWorker" parameterType="com.oopssinsa.model.dto.InstructionDto">
-        INSERT INTO ib_worker (ib_id, manufacture_date, product_id, worker_id, location_id)
-        VALUES (#{ibId}, #{manufactureDate}, #{productId}, #{workerId}, #{locationId})
+        INSERT INTO ib_worker (ib_id, manufacture_date, product_id, worker_id)
+        VALUES (#{id}, #{manufactureDate}, #{productId}, #{workerId})
     </insert>
 
     <!-- 직원 상태 업데이트 -->

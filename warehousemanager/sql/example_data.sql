@@ -71,3 +71,9 @@ select *,
           join section s on s.brand_id = p.brand_id
           join sub_location sl on sl.section_id = s.id and p.category_id = sl.category_id
           where p.id = 'TS001';
+
+
+SELECT *
+FROM sub_location
+WHERE category_id = 1001
+  AND section_id = 'A';
