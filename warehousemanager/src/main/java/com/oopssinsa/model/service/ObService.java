@@ -85,7 +85,7 @@ public class ObService {
         return 1;
     }
 
-    public int updateIbState(ObDetailDto obDetailDto) {
+    public int updateObState(ObDetailDto obDetailDto) {
         return 1;
     }
 

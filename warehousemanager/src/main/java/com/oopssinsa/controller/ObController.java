@@ -149,7 +149,7 @@ public class ObController {
 
     private void updateObDetailStateToProgress(ObDetailDto selectedObDetailDto) {
         selectedObDetailDto.setStatus('P');
-        obService.updateIbState(selectedObDetailDto);
+        obService.updateObState(selectedObDetailDto);
     }
 
     private void updateWorkerStatusToFalse(WorkerDto selectedWorkerDto) {
