@@ -1,6 +1,7 @@
 package com.oopssinsa.model.service;
 
 import com.oopssinsa.common.MyBatisTemplate;
+import com.oopssinsa.model.dao.IbMapper;
 import com.oopssinsa.model.dao.ObMapper;
 import org.apache.ibatis.session.SqlSession;
 import com.oopssinsa.model.dto.InstructionDto;
@@ -9,76 +10,106 @@ import com.oopssinsa.model.dto.ob.ObDto;
 import com.oopssinsa.model.dto.ob.ObRequestAndStockDto;
 import com.oopssinsa.model.dto.ob.ObRequestDto;
 import com.oopssinsa.model.dto.StockDto;
+
 import java.util.List;
 
 public class ObService {
     public List<ObRequestDto> findObByRequestState() {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.findObByRequestState();
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findObByRequestState();
     }
 
     public List<ObDto> findAllOb() {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.findAllOb();
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findAllOb();
+
     }
 
     public List<StockDto> findAllStock() {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.findAllStock();
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findAllStock();
+
     }
 
     public List<StockDto> findStockOrderableByProductId(String productId) {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.findStockOrderableByProductId(productId);
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findStockOrderableByProductId(productId);
+
     }
 
     public List<ObRequestAndStockDto> findObRequestAndStock() {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.findObRequestAndStock();
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findObRequestAndStock();
     }
 
     public int updateStock(StockDto stockDto) {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.updateStock(stockDto);
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        try {
+            int result = obMapper.updateStock(stockDto);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
         }
     }
 
     public int insertObDetails(List<ObDetailDto> obDetailDtos) {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.insertObDetails(obDetailDtos);
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        try {
+            int result = obMapper.insertObDetails(obDetailDtos);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
         }
     }
 
     public int updateObState(ObDetailDto obDetailDto) {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.updateObState(obDetailDto);
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        try {
+            int result = obMapper.updateObState(obDetailDto);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
         }
     }
 
     public List<ObDetailDto> findObDetailByWaitingState() {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.findObDetailByWaitingState();
-        }
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        return obMapper.findObDetailByWaitingState();
     }
 
     public int insertObWorker(InstructionDto instructionDto) {
-        try (SqlSession sqlSession = MyBatisTemplate.getSqlSession()) {
-            ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
-            return obMapper.insertObWorker(instructionDto);
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
+        try {
+            int result = obMapper.insertObWorker(instructionDto);
+            sqlSession.commit();
+            return result;
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
         }
     }
 }
