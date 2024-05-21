@@ -14,6 +14,7 @@ import com.oopssinsa.view.ErrorView;
 import com.oopssinsa.view.IbView;
 import com.oopssinsa.view.InputView;
 import com.oopssinsa.view.WorkerView;
+import java.util.ArrayList;
 import java.util.List;
 
 public class IbController {
@@ -43,8 +44,15 @@ public class IbController {
 
     public void updateState() {
         List<IbDto> requestIbs = ibService.findIbByRequestState();
-        List<IbRequestAndLocationDto> ibRequestAndLocation = ibService.findIbRequestAndLocation(requestIbs);
-        ibView.printIbAndCapacity(ibRequestAndLocation);
+        List<IbRequestAndLocationDto> ibRequestAndLocation = new ArrayList<>();
+        try {
+            ibRequestAndLocation = ibService.findIbRequestAndLocation(requestIbs);
+        } catch (Exception e) {
+            return;
+        } finally {
+            ibView.printIbAndCapacity(ibRequestAndLocation);
+        }
+
 
         int ibIndex = ibView.getChangeIbIndex();
         IbDto ibDto = selectRequestIb(ibIndex, requestIbs, ibRequestAndLocation);
