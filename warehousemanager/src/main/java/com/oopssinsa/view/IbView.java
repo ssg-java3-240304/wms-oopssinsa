@@ -101,20 +101,21 @@ public class IbView {
     public void printIbAndCapacity(List<IbRequestAndLocationDto> ibRequestAndLocationDtos) {
         int count = 1;
         System.out.println("입고 & 적재 위치 용량 목록");
-        System.out.println("+" + "-".repeat(132) + "+");
-        System.out.println("| 번호 |  입고ID  |   제조일자   |    상품ID    |  발주자ID  |  수량  |  입고요청일자  |" +
+        System.out.println("+" + "-".repeat(148) + "+");
+        System.out.println("| 번호 |  입고ID  |   제조일자   |    상품ID    |  발주자ID  |  수량  | 부피 | 입고용량 |  입고요청일자  |" +
                 " 입고처리상태 | 입고가능여부 | 현재용량 | 예정용량 | 최대용량 |");
-        System.out.println("|" + "-".repeat(132) + "|");
+        System.out.println("|" + "-".repeat(148) + "|");
 //        System.out.println("입고ID" + "  " + "제조일자" + "  " + "상품ID" + "  "
 //                + "발주자ID" + "  " + "수량" + "  " + "입고요청일자" + "  " + "입고처리상태" + "  " + "입고 가능여부"
 //                + "  " + "현재 용량" + "  " + "예정 용량" + "  " + "최대 용량");
         for (IbRequestAndLocationDto ibRequestAndLocationDto : ibRequestAndLocationDtos) {
-            System.out.printf("|%5d|  %7s| %12s| %12s| %10s| %,6d| %13s| %11c| %11c| %,7d| %,8d| %,7d|\n",
+            System.out.printf("|%5d|  %7s| %12s| %12s| %10s| %,6d| %,5d| %,7d| %13s| %11c| %11c| %,7d| %,8d| %,7d|\n",
                     (count++), ibRequestAndLocationDto.getIbId(), ibRequestAndLocationDto.getManufactureDate(),
                     ibRequestAndLocationDto.getProductId(), ibRequestAndLocationDto.getBrandId(),
-                    ibRequestAndLocationDto.getQuantity(), ibRequestAndLocationDto.getIbRequestDate(),
+                    ibRequestAndLocationDto.getQuantity(),ibRequestAndLocationDto.getVolume(),
+                    ibRequestAndLocationDto.getCapacity(), ibRequestAndLocationDto.getIbRequestDate(),
                     ibRequestAndLocationDto.getIbStatus(), ibRequestAndLocationDto.getIbAvailability(),
-                    +ibRequestAndLocationDto.getCurrentCapacity(), ibRequestAndLocationDto.getExpectedCapacity(),
+                    ibRequestAndLocationDto.getCurrentCapacity(), ibRequestAndLocationDto.getExpectedCapacity(),
                     ibRequestAndLocationDto.getMaxCapacity());
 //            System.out.print(
 //                    (count++) + ". " + ibRequestAndLocationDto.getId() + "  "
@@ -130,7 +131,7 @@ public class IbView {
 //                            .getExpectedCapacity() + "  " + ibRequestAndLocationDto.getMaxCapacity());
         }
 
-        System.out.println("+" + "-".repeat(132) + "+");
+        System.out.println("+" + "-".repeat(148) + "+");
     }
 
     public int getChangeIbIndex() {

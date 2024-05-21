@@ -27,18 +27,32 @@
 
     <!-- Result Map for IbDto -->
     <resultMap id="ibDtoMap" type="IbDto">
-        <id property="id" column="ib_id"/>
+        <id property="id" column="id"/>
+        <id property="manufactureDate" column="manufacture_date"/>
+        <id property="productId" column="product_id"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="ibRequestDate" column="ib_date"/>
+        <result property="ibDate" column="completion_date"/>
+        <result property="status" column="status"/>
+
         <!-- 다른 속성에 대한 매핑 추가 -->
     </resultMap>
 
     <!-- Result Map for LocationDto -->
     <resultMap id="locationResultMap" type="LocationDto">
         <id property="id" column="id"/>
+        <result property="sectionId" column="section_id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="currentCapacity" column="current_capacity"/>
+        <result property="expectedCapacity" column="expected_capacity"/>
+        <result property="maxCapacity" column="max_capacity"/>
+
         <!-- 다른 속성에 대한 매핑 추가 -->
     </resultMap>
 
     <resultMap id="productResultMap" type="ProductDto">
-        <id property="productId" column="product_id"/>
+        <id property="productId" column="id"/>
         <!-- 다른 속성에 대한 매핑 추가 -->
     </resultMap>
 
@@ -50,9 +64,10 @@
     </resultMap>
 
     <resultMap id="sectionResultMap" type="SectionDto">
-        <result property="sectionId" column="section_id"/>
+        <result property="id" column="id"/>
+        <result property="brandId" column="brand_id"/>
         <result property="name" column="name"/>
-        <result property="capacity" column="capacity"/>
+        <result property="expectedCapacity" column="expected_capacity"/>
         <!-- 추가적인 필드 매핑 -->
     </resultMap>
 
@@ -63,6 +78,8 @@
         <result property="brandId" column="brand_id"/>
         <result property="ibDate" column="ib_date"/>
         <result property="quantity" column="quantity"/>
+        <result property="volume" column="volume"/>
+        <result property="capacity" column="capacity"/>
         <result property="ibStatus" column="status"/>
         <result property="ibRequestDate" column="ib_request_date"/>
         <result property="locationId" column="location_id"/>
@@ -75,7 +92,7 @@
     <update id="updateIbState" parameterType="IbDto">
         UPDATE ib_detail
         SET status = #{status}
-        WHERE id = #{id}
+        WHERE id = #{id} AND manufacture_date = #{manufactureDate} AND product_id = #{productId}
     </update>
 
     <update id="updateExpectedCapacityLocation" parameterType="LocationDto">
@@ -90,13 +107,13 @@
         WHERE id = #{id}
     </update>
 
-    <select id="findLocationByCategoryIdAndSectionId" parameterType="Map" resultMap="locationResultMap">
+    <select id="findLocationByCategoryIdAndSectionId" parameterType="LocationDto" resultMap="locationResultMap">
         SELECT * FROM sub_location
         WHERE category_id = #{categoryId} AND section_id = #{sectionId}
     </select>
 
     <select id="findProductByProductId" parameterType="String" resultMap="productDtoMap">
-        SELECT * FROM product WHERE product_id = #{productId}
+        SELECT * FROM product WHERE id = #{productId}
     </select>
 
     <select id="findSectionByBrandId" parameterType="String" resultMap="sectionResultMap">
@@ -112,7 +129,9 @@
     </select>
 
     <select id="findIbByRequestState" parameterType="String" resultMap="ibDtoMap">
-        SELECT * FROM ib_detail WHERE status = 'R'
+        SELECT *,( select brand_id from product where id =ib.product_id) as brand_id
+        FROM ib_detail ib
+        WHERE status = 'R'
     </select>
 
     <select id="findIbByWaitingState" parameterType="String" resultMap="ibDtoMap">
@@ -203,10 +222,13 @@
             #{ibDto.productId} as product_id,
             #{ibDto.brandId} as brand_id,
             #{ibDto.quantity} as quantity,
+            (select volume from product where id= #{ibDto.productId}) as volume,
+<!--            p.volume as volume,-->
+            (#{ibDto.quantity} *p.volume) as capacity,
             #{ibDto.ibRequestDate} as ib_request_date,
             #{ibDto.status} as status,
-            IF(sl.current_capacity + sl.expected_capacity +
-            (select quantity from ib_detail where product_id = #{ibDto.productId}) * p.volume &lt;= sl.max_capacity,
+            IF((sl.current_capacity + sl.expected_capacity +
+            (select quantity from ib_detail where product_id = #{ibDto.productId}) * p.volume) &lt;= sl.max_capacity,
             'T', 'F') as ib_availability,
             sl.current_capacity as current_capacity,
             sl.expected_capacity as expected_capacity,

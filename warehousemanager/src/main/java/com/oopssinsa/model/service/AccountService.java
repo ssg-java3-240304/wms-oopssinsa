@@ -22,7 +22,8 @@ public class AccountService {
     // 나경 작업 끝
 
 //public class AccountService {
-//
+//    public static void displayLoginResult(boolean result, String id) {
+//    }
 //    public AccountDto findAccountById(String id) {
 //        return new AccountDto(id, "1234567a!", "WM");
 //
