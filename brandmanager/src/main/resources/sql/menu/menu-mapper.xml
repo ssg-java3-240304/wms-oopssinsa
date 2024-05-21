@@ -26,7 +26,7 @@
         insert into
             product
         values (
-        #{id}, #{brandId}, #{name}, #{size}, #{color}, #{categoryId}, #{volume}
+        #{id}, #{brandId}, #{categoryId}, #{name}, #{size}, #{color}, #{volume}
         )
     </insert>
     <insert id="ibRequest">
