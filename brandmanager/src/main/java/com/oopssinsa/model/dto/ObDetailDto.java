@@ -11,6 +11,9 @@ public class ObDetailDto {
     private String address;
     private LocalDate obDate;
 
+    private ObDetailDto obDetailDto;
+
+
     public ObDetailDto() {
     }
 

@@ -1,8 +1,6 @@
 package com.oopssinsa.view;
 
-import com.oopssinsa.model.dto.AccountDto;
-import com.oopssinsa.model.dto.IbDetailDto;
-import com.oopssinsa.model.dto.ProductDto;
+import com.oopssinsa.model.dto.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,10 +30,10 @@ public class ResultView {
             System.out.println("> 😅😅😅 조회된 입고 요청이 없습니다. 😅😅😅");
         } else {
             System.out.println("------------------------------------------------------------------------------------------------");
-            System.out.printf("%s\t %-10s\t %-10s\t %-10s\t %-12s\t %-10s\t %-10s\t %-10s\n", "id", "manufacture_id", "product_id", "login_id", "quantity", "ib_date", "completion_date", "status");
+            System.out.printf("%s\t %-10s\t %-10s\t %-10s\t %-10s\t %-10s\t %-10s\t %-10s\n", "id", "manufacture_id", "product_id", "login_id", "quantity", "ib_date", "completion_date", "status");
             System.out.println("------------------------------------------------------------------------------------------------");
             for(IbDetailDto ibDetailDto : list) {
-                System.out.printf("%d\t %-15s\t %-8s\t %-10s\t %-7d\t %-1s\t %-15s\t %-10s\n",
+                System.out.printf("%d\t %-10s\t %-10s\t %-10s\t %-10d\t %-15s\t %-10s\t %-10s\n",
                         ibDetailDto.getId(),
                         ibDetailDto.getManufactureId(),
                         ibDetailDto.getProductId(),
@@ -57,7 +55,7 @@ public class ResultView {
 
     public static void displayProductList(List<ProductDto> list) {
         if (list.isEmpty()) {
-            System.out.println("> 😅😅😅 조회된 입고 요청이 없습니다. 😅😅😅");
+            System.out.println("> 😅😅😅 등록된 상품이 없습니다. 😅😅😅");
         } else {
             System.out.println("📦 현재 등록된 상품 리스트");
             System.out.println("---------------------------------------------------------------------------------------------------------------");
@@ -78,5 +76,28 @@ public class ResultView {
         }
 
 
+    }
+
+    public static void displayObDetailList(List<ObDto> list) {
+        if (list.isEmpty()) {
+            System.out.println("> 😅😅😅 조회된 출고 요청이 없습니다. 😅😅😅");
+        } else {
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.printf("%s\t %-10s\t %-10s\t %-10s\t %-10s\t %-10s\t %-10s\n", "menufacture_date", "ob_id", "product_id", "quantity", "status", "completion_date", "tracking_number");
+            System.out.println("------------------------------------------------------------------------------------------------");
+            for(ObDto obDto : list) {
+                System.out.printf("%s\t %-10d\t %-10s\t %-10d\t %-10s\t %-15s\t %-10d\n",
+                        obDto.getMenufactureDate(),
+                        obDto.getObId(),
+                        obDto.getProductId(),
+                        obDto.getQuantity(),
+                        obDto.getStatus(),
+                        obDto.getCompletionDate(),
+                        obDto.getTrackingNumber()
+                );
+            }
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.println();
+        }
     }
 }
