@@ -15,28 +15,13 @@
 김나경, 변성일, 이영우, 정성연, 정예진, 김홍현(..?)
 
 
----
-## 사용한 기술 및 개발환경 => stack 
-------------
-
-[//]: # (- java, mybatis 등)
-
-[//]: # (- 협업 툴 : discord, noion, slack)
-
-[//]: # (- erd: erdcloud)
-
-[//]: # (- usecase:)
-[//]: # (shields.io 에서 뱃지 사용 가능하다면 뱃지로 해주세요)
+## Stack
 
 
-[//]: # (뱃지로 사용가능하면)
-
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
-
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
-
-- 협업 툴 : discord, notion, slack
-- ERD 다이어그램 : erdcloud
+- Programming : ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+- DB : ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) <img src="https://img.shields.io/badge/MYBTIS-444444?style=for-the-badge&logo=&logoColor=white">
+- 협업 툴 : <img src="https://img.shields.io/badge/Discord-644?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/Notion-12FFFF?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/slack-0099FF?style=for-the-badge&logo=&logoColor=white">
+- ERD 다이어그램 : <img src="https://img.shields.io/badge/Erdcloud-99?style=for-the-badge&logo=&logoColor=white">
 
 ## 프로젝트 구조
 ### ERD
@@ -83,7 +68,6 @@
 - 입고된 상품의 재고를 카테고리별로 조회할 수 있습니다.
 - 입고된 상품의 재고를 상품ID별로 조회할 수 있습니다.
 
-
 ---
 #### 📦 창고 매니저(WM)
 
@@ -92,16 +76,13 @@
 - 입고 처리상태를 변경할 수 있습니다.
 
 ##### 2️⃣ 입고작업 지시
-
 - 창고 작업자에게 입고 요청에 따른 입고 작업을 지시합니다.
 
 ##### 3️⃣ 출고 요청 조회 및 출고 처리상태 업데이트
-
 - 브랜드 매니저가 등록한 출고 요청을 조회할 수 있습니다.
 - 출고 처리상태를 변경할 수 있습니다.
 
 ##### 4️⃣ 출고작업 지시
-
 - 창고 작업자에게 출고 요청에 따른 출고 작업을 지시합니다.
 ---
 #### 🦺 창고 작업자(WW)
@@ -110,21 +91,14 @@
 - 창고 매니저로부터 할당 받은 입/출고 지시를 조회할 수 있습니다.
 
 ##### 2️⃣ 입/출고지시 작업 및 상태 업데이트
-
 - 입고 지시에 따라 상품을 지정된 위치에 보관합니다.
 - 출고 지시에 따라 상품을 지정된 위치에서 피킹합니다.
 - 입/출고 작업에 따라 상태(완료, 반려)를 변경할 수 있습니다.
 
 ##### 3️⃣ 재고 업데이트
-
 - 입고완료된 상품의 재고를 변경합니다.
 - 출고완료된 상품의 재고를 변경합니다.
 
----
-
-## 수행결과 및 해결점
-- 짧은 기간안에 모든 기능을 구현하는데 어려움이 있었다.
-- 필요한 기능을 중점적으로 구현하였다.
 
 [//]: # (## 프로젝트 후기)
 
