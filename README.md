@@ -1,14 +1,9 @@
 # 📦 웁신사 WMS System
 
-
-
-
 ## 🏦 프로젝트 소개
-
 
 1. **주제 - 창고 관리 시스템**: 상품 입출고 요청에 따른 재고 수량 및 창고 용량 관리 기능을 중점으로, 효율적인 창고관리 및 입출고 처리가 가능한 창고관리 시스템 입니다. 브랜드 매니저는 상품등록, 상품 입출고 요청 및 재고조회를 할 수 있으며 창고 매니저는 입출고 요청을 관리하고 이에 따라 작업자에게 작업을 지시합니다. 창고 작업자는 실제 입/출고처리를 진행합니다.
 
-[//]: # (2. 고객은 TOILET_BANK, KB_BANK, HANA_BANK 총 3개의 은행에 보유하고 있는 보통예금&#40;입출금통장&#41;, 정기예금, 정기적금 총 3개 종류의 모든 계좌를 조회할 수 있습니다.)
 
 
 ## 팀원 구성
@@ -19,7 +14,7 @@
 
 
 - Programming : ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
-- DB : ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) <img src="https://img.shields.io/badge/MYBTIS-444444?style=for-the-badge&logo=&logoColor=white">
+- DB : ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) <img src="https://img.shields.io/badge/MYBATIS-444444?style=for-the-badge&logo=&logoColor=white">
 - 협업 툴 : <img src="https://img.shields.io/badge/Discord-644?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/Notion-12FFFF?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/slack-0099FF?style=for-the-badge&logo=&logoColor=white">
 - ERD 다이어그램 : <img src="https://img.shields.io/badge/Erdcloud-99?style=for-the-badge&logo=&logoColor=white">
 
