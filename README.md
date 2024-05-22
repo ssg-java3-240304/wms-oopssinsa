@@ -40,14 +40,14 @@
 
 ## 프로젝트 구조
 ### ERD
-![wms-oopssinsa-current.png](..%2F..%2FUsers%2Fleedu%2FDownloads%2Fwms-oopssinsa-current.png)
+![wms-oopssinsa-current.png](./wms-oopssinsa-current.png)
 
 ### 유스케이스 다이어그램
 
 - 브랜드 매니저(BM)
-![Untitled.png](..%2F..%2FUsers%2Fleedu%2FDownloads%2FUntitled.png)
+![Untitled.png](./Untitled.png)
 - 창고 매니저(WM), 창고 작업자(WW)
-![Untitled (1).png](..%2F..%2FUsers%2Fleedu%2FDownloads%2FUntitled%20%281%29.png)
+![Untitled2.png](./Untitled2.png)
 ## 역할분담
 - 김나경 : 업무분석, 입고 서비스, 창고 작업자(WW), PPT, 발표
 - 변성일 : ERD, 창고 매니저(WM)
