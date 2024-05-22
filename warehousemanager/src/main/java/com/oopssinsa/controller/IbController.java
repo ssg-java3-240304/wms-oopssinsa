@@ -132,7 +132,6 @@ public class IbController {
         sectionDto.setExpectedCapacity(sectionDto.getExpectedCapacity() + ibDto.getQuantity()* productDto.getVolume());
 
         ibService.updateIbState(ibDto);
-        System.out.println(ibDto);
         ibService.updateExpectedCapacityLocation(locationDto);
         ibService.updateExpectedCapacitySection(sectionDto);
     }
