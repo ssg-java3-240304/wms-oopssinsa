@@ -16,25 +16,15 @@
 
 
 ---
-## 사용한 기술 및 개발환경 => stack 
+## Stack 
+
 ------------
-
-[//]: # (- java, mybatis 등)
-
-[//]: # (- 협업 툴 : discord, noion, slack)
-
-[//]: # (- erd: erdcloud)
-
-[//]: # (- usecase:)
-[//]: # (shields.io 에서 뱃지 사용 가능하다면 뱃지로 해주세요)
-
-
-[//]: # (뱃지로 사용가능하면)
 
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 
+- DB: MyBatis
 - 협업 툴 : discord, notion, slack
 - ERD 다이어그램 : erdcloud
 
