@@ -25,9 +25,11 @@
 ### 유스케이스 다이어그램
 
 - 브랜드 매니저(BM)
-![Untitled.png](./Untitled.png)
-- 창고 매니저(WM), 창고 작업자(WW)
-![Untitled2.png](./Untitled2.png)
+![BM_usecase.png](./BM_usecase.png)
+- 창고 매니저(WM)
+![WM_usecase.png](./WM_usecase.png)
+- 창고 작업자(WW)
+![WW_usecase.png](./WW_usecase.png)
 ## 역할분담
 - 김나경 : 업무분석, 입고 서비스, 창고 작업자(WW), PPT, 발표
 - 변성일 : ERD, 창고 매니저(WM)
