@@ -13,4 +13,6 @@ public interface WorkerMapper {
     List<WorkerDto> findWorkerByAssignableStatus();
 
     List<WorkerDto> findAllWorker();
+
+    int insertObWorker(InstructionDto instructionDto);
 }

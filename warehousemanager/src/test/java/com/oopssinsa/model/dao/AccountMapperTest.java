@@ -30,7 +30,7 @@ class AccountMapperTest {
     @Test
     void findAccountById() {
 
-        AccountDto accountDto = accountMapper.findAccountById("user08","passw0rd!","WM");
+        AccountDto accountDto = accountMapper.findAccountById("user08");
         System.out.println(accountDto);
 
     }

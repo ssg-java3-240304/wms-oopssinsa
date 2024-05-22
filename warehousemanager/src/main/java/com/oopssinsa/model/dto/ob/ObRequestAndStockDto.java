@@ -1,9 +1,7 @@
 package com.oopssinsa.model.dto.ob;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.time.LocalDate;
 
 @Getter
@@ -19,7 +17,7 @@ public class ObRequestAndStockDto {
 
     private char obStatus; // 출고 가능여부
     private String subLocationId;
-    private int stockQuantity;
-    private int expectedStockQuantity;
+    private Integer stockQuantity;
+    private Integer expectedStockQuantity;
 
 }

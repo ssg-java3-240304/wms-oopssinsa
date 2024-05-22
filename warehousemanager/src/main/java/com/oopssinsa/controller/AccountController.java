@@ -25,9 +25,7 @@ public class AccountController {
             }
 
             String password = accountView.getPassword();
-            // 나경 작업시작
-            AccountDto account = accountService.findAccountById(id,password);
-            // 나경 작업 끝
+            AccountDto account = accountService.findAccountById(id);
             if (account == null) {
                 accountView.printNonexistentAccount();
                 continue;
