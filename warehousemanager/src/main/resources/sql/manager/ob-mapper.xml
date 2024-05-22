@@ -43,6 +43,41 @@
         <result property="expectedStockQuantity" column="expected_stock_quantity"/>
     </resultMap>
 
+    <!-- 모든 OB 요청 상태 조회 -->
+<!--    예작시 주석-->
+<!--    <select id="findObByRequestState" resultMap="obRequestMap">-->
+<!--        SELECT *-->
+<!--        FROM ob_request-->
+<!--    </select>-->
+
+    <!-- 모든 OB 상세 조회 -->
+<!--    <select id="findAllOb" resultMap="obDetailMap">-->
+<!--        SELECT-->
+<!--        od.*, (select id-->
+<!--        from sub_location-->
+<!--        where (section_id, category_id) =-->
+<!--        (select s.id, p.category_id-->
+<!--        from product p-->
+<!--        left join section s on (s.brand_id = p.brand_id)-->
+<!--        where p.id = od.product_id))-->
+<!--        FROM ob_detail od;-->
+<!--    </select>-->
+<!--    <select id="findAllOb" resultMap="obDtoMap">-->
+<!--        SELECT-->
+<!--        od.manufacture_date as manufacture_date,-->
+<!--        od.ob_id as ob_id,-->
+<!--        od.product_id as product_id,-->
+<!--        obr.login_id as login_id,-->
+<!--        obr.recipient_name as recipient_name,-->
+<!--        obr.address as address,-->
+<!--        od.quantity as quantity,-->
+<!--        od.status as status,-->
+<!--        obr.ob_date as ob_date-->
+<!--        od.completion_date as completion_date,-->
+<!--        od.tracking_number as tracking_number-->
+<!--        FROM ob_detail od left join ob_request obr on (od.ob_id = obr.id and od.product_id = obr.product_id)-->
+<!--    </select>-->
+<!--예작끝-->
     <select id="findObByRequestState" resultType="obRequestDto">
         SELECT *
         FROM ob_request ob
@@ -78,6 +113,12 @@
     </select>
 
     <!-- OB 요청과 재고 정보 조회 -->
+    <!-- 예진 작업 시작 -->
+<!--    <select id="findObRequestAndStock" resultType="com.oopssinsa.model.dto.ob.ObRequestAndStockDto">-->
+<!--        SELECT ob.*, if(st.quantity > ob.quantity, 'T', '') as obStatus, st.location_id, st.quantity, st.expected_quantity-->
+<!--        FROM ob_request ob-->
+<!--        left JOIN stock st-->
+    <!-- 예진 작업 끝 -->
     <select id="findObRequestAndStock" resultMap="obRequestAndStockMap">
         SELECT
         ob.id as ob_id,
@@ -101,6 +142,12 @@
 
 
     <!-- 재고 업데이트 -->
+<!--    예작시-->
+<!--    <update id="updateStock" parameterType="com.oopssinsa.model.dto.StockDto">-->
+<!--        UPDATE stock SET quantity = #{quantity}-->
+<!--        WHERE product_id = #{productId}-->
+<!--        and manufacture_date = #{manufactureDate}-->
+<!--    예작끝-->
     <update id="updateStock">
         UPDATE stock SET expected_quantity = #{expectedQuantity} WHERE manufacture_date = #{manufactureDate} and
         product_id = #{productId}
@@ -108,6 +155,29 @@
 
 
     <!-- OB 상세 정보 삽입 -->
+
+<!--    <insert id="insertObDetails" parameterType="list">-->
+<!--        INSERT INTO ob_detail (manufacture_date, ob_id, product_id, quantity, status, completion_date, tracking_number) VALUES-->
+<!--        <foreach collection="list" item="detail" separator=",">-->
+<!--            (#{detail.manufactureDate}, #{detail.obId}, #{detail.productId}, #{detail.quantity}, #{detail.status}, #{detail.completionDate}, #{detail.trackingNumber})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+<!--    <insert id="insertObDetails" parameterType="obDetailDto">-->
+<!--        insert into ob_detail (manufacture_date, ob_id, product_id, quantity, status)-->
+<!--        values (#{manufactureDate}, #{obId}, #{productId},#{quantity},#{status})-->
+<!--    </insert>-->
+
+<!--    &lt;!&ndash; OB 상태 업데이트 &ndash;&gt;-->
+<!--    <update id="updateObState" parameterType="com.oopssinsa.model.dto.ob.ObDetailDto">-->
+<!--        UPDATE ob_detail SET status = #{status}-->
+<!--        WHERE ob_id = #{obId} and product_id = #{productId} and manufacture_date = #{manufactureDate}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash; 대기 상태의 OB 상세 정보 조회 &ndash;&gt;-->
+<!--    <select id="findObDetailByWaitingState" resultType="com.oopssinsa.model.dto.ob.ObDetailDto">-->
+<!--        SELECT *, null as ob_date FROM ob_detail WHERE status = 'W'-->
+
     <insert id="insertObDetails" parameterType="list">
         INSERT INTO ob_detail (manufacture_date, ob_id, product_id, quantity, status, completion_date, tracking_number)
         VALUES

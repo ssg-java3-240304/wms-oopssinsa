@@ -3,6 +3,7 @@ package com.oopssinsa.controller;
 import com.oopssinsa.model.dto.*;
 import com.oopssinsa.model.service.LocationService;
 import com.oopssinsa.model.service.ObService;
+import com.oopssinsa.model.service.SectionService;
 import com.oopssinsa.model.service.StockService;
 import com.oopssinsa.view.ObInstructionView;
 
@@ -15,6 +16,7 @@ public class ObController {
     private String workerId=null;
     ObService obService = new ObService();
     StockService stockService = new StockService();
+    SectionService sectionService = new SectionService();
     ObInstructionView obView = new ObInstructionView();
     LocationService locationService = new LocationService();
 
@@ -59,7 +61,7 @@ public class ObController {
             long locationId = obService.findProductLocation(foundOb.getProductId());
             int originalCapacity = locationService.getCurrentCapacity(locationId);
             // 예진 작업 시작
-            int productVolume = obService.findProductVolume(foundStock.getProductId());
+            int productVolume = obService.findProductVolume(productId);
             int updateCapacity;
             // 예진 작업 끝
             if(foundOb!=null && foundStock!=null){
@@ -68,11 +70,34 @@ public class ObController {
                 int expectedQuantity = foundStock.getExpectedQuantity();
                 updateCapacity = productVolume * updateQuantity;
                 stockService.updateStock(new StockDto(productId,manufactureId, 0,
-                        originalQuantity-updateQuantity,expectedQuantity-updateQuantity));
-                stockService.insertStockHistory(new StockHistoryDto(manufactureId, productId, updateQuantity, LocalDate.now()));
+                        (originalQuantity-updateQuantity),(expectedQuantity+updateQuantity)));
+                System.out.printf("""
+                        ==========================================================================
+                        재고 업데이트 성공.
+                        상품ID : %s
+                        제조일자(LOT) : %s
+                        출고 후 수량 : %d
+                        ---------------------------------------------------------------------------
+                        """, productId, manufactureId, originalQuantity-updateQuantity);
+                stockService.insertStockHistory(new StockHistoryDto(manufactureId, productId, -updateQuantity, LocalDate.now()));
+                System.out.printf("""
+                        재고 내역 업데이트 성공.
+                        상품ID : %s
+                        제조일자(LOT) : %s
+                        변동수량 : %d
+                        """,productId, manufactureId, -updateQuantity);
+                System.out.println("출고일자 : " + LocalDate.now());
+                System.out.println("---------------------------------------------------------------------------");
                 // 예진 작업 시작
-                locationService.updateCurrentCapacity(new SubLocationDto(locationId,originalCapacity-updateCapacity,+updateCapacity));
+                locationService.updateCurrentCapacity(new SubLocationDto(locationId,(originalCapacity-updateCapacity),+updateCapacity));
                 // 예진 작업 끝
+                System.out.printf("""
+                        위치 적치 용량 업데이트 성공.
+                        Location %d
+                        출고 후 용량 : %d
+                        ==========================================================================
+                        """,  locationId, originalCapacity-updateCapacity);
+                sectionService.updateSectionCurrentCapacity(locationId);
             }
         }
     }

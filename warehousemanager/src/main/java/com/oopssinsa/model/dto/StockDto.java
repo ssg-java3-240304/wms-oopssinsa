@@ -14,4 +14,17 @@ public class StockDto {
     private String subLocationId;
     private int quantity;
     private int expectedQuantity;
+
+    @Override
+    public String toString() {
+        return "StockDto{" +
+                "manufactureDate=" + manufactureDate +
+                ", productId='" + productId + '\'' +
+                ", subLocationId='" + subLocationId + '\'' +
+                ", quantity=" + quantity +
+                ", expectedQuantity=" + expectedQuantity +
+                '}';
+    }
 }
+
+

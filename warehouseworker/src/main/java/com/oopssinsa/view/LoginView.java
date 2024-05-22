@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class LoginView {
     public void inputLogin(String[] loginInfo){
+        System.out.println("==================================LOGIN==================================");
         Scanner scanner = new Scanner(System.in);
         System.out.print("창고 작업자 아이디를 입력해주세요: ");
         loginInfo[0] = scanner.nextLine();
@@ -18,6 +19,7 @@ public class LoginView {
         }
         else{
             System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.");
+            System.out.println("===========================================================================");
         }
     }
 
