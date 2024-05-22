@@ -15,14 +15,7 @@
 김나경, 변성일, 이영우, 정성연, 정예진, 김홍현(..?)
 
 
----
-## Stack 
-
-------------
-
-
-
-
+## Stack
 
 
 - Programming : ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
