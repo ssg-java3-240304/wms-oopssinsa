@@ -268,5 +268,11 @@ from account;
 select *
 from stock;
 
+select *
+from stock_detail;
+
 delete from stock
 where quantity =0;
+
+select *
+from sub_location;

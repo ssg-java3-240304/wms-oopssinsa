@@ -3,6 +3,7 @@ package com.oopssinsa.controller;
 import com.oopssinsa.model.dto.*;
 import com.oopssinsa.model.service.LocationService;
 import com.oopssinsa.model.service.ObService;
+import com.oopssinsa.model.service.SectionService;
 import com.oopssinsa.model.service.StockService;
 import com.oopssinsa.view.ObInstructionView;
 
@@ -15,6 +16,7 @@ public class ObController {
     private String workerId=null;
     ObService obService = new ObService();
     StockService stockService = new StockService();
+    SectionService sectionService = new SectionService();
     ObInstructionView obView = new ObInstructionView();
     LocationService locationService = new LocationService();
 
@@ -95,6 +97,7 @@ public class ObController {
                         출고 후 용량 : %d
                         ==========================================================================
                         """,  locationId, originalCapacity-updateCapacity);
+                sectionService.updateSectionCurrentCapacity(locationId);
             }
         }
     }

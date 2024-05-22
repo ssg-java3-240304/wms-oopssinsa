@@ -1,6 +1,13 @@
 package com.oopssinsa.model.dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 // 이건 그냥 location이 변경됐을 때 location에서 얻어온 sumOfSection으로 업데이트하기
+@Setter
+@Getter
+//@NoArgsConstructor
 public class SectionDto {
     private String id; // 알파벳임
     private int brandId;
@@ -14,35 +21,4 @@ public class SectionDto {
         this.expectedCapacity = expectedCapacity;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
-    }
-
-    public int getCurrentCapacity() {
-        return currentCapacity;
-    }
-
-    public void setCurrentCapacity(int currentCapacity) {
-        this.currentCapacity = currentCapacity;
-    }
-
-    public int getExpectedCapacity() {
-        return expectedCapacity;
-    }
-
-    public void setExpectedCapacity(int expectedCapacity) {
-        this.expectedCapacity = expectedCapacity;
-    }
 }

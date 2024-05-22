@@ -3,8 +3,15 @@ package com.oopssinsa.model.dto;
 // 작업자는 본인의 ID로 입고지시 테이블을 조회한다
 // locationId를 통해 브랜드와 카테고리를 알 수 있다
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
+//@NoArgsConstructor
 public class IbInstructionDto {
 
     private long ibId;
@@ -21,32 +28,16 @@ public class IbInstructionDto {
 //        this.locationId = locationId;
     }
 
-    public long getIbId() {
-        return ibId;
-    }
-
     public void setIbId(long ibId) {
         this.ibId = ibId;
-    }
-
-    public LocalDate getManufactureId() {
-        return manufactureId;
     }
 
     public void setManufactureId(LocalDate manufactureID) {
         this.manufactureId = manufactureId;
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
     public void setProductId(String productId) {
         this.productId = productId;
-    }
-
-    public String getWorkerId() {
-        return workerId;
     }
 
     public void setWorkerId(String workerId) {

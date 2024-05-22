@@ -3,6 +3,7 @@ package com.oopssinsa.controller;
 import com.oopssinsa.model.dto.*;
 import com.oopssinsa.model.service.IbService;
 import com.oopssinsa.model.service.LocationService;
+import com.oopssinsa.model.service.SectionService;
 import com.oopssinsa.model.service.StockService;
 import com.oopssinsa.view.IbInstructionView;
 
@@ -14,6 +15,7 @@ public class IbController {
     private String workerId=null;
     IbService ibService = new IbService();
     StockService stockService = new StockService();
+    SectionService sectionService = new SectionService();
     LocationService locationService = new LocationService();
     IbInstructionView ibInstructionView = new IbInstructionView();
 
@@ -100,6 +102,7 @@ public class IbController {
                         입고 후 용량 : %d
                         ==========================================================================
                         """, locationId, originalCapacity+updateCapacity);
+                sectionService.updateSectionCurrentCapacity(locationId);
             }
         }
 

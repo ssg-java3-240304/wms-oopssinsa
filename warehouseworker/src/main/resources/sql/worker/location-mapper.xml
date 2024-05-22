@@ -26,8 +26,21 @@
     <update id="updateCurrentCapacity" parameterType="subLocationDto">
         update sub_location
         set current_capacity = #{currentCapacity},
-        expected_capacity = expected_capacity + #{expectedCapacity}
+        expected_capacity = (expected_capacity + #{expectedCapacity})
         where id = #{id}
+    </update>
+
+    <update id="updateSectionCurrentCapacity">
+        update section
+        set current_capacity = (
+            select sum(current_capacity)
+            from sub_location
+            where section_id = (
+                select section_id
+                from sub_location
+                where id = #{locationId}
+                )
+            )
     </update>
 
 </mapper>

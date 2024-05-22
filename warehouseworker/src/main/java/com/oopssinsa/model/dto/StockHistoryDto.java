@@ -1,7 +1,14 @@
 package com.oopssinsa.model.dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class StockHistoryDto {
     private LocalDate manufactureId;
     private String productId;
@@ -15,35 +22,4 @@ public class StockHistoryDto {
         this.date = date;
     }
 
-    public LocalDate getManufactureId() {
-        return manufactureId;
-    }
-
-    public void setManufactureId(LocalDate manufactureId) {
-        this.manufactureId = manufactureId;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 }
