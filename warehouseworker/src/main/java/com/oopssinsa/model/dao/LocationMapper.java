@@ -7,4 +7,6 @@ public interface LocationMapper {
     int getCurrentCapacity(long targetLocationId);
 
     int updateCurrentCapacity(SubLocationDto subLocationDto);
+
+    int updateSectionCurrentCapacity(long locationId);
 }

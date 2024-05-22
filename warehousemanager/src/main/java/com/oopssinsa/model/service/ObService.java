@@ -63,9 +63,12 @@ public class ObService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         ObMapper obMapper = sqlSession.getMapper(ObMapper.class);
         try {
-            int result = obMapper.insertObDetails(obDetailDtos);
-            sqlSession.commit();
-            return result;
+            int sum = 0;
+            for (ObDetailDto obDetailDto : obDetailDtos) {
+                sum += obMapper.insertObDetails(obDetailDto);
+            }
+//            return obMapper.insertObDetails(obDetailDtos);
+            return (sum == obDetailDtos.size() ? 1 : 0);
         } catch (Exception e) {
             sqlSession.rollback();
             throw new RuntimeException(e);

@@ -1,6 +1,13 @@
 package com.oopssinsa.model.dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 // 작업자는 productId를 통해 부피를 얻는다.
+@Setter
+@Getter
+//@NoArgsConstructor
 public class ProductDto {
     private String id;
     private int brandId;
@@ -14,35 +21,4 @@ public class ProductDto {
         this.volume = volume;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
-    }
-
-    public long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
 }

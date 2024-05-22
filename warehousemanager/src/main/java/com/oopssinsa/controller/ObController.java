@@ -33,6 +33,7 @@ public class ObController {
         this.inputView = new InputView();
     }
 
+    // 출고 요청 조회하기
     public void findObByRequestState() {
         obView.printObRequestState(obService.findObByRequestState());
     }

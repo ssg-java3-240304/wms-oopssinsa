@@ -18,4 +18,10 @@
         where id = #{id} and password = #{password}
     </select>
 
+    <update id="updateSectionCurrentCapacity">
+        update section
+        set current_capacity = (select sum(current_capacity) from sub_location where section_id = #{sectionId}),
+        max_capacity = (select sum(max_capacity) from sub_location where section_id = #{sectionId}));
+    </update>
+
 </mapper>

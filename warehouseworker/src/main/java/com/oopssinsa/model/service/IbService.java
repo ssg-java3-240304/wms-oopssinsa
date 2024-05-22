@@ -44,6 +44,7 @@ public class IbService {
         IbMapper ibMapper = sqlSession.getMapper(IbMapper.class);
         ibMapper.updateIbStatus(updateIb);
         sqlSession.commit();
+//        sqlSession.rollback();
         sqlSession.close();
     }
 

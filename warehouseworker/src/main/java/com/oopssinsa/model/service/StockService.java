@@ -16,6 +16,7 @@ public class StockService {
         SqlSession sqlSession = MyBatisTemplate.getSqlSession();
         StockMapper stockMapper = sqlSession.getMapper(StockMapper.class);
         return stockMapper.findStock(targetStock);
+//        sqlSession.close();
     }
     /*
     <updateStock>
@@ -41,6 +42,15 @@ public class StockService {
         int result = stockMapper.insertStockHistory(stockHistoryDto);
         if (result == 1)
            sqlSession.commit();
+        sqlSession.close();
+    }
+
+    public void insertStock(StockDto stockDto) {
+        SqlSession sqlSession = MyBatisTemplate.getSqlSession();
+        StockMapper stockMapper = sqlSession.getMapper(StockMapper.class);
+        int result = stockMapper.insertStock(stockDto);
+        if (result == 1)
+            sqlSession.commit();
         sqlSession.close();
     }
 }
