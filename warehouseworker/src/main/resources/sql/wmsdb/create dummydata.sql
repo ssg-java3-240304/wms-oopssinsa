@@ -21,6 +21,10 @@ values ('worker1', '홍길동', 'password654', 'WW'),
        ('worker3', '이민수', 'xyz321abc', 'WW'),
        ('worker4', '박지훈', 'mypassword321', 'WW');
 
+insert into account (id, name, password, role)
+values ('wm01', '정유미', 'password111', 'WM'),
+       ('wm02', '김동훈', 'qwerty789', 'WM');
+
 insert into category (id, name)
 values (1001, '티셔츠'),
        (1002, '니트/스웨터'),
