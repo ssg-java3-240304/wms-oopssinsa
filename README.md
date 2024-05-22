@@ -20,13 +20,15 @@
 
 ------------
 
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 
-- DB: MyBatis
-- 협업 툴 : discord, notion, slack
-- ERD 다이어그램 : erdcloud
+
+
+
+- Programming : ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+- DB : ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) <img src="https://img.shields.io/badge/MYBTIS-444444?style=for-the-badge&logo=&logoColor=white">
+- 협업 툴 : <img src="https://img.shields.io/badge/Discord-644?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/Notion-12FFFF?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/slack-0099FF?style=for-the-badge&logo=&logoColor=white">
+- ERD 다이어그램 : <img src="https://img.shields.io/badge/Erdcloud-99?style=for-the-badge&logo=&logoColor=white">
 
 ## 프로젝트 구조
 ### ERD
