@@ -19,9 +19,6 @@
 - ERD 다이어그램 : <img src="https://img.shields.io/badge/Erdcloud-99?style=for-the-badge&logo=&logoColor=white">
 
 ## 프로젝트 구조
-### ERD
-![wms-oopssinsa-current.png](./wms-oopssinsa-current.png)
-
 ### 유스케이스 다이어그램
 
 - 브랜드 매니저(BM)
@@ -30,13 +27,26 @@
 ![WM_usecase.png](./WM_usecase.png)
 - 창고 작업자(WW)
 ![WW_usecase.png](./WW_usecase.png)
+
+### ERD
+![wms-oopssinsa-current.png](./wms-oopssinsa-current.png)
+
+### 클래스 다이어그램
+- 브랜드 매니저(BM)
+![brandmanager.png](./brandmanager.png)
+- 창고 매니저(WM)
+![warehousemanager.png](./warehousemanager.png)
+- 창고 작업자(WW)
+![warehouseworker.png](./warehouseworker.png)
+
+
 ## 역할분담
-- 김나경 : 업무분석, 입고 서비스, 창고 작업자(WW), PPT, 발표
-- 변성일 : ERD, 창고 매니저(WM)
-- 이영우 : 브랜드 매니저(BM), README
-- 정성연 : 유스케이스 다이어그램, 창고 매니저(WM), 기획서
-- 정예진 : 시퀀스 다이어그램, 창고 작업자(WW),
-- 김홍현 : 클래스 다이어그램, 창고작업자(WW)
+- 김나경 : 업무분석, 입고 서비스, 창고 작업자(WW) DB, PPT, 발표
+- 변성일 : ERD, 창고 매니저(WM) 서비스, DB, 테스트
+- 이영우 : 브랜드 매니저(BM) 서비스, DB, 테스트, README
+- 정성연 : 유스케이스 다이어그램, 창고 매니저(WM), DB, 기획서
+- 정예진 : 시퀀스 다이어그램, 창고 작업자(WW) 서비스, DB, dummydata, 테스트, PPT
+- 김홍현 : 클래스 다이어그램, 창고작업자(WW) 서비스
 
 
 ## 개발기간 및 작업관리
